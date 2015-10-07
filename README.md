@@ -3,4 +3,4 @@
 
 * p1 -> rfind
 * p1 -> Cheating Hangman
-* [wladder](baldwin.codes:8000)
+* [wladder](http://baldwin.codes:8000)
