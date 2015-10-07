@@ -3,15 +3,20 @@ class HomeController < ApplicationController
   end
 
   def words
-    require "#{Rails.root}/app/assets/data/words5.rb"
+    puts "ENTERING WORDS METHOD"
+    words = []
+    File.open("#{Rails.root}/assets/data/words5.txt", "r") do |l|
+	words.push l.downcase
+    end
+    puts "AFTER WORDS POP"
     @words = {"start_word" => words.sample, "end_word" => words.sample }
-    puts @words
-=begin
+    while @words['end_word'] == @words['start_word'] do
+    	@words['end_word'] = words.sample
+    end
+    puts "responding to client with #{@words}"
     respond_to do |format|
       format.html
       format.json { render :json => @words.to_json }
     end
-=end
   end
-
 end

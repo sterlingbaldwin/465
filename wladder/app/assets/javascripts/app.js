@@ -1,5 +1,10 @@
 wladder = angular.module('wladder',[]).controller('MainCtrl', [
-'$scope', function($scope){
+'$scope', '$http', function($scope, $http){
+  
+  $scope.init = function(){
+	$http.get("http://baldwin.codes:8000/words")
+        .success(function(response){console.log(response)});
+  }
   $scope.victory = false;
   $scope.checked = false;
   $scope.start_word = 'qwert';
