@@ -30,3 +30,8 @@ div.spacer {
   height: 7em;
   width: 100%;
 }
+
+.button {
+	opacity: 0;
+	transition:opacity 0.5s linear;
+}

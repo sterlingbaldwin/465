@@ -1,22 +1,36 @@
 wladder = angular.module('wladder',[]).controller('MainCtrl', [
 '$scope', '$http', function($scope, $http){
-  
+  $scope.show_button = function(button_num){
+  	if(button_num != 0){
+  		angular.element('#' + (button_num-1) + '_button').css({
+  			'opacity': '0'
+  		});
+  	}
+  	console.log("got a click on "+button_num);
+  	angular.element('#' + button_num + '_button').css({
+  		'opacity': '1'
+  	});
+  }
   $scope.init = function(){
-	$http.get("http://baldwin.codes:8000/words")
-        .success(function(response){console.log(response)});
+	$http({
+		method: 'GET', 
+		url: "http://localhost:3000", 
+		headers: {
+		'Accept':'application/json'
+		}
+	}).success(function(response){
+		$scope.start_word = response.start_word
+		$scope.end_word = response.end_word
+	});
+	$scope.victory = false;
+	$scope.checked = false;
+	$scope.attempts = ["", "", "", "", ""];
   }
   $scope.victory = false;
   $scope.checked = false;
-  $scope.start_word = 'qwert';
-  $scope.end_word = 'trewq';
-  $scope.attempts = ["1", "2", "3", "4", "5"];
+  $scope.attempts = ["", "", "", "", ""];
   $scope.refresh = function(){
-	$scope.victory = false;
-	$scope.checked = false;
-	$scope.attempts = ["1", "2", "3", "4", "5"];
-	//ajax call to get new start and end words
-        $http.get("http://baldwin.codes:8000/words")
-        .success(function(response){console.log(response)});
+	$scope.init();
   }
   $scope.getNumber = function(num) {
     return new Array(num);   
