@@ -1,0 +1,38 @@
+Files with names that matches <chico>
+  ./dir2/chico.html
+  ./dir2/chico.rb
+**************************************************
+Files with content that matches <chico>
+./dir1/a.rb
+  1:line 1 of a.arb  chico california
+  7:line 7 of a.arb  chico california
+--------------------------------------------------
+./dir1/b.erb
+  1:line 1 of b.erb  chico california
+  1003:line 1003 of b.erb  chico california
+--------------------------------------------------
+./dir1/c.js
+  1:line 1 of c.js chico california
+  2:  line 2 of c.js chico california (indented 2 spaces)
+  3:   line 3 of c.js chico california (indented 3 spaces)
+  4:    line 4 of c.js chico california (indented 4 spaces)
+  5:     line 5 of c.js chico california (indented 5 spaces)
+--------------------------------------------------
+./dir1/d.css
+  3:line 3 of d.css chico california
+--------------------------------------------------
+./dir1/e.html
+  2:line 2 of e.html chico california
+--------------------------------------------------
+./dir1/f.yml
+  1:line 1 of f.yml chico california
+--------------------------------------------------
+./dir1/g.txt
+  1:line 1 of g.txt chico california
+--------------------------------------------------
+./dir2/chico.html
+  1:line 1 of chico.html CHICO CALIFORNIA
+  2:line 2 of chico.html CHICO CALIFORNIA
+--------------------------------------------------
+./dir2/chico.rb
+  1:line 1 of chico.rb chico california

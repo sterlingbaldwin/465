@@ -1,0 +1,20 @@
+#!/usr/bin/env ruby
+file_matches = `find . -name "*.html" -o -name "*.css" -o -name "*.yml" -o -name "*.rb" -o -name "*.erb" -o -name "*.txt" -o -name "*.js" | grep #{ARGV[0]}`.split("\n")
+if file_matches.length > 0
+	puts "Files with names that matches <#{ARGV[0]}>\n" 
+	file_matches.each{ |x| puts "  #{x}" }
+	puts "**************************************************"
+end
+
+content_matches = `find . -name "*.html" -o -name "*.css" -o -name "*.yml" -o -name "*.rb" -o -name "*.erb" -o -name "*.js"`.split("\n")
+if content_matches.length > 0
+	puts "Files with content that matches <#{ARGV[0]}>"
+	content_matches.each{ |x|
+		file_content = `cat #{x} | grep -n #{ARGV[0]}`.split("\n")
+		if file_content.length > 0
+			puts "#{x}"
+			file_content.each{|x| puts "  #{x}"}
+			puts "--------------------------------------------------"
+		end
+	}
+end
