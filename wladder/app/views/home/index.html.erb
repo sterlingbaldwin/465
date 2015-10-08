@@ -2,50 +2,49 @@
 <div ng-app="wladder" ng-controller="MainCtrl"  ng-switch on="checked" ng-init="init()">
 	<div class="panel" ng-switch-when="false" id="checked-false" style="display:flex;justify-content:center;align-items:center;width:100%;height:100%;">
 		<div class="row">
-            <div style="justify-content:center;align-items:center;">
-                <h1 class="small-3 row columns panel callout">{{start_word}}</h1>
+            <div>
+                <h1>{{start_word}}</h1>
             </div>
-            
             <div ng-repeat="a in getNumber(5) track by $index" style="float:left;" class="columns">
-                    <div class="small-3 columns">
-                        <a href="#" class="button prefix round" ng-click="check()" id="{{$index}}_button" ng-disabled="{{attempts[$index]}}">Check</a>
-                    </div>
-                    <div class="small-6 columns" style="float: left;">
-                        <input type="text" placeholder="Value" ng-click="show_button($index)" ng-model="attempts[$index]">
-                    </div>
+                <div class="small-3 columns">
+                    <a href="#" class="button prefix round" ng-click="check()" id="{{$index}}_button" ng-disabled="{{attempts[$index]}}">Check</a>
+                </div>
+                <div class="small-6 columns" style="float: left;">
+                    <input type="text" placeholder="Value" ng-click="show_button($index)" ng-model="attempts[$index]">
+                </div>
             </div>
-            <div style="justify-content:center;align-items:center;">
-                <h1 class="small-3 row panel columns callout">{{end_word}}</h1>
+            <div>
+                <h1>{{end_word}}</h1>
             </div>
         </div>
 
-        
-    	<div style="float: right;">
+    	<div style="float: right;">    
 			<%= image_tag "rocket.gif" %>
 		</div> 	
- 		
 	</div>
-	<div class="panel" ng-switch-when="true" id="checked-true">
-		<div ng-switch on="victory">
-			<h1 ng-switch-when="true">You Win!</h1>
-			<h1 ng-switch-when="false">You Lose!<h1>
-		</div>
-		<div class="row prefix-round">
-                        <h1>{{start_word}}</h1>
+	<div class="panel" ng-switch-when="true" id="checked-true" style="display:flex;justify-content:center;align-items:center;width:100%;height:100%;">
+        <div ng-switch on="victory">
+            <h1 ng-switch-when="true">Victory!</h1>
+            <h1 ng-switch-when="false">Fail!</h1>
+        </div>
+        <div class="row">
+            <div>
+                <h1>{{start_word}}</h1>
+            </div>
+            <div ng-repeat="a in getNumber(5) track by $index" style="float:left;" class="columns">
+                <div class="small-3 columns">
+                    <a href="#" class="button prefix round" ng-disabled="true">ASDF</a>
+                </div> 
+                <div class="small-6 columns" style="float: left;">
+                    <input type="text" ng-click="show_button($index)" ng-model="attempts[$index]">
                 </div>
-                <div style="float: right;">
-                        <%= image_tag "rocket.gif" %>
-                </div>  
-                <div ng-repeat="a in attempts" style="float:left;" class="row">
-                                <div class="small-9 columns">
-                                        <p ng-model="a"></p>
-                                </div>
-                </div>
-                <div class="row prefix-round">
-                        <h1>{{end_word}}</h1>
-                </div>
-		<div class="row prefix-round">
-			<a class="button prefix" ng-click="refresh()" href="#">Retry</a>
-		</div>
+            </div>
+            <div>
+                <h1>{{end_word}}</h1>
+            </div>
+        </div>
+		<div style="float: right;">
+                <%= image_tag "rocket.gif" %>
+        </div>
  	</div>
 </div>
