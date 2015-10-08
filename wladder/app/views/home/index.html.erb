@@ -33,7 +33,7 @@
             </div>
             <div ng-repeat="a in getNumber(5) track by $index" style="float:left;" class="columns">
                 <div class="small-3 columns">
-                    <a href="#" class="button prefix round" ng-disabled="true">ASDF</a>
+                    <a href="#" class="button prefix round" ng-disabled="true">Step {{$index}}</a>
                 </div> 
                 <div class="small-6 columns" style="float: left;">
                     <input type="text" ng-click="show_button($index)" ng-model="attempts[$index]">
