@@ -15,7 +15,7 @@ wladder = angular.module('wladder', []).controller('MainCtrl', [
 		$scope.init = function() {
 			$http({
 				method: 'GET',
-				url: "http://baldwin.codes:3000",
+				url: "http://baldwin.codes:8000",
 				headers: {
 					'Accept': 'application/json'
 				}
