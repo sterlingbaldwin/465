@@ -289,3 +289,527 @@ ActionController::RoutingError (No route matches [GET] "/"):
   Rendered /home/ubuntu/.rvm/gems/ruby-2.2.1/gems/actionpack-4.2.4/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (1.2ms)
   Rendered /home/ubuntu/.rvm/gems/ruby-2.2.1/gems/actionpack-4.2.4/lib/action_dispatch/middleware/templates/rescues/routing_error.html.erb within rescues/layout (15.6ms)
 Exiting
+[2015-10-08 18:57:00] INFO  WEBrick 1.3.1
+[2015-10-08 18:57:00] INFO  ruby 2.2.1 (2015-02-26) [x86_64-linux]
+/home/ubuntu/.rvm/rubies/ruby-2.2.1/lib/ruby/2.2.0/socket.rb:206:in `bind': Address already in use - bind(2) for 0.0.0.0:3000 (Errno::EADDRINUSE)
+	from /home/ubuntu/.rvm/rubies/ruby-2.2.1/lib/ruby/2.2.0/socket.rb:206:in `listen'
+	from /home/ubuntu/.rvm/rubies/ruby-2.2.1/lib/ruby/2.2.0/socket.rb:461:in `block in tcp_server_sockets'
+	from /home/ubuntu/.rvm/rubies/ruby-2.2.1/lib/ruby/2.2.0/socket.rb:232:in `each'
+	from /home/ubuntu/.rvm/rubies/ruby-2.2.1/lib/ruby/2.2.0/socket.rb:232:in `foreach'
+	from /home/ubuntu/.rvm/rubies/ruby-2.2.1/lib/ruby/2.2.0/socket.rb:459:in `tcp_server_sockets'
+	from /home/ubuntu/.rvm/rubies/ruby-2.2.1/lib/ruby/2.2.0/webrick/utils.rb:70:in `create_listeners'
+	from /home/ubuntu/.rvm/rubies/ruby-2.2.1/lib/ruby/2.2.0/webrick/server.rb:133:in `listen'
+	from /home/ubuntu/.rvm/rubies/ruby-2.2.1/lib/ruby/2.2.0/webrick/server.rb:114:in `initialize'
+	from /home/ubuntu/.rvm/rubies/ruby-2.2.1/lib/ruby/2.2.0/webrick/httpserver.rb:45:in `initialize'
+	from /home/ubuntu/.rvm/gems/ruby-2.2.1/gems/rack-1.6.4/lib/rack/handler/webrick.rb:31:in `new'
+	from /home/ubuntu/.rvm/gems/ruby-2.2.1/gems/rack-1.6.4/lib/rack/handler/webrick.rb:31:in `run'
+	from /home/ubuntu/.rvm/gems/ruby-2.2.1/gems/rack-1.6.4/lib/rack/server.rb:286:in `start'
+	from /home/ubuntu/.rvm/gems/ruby-2.2.1/gems/railties-4.2.4/lib/rails/commands/server.rb:80:in `start'
+	from /home/ubuntu/.rvm/gems/ruby-2.2.1/gems/railties-4.2.4/lib/rails/commands/commands_tasks.rb:80:in `block in server'
+	from /home/ubuntu/.rvm/gems/ruby-2.2.1/gems/railties-4.2.4/lib/rails/commands/commands_tasks.rb:75:in `tap'
+	from /home/ubuntu/.rvm/gems/ruby-2.2.1/gems/railties-4.2.4/lib/rails/commands/commands_tasks.rb:75:in `server'
+	from /home/ubuntu/.rvm/gems/ruby-2.2.1/gems/railties-4.2.4/lib/rails/commands/commands_tasks.rb:39:in `run_command!'
+	from /home/ubuntu/.rvm/gems/ruby-2.2.1/gems/railties-4.2.4/lib/rails/commands.rb:17:in `<top (required)>'
+	from /home/ubuntu/465/wladder/bin/rails:8:in `require'
+	from /home/ubuntu/465/wladder/bin/rails:8:in `<top (required)>'
+	from /home/ubuntu/.rvm/gems/ruby-2.2.1/gems/spring-1.4.0/lib/spring/client/rails.rb:28:in `load'
+	from /home/ubuntu/.rvm/gems/ruby-2.2.1/gems/spring-1.4.0/lib/spring/client/rails.rb:28:in `call'
+	from /home/ubuntu/.rvm/gems/ruby-2.2.1/gems/spring-1.4.0/lib/spring/client/command.rb:7:in `call'
+	from /home/ubuntu/.rvm/gems/ruby-2.2.1/gems/spring-1.4.0/lib/spring/client.rb:28:in `run'
+	from /home/ubuntu/.rvm/gems/ruby-2.2.1/gems/spring-1.4.0/bin/spring:49:in `<top (required)>'
+	from /home/ubuntu/.rvm/gems/ruby-2.2.1/gems/spring-1.4.0/lib/spring/binstub.rb:11:in `load'
+	from /home/ubuntu/.rvm/gems/ruby-2.2.1/gems/spring-1.4.0/lib/spring/binstub.rb:11:in `<top (required)>'
+	from /home/ubuntu/465/wladder/bin/spring:13:in `require'
+	from /home/ubuntu/465/wladder/bin/spring:13:in `<top (required)>'
+	from bin/rails:3:in `load'
+	from bin/rails:3:in `<main>'
+=> Booting WEBrick
+=> Rails 4.2.4 application starting in development on http://0.0.0.0:3000
+=> Run `rails server -h` for more startup options
+=> Ctrl-C to shutdown server
+Exiting
+[2015-10-08 18:57:42] INFO  WEBrick 1.3.1
+[2015-10-08 18:57:42] INFO  ruby 2.2.1 (2015-02-26) [x86_64-linux]
+[2015-10-08 18:57:42] INFO  WEBrick::HTTPServer#start: pid=28688 port=8000
+=> Booting WEBrick
+=> Rails 4.2.4 application starting in development on http://0.0.0.0:8000
+=> Run `rails server -h` for more startup options
+=> Ctrl-C to shutdown server
+
+
+Started GET "/" for 132.241.44.100 at 2015-10-08 18:57:45 +0000
+Cannot render console from 132.241.44.100! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by HomeController#index as HTML
+  Rendered home/index.html.erb within layouts/application (98.6ms)
+Completed 200 OK in 137ms (Views: 130.1ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/app.js" for 132.241.44.100 at 2015-10-08 18:57:45 +0000
+Cannot render console from 132.241.44.100! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+
+
+Started GET "/assets/application.self-35f1633322a4646081c8515d225dd9738f17658b7d73de124dd04468c52ae369.css?body=1" for 132.241.44.100 at 2015-10-08 18:57:45 +0000
+Cannot render console from 132.241.44.100! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+
+
+Started GET "/assets/foundation_and_overrides.self-e769e48c38aa6df0e872a69f128919a16c4711a789e7221f70f4e42eb42be9bb.css?body=1" for 132.241.44.100 at 2015-10-08 18:57:45 +0000
+Cannot render console from 132.241.44.100! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+
+
+Started GET "/assets/vendor/modernizr.self-74da3245def7569da28115667be6a85a2ad97464abe707c9829c46d8975597bc.js?body=1" for 132.241.44.100 at 2015-10-08 18:57:45 +0000
+Cannot render console from 132.241.44.100! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+
+
+Started GET "/assets/rocket-9dedca3d66373c8f9b67604e3970f4b2d51ead88493faca008ae796c51f5c1ce.gif" for 132.241.44.100 at 2015-10-08 18:57:45 +0000
+Cannot render console from 132.241.44.100! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+
+
+Started GET "/" for 132.241.44.100 at 2015-10-08 18:57:46 +0000
+Cannot render console from 132.241.44.100! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by HomeController#index as JSON
+Completed 200 OK in 20ms (Views: 0.1ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/" for 132.241.216.103 at 2015-10-08 19:24:45 +0000
+Cannot render console from 132.241.216.103! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by HomeController#index as HTML
+  Rendered home/index.html.erb within layouts/application (5.6ms)
+Completed 200 OK in 43ms (Views: 42.4ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/app.js" for 132.241.216.103 at 2015-10-08 19:24:45 +0000
+Cannot render console from 132.241.216.103! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+
+
+Started GET "/assets/vendor/modernizr.self-74da3245def7569da28115667be6a85a2ad97464abe707c9829c46d8975597bc.js?body=1" for 132.241.216.103 at 2015-10-08 19:24:45 +0000
+Cannot render console from 132.241.216.103! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+
+
+Started GET "/assets/rocket-9dedca3d66373c8f9b67604e3970f4b2d51ead88493faca008ae796c51f5c1ce.gif" for 132.241.216.103 at 2015-10-08 19:24:45 +0000
+Cannot render console from 132.241.216.103! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+
+
+Started GET "/assets/foundation_and_overrides.self-e769e48c38aa6df0e872a69f128919a16c4711a789e7221f70f4e42eb42be9bb.css?body=1" for 132.241.216.103 at 2015-10-08 19:24:45 +0000
+Cannot render console from 132.241.216.103! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+
+
+Started GET "/assets/application.self-35f1633322a4646081c8515d225dd9738f17658b7d73de124dd04468c52ae369.css?body=1" for 132.241.216.103 at 2015-10-08 19:24:45 +0000
+Cannot render console from 132.241.216.103! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+
+
+Started GET "/" for 132.241.216.103 at 2015-10-08 19:24:45 +0000
+Cannot render console from 132.241.216.103! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by HomeController#index as JSON
+Completed 200 OK in 12ms (Views: 0.1ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/" for 132.241.216.103 at 2015-10-08 19:24:56 +0000
+Cannot render console from 132.241.216.103! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by HomeController#index as JSON
+Completed 200 OK in 7ms (Views: 0.1ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/" for 132.241.216.103 at 2015-10-08 19:25:04 +0000
+Cannot render console from 132.241.216.103! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by HomeController#index as JSON
+Completed 200 OK in 6ms (Views: 0.1ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/" for 132.241.216.103 at 2015-10-08 19:25:31 +0000
+Cannot render console from 132.241.216.103! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by HomeController#index as HTML
+  Rendered home/index.html.erb within layouts/application (2.8ms)
+Completed 200 OK in 24ms (Views: 23.4ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/app.js" for 132.241.216.103 at 2015-10-08 19:25:31 +0000
+Cannot render console from 132.241.216.103! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+
+
+Started GET "/assets/foundation_and_overrides.self-e769e48c38aa6df0e872a69f128919a16c4711a789e7221f70f4e42eb42be9bb.css?body=1" for 132.241.216.103 at 2015-10-08 19:25:31 +0000
+Cannot render console from 132.241.216.103! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+
+
+Started GET "/assets/application.self-35f1633322a4646081c8515d225dd9738f17658b7d73de124dd04468c52ae369.css?body=1" for 132.241.216.103 at 2015-10-08 19:25:31 +0000
+Cannot render console from 132.241.216.103! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+
+
+Started GET "/assets/vendor/modernizr.self-74da3245def7569da28115667be6a85a2ad97464abe707c9829c46d8975597bc.js?body=1" for 132.241.216.103 at 2015-10-08 19:25:31 +0000
+Cannot render console from 132.241.216.103! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+
+
+Started GET "/assets/rocket-9dedca3d66373c8f9b67604e3970f4b2d51ead88493faca008ae796c51f5c1ce.gif" for 132.241.216.103 at 2015-10-08 19:25:31 +0000
+Cannot render console from 132.241.216.103! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+
+
+Started GET "/" for 132.241.216.103 at 2015-10-08 19:25:31 +0000
+Cannot render console from 132.241.216.103! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by HomeController#index as JSON
+Completed 200 OK in 8ms (Views: 0.1ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/" for 132.241.216.103 at 2015-10-08 19:26:15 +0000
+Cannot render console from 132.241.216.103! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by HomeController#index as JSON
+Completed 200 OK in 14ms (Views: 0.1ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/" for 132.241.216.103 at 2015-10-08 19:27:34 +0000
+Cannot render console from 132.241.216.103! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by HomeController#index as JSON
+Completed 200 OK in 7ms (Views: 0.1ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/" for 132.241.216.103 at 2015-10-08 19:27:59 +0000
+Cannot render console from 132.241.216.103! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by HomeController#index as HTML
+  Rendered home/index.html.erb within layouts/application (3.0ms)
+Completed 200 OK in 23ms (Views: 23.0ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/app.js" for 132.241.216.103 at 2015-10-08 19:27:59 +0000
+Cannot render console from 132.241.216.103! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+
+
+Started GET "/" for 132.241.216.103 at 2015-10-08 19:28:00 +0000
+Cannot render console from 132.241.216.103! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by HomeController#index as JSON
+Completed 200 OK in 7ms (Views: 0.1ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/" for 132.241.216.103 at 2015-10-08 19:34:50 +0000
+Cannot render console from 132.241.216.103! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by HomeController#index as HTML
+  Rendered home/index.html.erb within layouts/application (2.8ms)
+Completed 200 OK in 23ms (Views: 23.1ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/app.js" for 132.241.216.103 at 2015-10-08 19:34:51 +0000
+Cannot render console from 132.241.216.103! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+
+
+Started GET "/" for 132.241.216.103 at 2015-10-08 19:34:51 +0000
+Cannot render console from 132.241.216.103! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by HomeController#index as JSON
+Completed 200 OK in 5ms (Views: 0.1ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/" for 132.241.44.11 at 2015-10-08 23:49:28 +0000
+Cannot render console from 132.241.44.11! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by HomeController#index as HTML
+  Rendered home/index.html.erb within layouts/application (2.8ms)
+Completed 200 OK in 24ms (Views: 24.0ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/app.js" for 132.241.44.11 at 2015-10-08 23:49:28 +0000
+Cannot render console from 132.241.44.11! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+
+
+Started GET "/assets/rocket-9dedca3d66373c8f9b67604e3970f4b2d51ead88493faca008ae796c51f5c1ce.gif" for 132.241.44.11 at 2015-10-08 23:49:28 +0000
+Cannot render console from 132.241.44.11! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+
+
+Started GET "/assets/foundation_and_overrides.self-e769e48c38aa6df0e872a69f128919a16c4711a789e7221f70f4e42eb42be9bb.css?body=1" for 132.241.44.11 at 2015-10-08 23:49:28 +0000
+Cannot render console from 132.241.44.11! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+
+
+Started GET "/assets/application.self-35f1633322a4646081c8515d225dd9738f17658b7d73de124dd04468c52ae369.css?body=1" for 132.241.44.11 at 2015-10-08 23:49:28 +0000
+Cannot render console from 132.241.44.11! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+
+
+Started GET "/assets/vendor/modernizr.self-74da3245def7569da28115667be6a85a2ad97464abe707c9829c46d8975597bc.js?body=1" for 132.241.44.11 at 2015-10-08 23:49:28 +0000
+Cannot render console from 132.241.44.11! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+
+
+Started GET "/assets/app.js" for 132.241.44.11 at 2015-10-08 23:49:28 +0000
+Cannot render console from 132.241.44.11! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+
+
+Started GET "/" for 132.241.44.11 at 2015-10-08 23:49:28 +0000
+Cannot render console from 132.241.44.11! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by HomeController#index as JSON
+Completed 200 OK in 6ms (Views: 0.1ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/" for 132.241.216.103 at 2015-10-09 16:57:37 +0000
+Cannot render console from 132.241.216.103! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by HomeController#index as HTML
+  Rendered home/index.html.erb within layouts/application (2.9ms)
+Completed 200 OK in 23ms (Views: 22.6ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/app.js" for 132.241.216.103 at 2015-10-09 16:57:38 +0000
+Cannot render console from 132.241.216.103! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+
+
+Started GET "/" for 132.241.216.103 at 2015-10-09 16:57:38 +0000
+Cannot render console from 132.241.216.103! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by HomeController#index as JSON
+Completed 200 OK in 6ms (Views: 0.1ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/" for 132.241.216.103 at 2015-10-09 17:05:27 +0000
+Cannot render console from 132.241.216.103! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by HomeController#index as HTML
+  Rendered home/index.html.erb within layouts/application (2.9ms)
+Completed 200 OK in 25ms (Views: 24.8ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/app.js" for 132.241.216.103 at 2015-10-09 17:05:28 +0000
+Cannot render console from 132.241.216.103! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+
+
+Started GET "/" for 132.241.216.103 at 2015-10-09 17:05:28 +0000
+Cannot render console from 132.241.216.103! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by HomeController#index as JSON
+Completed 200 OK in 6ms (Views: 0.1ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/" for 132.241.216.103 at 2015-10-09 17:31:34 +0000
+Cannot render console from 132.241.216.103! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by HomeController#index as HTML
+  Rendered home/index.html.erb within layouts/application (2.7ms)
+Completed 200 OK in 23ms (Views: 22.3ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/" for 132.241.216.103 at 2015-10-09 17:37:07 +0000
+Cannot render console from 132.241.216.103! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by HomeController#index as HTML
+  Rendered home/index.html.erb within layouts/application (2.7ms)
+Completed 200 OK in 29ms (Views: 28.4ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/app.js" for 132.241.216.103 at 2015-10-09 17:37:07 +0000
+Cannot render console from 132.241.216.103! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+
+
+Started GET "/" for 132.241.216.103 at 2015-10-09 17:37:07 +0000
+Cannot render console from 132.241.216.103! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by HomeController#index as JSON
+Completed 200 OK in 9ms (Views: 0.1ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/" for 132.241.216.103 at 2015-10-09 17:37:16 +0000
+Cannot render console from 132.241.216.103! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by HomeController#index as HTML
+  Rendered home/index.html.erb within layouts/application (3.0ms)
+Completed 200 OK in 23ms (Views: 22.7ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/app.js" for 132.241.216.103 at 2015-10-09 17:37:16 +0000
+Cannot render console from 132.241.216.103! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+
+
+Started GET "/" for 132.241.216.103 at 2015-10-09 17:37:17 +0000
+Cannot render console from 132.241.216.103! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by HomeController#index as JSON
+Completed 200 OK in 7ms (Views: 0.1ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/" for 132.241.216.103 at 2015-10-09 17:37:51 +0000
+Cannot render console from 132.241.216.103! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by HomeController#index as HTML
+  Rendered home/index.html.erb within layouts/application (3.0ms)
+Completed 200 OK in 24ms (Views: 23.7ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/app.js" for 132.241.216.103 at 2015-10-09 17:37:51 +0000
+Cannot render console from 132.241.216.103! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+
+
+Started GET "/" for 132.241.216.103 at 2015-10-09 17:37:51 +0000
+Cannot render console from 132.241.216.103! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by HomeController#index as JSON
+Completed 200 OK in 5ms (Views: 0.1ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/" for 132.241.216.103 at 2015-10-09 17:37:58 +0000
+Cannot render console from 132.241.216.103! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by HomeController#index as HTML
+  Rendered home/index.html.erb within layouts/application (2.7ms)
+Completed 200 OK in 27ms (Views: 26.4ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/app.js" for 132.241.216.103 at 2015-10-09 17:37:59 +0000
+Cannot render console from 132.241.216.103! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+
+
+Started GET "/" for 132.241.216.103 at 2015-10-09 17:37:59 +0000
+Cannot render console from 132.241.216.103! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by HomeController#index as JSON
+Completed 200 OK in 8ms (Views: 0.1ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/" for 132.241.216.103 at 2015-10-09 17:46:11 +0000
+Cannot render console from 132.241.216.103! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by HomeController#index as HTML
+  Rendered home/index.html.erb within layouts/application (2.9ms)
+Completed 200 OK in 25ms (Views: 24.1ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/app.js" for 132.241.216.103 at 2015-10-09 17:46:11 +0000
+Cannot render console from 132.241.216.103! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+
+
+Started GET "/" for 132.241.216.103 at 2015-10-09 17:46:11 +0000
+Cannot render console from 132.241.216.103! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by HomeController#index as JSON
+[2015-10-10 00:08:05] ERROR bad Request-Line `\x00\x00\x00TZ\x00\x00\x00\x00\x00\x00\x00\x00\x01\x00\x00\x04\x00(Á\x00\x00\x00\x00>\x00¨À8`wÙ\x04\v\x00\x00tsXrcsXYs9\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00bbXcsXctst\x00\x00\x00\x00\x00\x00'.
+Completed 200 OK in 7ms (Views: 0.1ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/" for 132.241.216.103 at 2015-10-09 17:47:13 +0000
+Cannot render console from 132.241.216.103! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by HomeController#index as HTML
+  Rendered home/index.html.erb within layouts/application (2.9ms)
+Completed 200 OK in 23ms (Views: 23.1ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/app.js" for 132.241.216.103 at 2015-10-09 17:47:13 +0000
+Cannot render console from 132.241.216.103! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+
+
+Started GET "/assets/foundation_and_overrides.self-e769e48c38aa6df0e872a69f128919a16c4711a789e7221f70f4e42eb42be9bb.css?body=1" for 132.241.216.103 at 2015-10-09 17:47:13 +0000
+Cannot render console from 132.241.216.103! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+
+
+Started GET "/assets/vendor/modernizr.self-74da3245def7569da28115667be6a85a2ad97464abe707c9829c46d8975597bc.js?body=1" for 132.241.216.103 at 2015-10-09 17:47:13 +0000
+Cannot render console from 132.241.216.103! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+
+
+Started GET "/assets/application.self-35f1633322a4646081c8515d225dd9738f17658b7d73de124dd04468c52ae369.css?body=1" for 132.241.216.103 at 2015-10-09 17:47:13 +0000
+Cannot render console from 132.241.216.103! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+
+
+Started GET "/assets/rocket-9dedca3d66373c8f9b67604e3970f4b2d51ead88493faca008ae796c51f5c1ce.gif" for 132.241.216.103 at 2015-10-09 17:47:13 +0000
+Cannot render console from 132.241.216.103! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+
+
+Started GET "/assets/foundation_and_overrides.self-e769e48c38aa6df0e872a69f128919a16c4711a789e7221f70f4e42eb42be9bb.css?body=1" for 132.241.216.103 at 2015-10-09 17:47:13 +0000
+Cannot render console from 132.241.216.103! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+
+
+Started GET "/" for 132.241.216.103 at 2015-10-09 17:47:13 +0000
+Cannot render console from 132.241.216.103! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by HomeController#index as JSON
+Completed 200 OK in 6ms (Views: 0.1ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/rocket-9dedca3d66373c8f9b67604e3970f4b2d51ead88493faca008ae796c51f5c1ce.gif" for 132.241.216.103 at 2015-10-09 17:47:13 +0000
+Cannot render console from 132.241.216.103! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+
+
+Started GET "/" for 132.241.216.103 at 2015-10-09 17:47:32 +0000
+Cannot render console from 132.241.216.103! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by HomeController#index as HTML
+  Rendered home/index.html.erb within layouts/application (2.8ms)
+Completed 200 OK in 29ms (Views: 28.6ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/foundation_and_overrides.self-e769e48c38aa6df0e872a69f128919a16c4711a789e7221f70f4e42eb42be9bb.css?body=1" for 132.241.216.103 at 2015-10-09 17:47:32 +0000
+Cannot render console from 132.241.216.103! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+
+
+Started GET "/assets/application.self-35f1633322a4646081c8515d225dd9738f17658b7d73de124dd04468c52ae369.css?body=1" for 132.241.216.103 at 2015-10-09 17:47:32 +0000
+Cannot render console from 132.241.216.103! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+
+
+Started GET "/assets/vendor/modernizr.self-74da3245def7569da28115667be6a85a2ad97464abe707c9829c46d8975597bc.js?body=1" for 132.241.216.103 at 2015-10-09 17:47:32 +0000
+Cannot render console from 132.241.216.103! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+
+
+Started GET "/assets/rocket-9dedca3d66373c8f9b67604e3970f4b2d51ead88493faca008ae796c51f5c1ce.gif" for 132.241.216.103 at 2015-10-09 17:47:32 +0000
+Cannot render console from 132.241.216.103! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+
+
+Started GET "/assets/app.js" for 132.241.216.103 at 2015-10-09 17:47:32 +0000
+Cannot render console from 132.241.216.103! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+
+
+Started GET "/" for 132.241.216.103 at 2015-10-09 17:47:33 +0000
+Cannot render console from 132.241.216.103! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by HomeController#index as JSON
+Completed 200 OK in 7ms (Views: 0.1ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/" for 132.241.216.103 at 2015-10-09 17:50:11 +0000
+Cannot render console from 132.241.216.103! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by HomeController#index as HTML
+  Rendered home/index.html.erb within layouts/application (3.0ms)
+Completed 200 OK in 23ms (Views: 22.8ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/app.js" for 132.241.216.103 at 2015-10-09 17:50:11 +0000
+Cannot render console from 132.241.216.103! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+
+
+Started GET "/" for 132.241.216.103 at 2015-10-09 17:50:11 +0000
+Cannot render console from 132.241.216.103! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by HomeController#index as JSON
+Completed 200 OK in 8ms (Views: 0.1ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/" for 132.241.216.103 at 2015-10-09 17:50:26 +0000
+Cannot render console from 132.241.216.103! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by HomeController#index as HTML
+  Rendered home/index.html.erb within layouts/application (3.3ms)
+Completed 200 OK in 26ms (Views: 25.4ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/app.js" for 132.241.216.103 at 2015-10-09 17:50:26 +0000
+Cannot render console from 132.241.216.103! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+
+
+Started GET "/" for 132.241.216.103 at 2015-10-09 17:50:26 +0000
+Cannot render console from 132.241.216.103! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by HomeController#index as JSON
+Completed 200 OK in 6ms (Views: 0.1ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/" for 73.41.123.144 at 2015-10-09 19:24:47 +0000
+Cannot render console from 73.41.123.144! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by HomeController#index as HTML
+  Rendered home/index.html.erb within layouts/application (3.1ms)
+Completed 200 OK in 23ms (Views: 22.1ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/app.js" for 73.41.123.144 at 2015-10-09 19:24:49 +0000
+Cannot render console from 73.41.123.144! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+
+
+Started GET "/" for 73.41.123.144 at 2015-10-09 19:24:50 +0000
+Cannot render console from 73.41.123.144! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by HomeController#index as JSON
+Completed 200 OK in 7ms (Views: 0.1ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/" for 132.241.216.103 at 2015-10-09 23:32:01 +0000
+Cannot render console from 132.241.216.103! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by HomeController#index as HTML
+  Rendered home/index.html.erb within layouts/application (2.9ms)
+Completed 200 OK in 22ms (Views: 21.6ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/app.js" for 132.241.216.103 at 2015-10-09 23:32:02 +0000
+Cannot render console from 132.241.216.103! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+
+
+Started GET "/" for 132.241.216.103 at 2015-10-09 23:32:02 +0000
+Cannot render console from 132.241.216.103! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by HomeController#index as JSON
+Completed 200 OK in 11ms (Views: 0.1ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/" for 98.255.118.56 at 2015-10-10 07:04:20 +0000
+Cannot render console from 98.255.118.56! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by HomeController#index as HTML
+  Rendered home/index.html.erb within layouts/application (3.0ms)
+Completed 200 OK in 25ms (Views: 25.2ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/app.js" for 98.255.118.56 at 2015-10-10 07:04:20 +0000
+Cannot render console from 98.255.118.56! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+
+
+Started GET "/" for 98.255.118.56 at 2015-10-10 07:04:20 +0000
+Cannot render console from 98.255.118.56! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
