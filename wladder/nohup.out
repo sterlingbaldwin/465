@@ -813,3 +813,214 @@ Cannot render console from 98.255.118.56! Allowed networks: 127.0.0.1, ::1, 127.
 
 Started GET "/" for 98.255.118.56 at 2015-10-10 07:04:20 +0000
 Cannot render console from 98.255.118.56! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+[2015-10-17 00:06:28] ERROR bad Request-Line `\x00\x00\x00TZ\x00\x00\x00\x00\x00\x00\x00\x00\x01\x00\x00\x04\x00(Á\x00\x00\x00\x00>\x00¨À8`wÙ\x04\v\x00\x00tsXrcsXYs9\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00trtbsb9ttr\x00\x00\x00\x00\x00\x00'.
+[2015-10-17 00:20:40] ERROR bad Request-Line `\x00\x00\x00TZ\x00\x00\x00\x00\x00\x00\x00\x00\x01\x00\x00\x04\x00(Á\x00\x00\x00\x00>\x00¨À8`wÙ\x04\v\x00\x00tsXrcsXYs9\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00scsXtcbXc\x00\x00\x00\x00\x00\x00\x00'.
+[2015-10-17 15:32:50] ERROR bad Request-Line `\x00\x00\x00TZ\x00\x00\x00\x00\x00\x00\x00\x00\x01\x00\x00\x04\x00(Á\x00\x00\x00\x00>\x00¨À8`wÙ\x04\v\x00\x00tsXrcsXYs9\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00scsXtcbXc\x00\x00\x00\x00\x00\x00\x00'.
+[2015-10-17 15:59:34] ERROR bad Request-Line `\x00\x00\x00TZ\x00\x00\x00\x00\x00\x00\x00\x00\x01\x00\x00\x04\x00(Á\x00\x00\x00\x00>\x00¨À8`wÙ\x04\v\x00\x00tsXrcsXYs9\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00YXtscYbtr\x00\x00\x00\x00\x00\x00\x00'.
+[2015-10-17 16:12:02] ERROR bad Request-Line `\x00\x00\x00TZ\x00\x00\x00\x00\x00\x00\x00\x00\x01\x00\x00\x04\x00(Á\x00\x00\x00\x00>\x00¨À8`wÙ\x04\v\x00\x00tsXrcsXYs9\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00YttY99ctc\x00\x00\x00\x00\x00\x00\x00'.
+[2015-10-17 16:26:05] ERROR bad Request-Line `\x00\x00\x00TZ\x00\x00\x00\x00\x00\x00\x00\x00\x01\x00\x00\x04\x00(Á\x00\x00\x00\x00>\x00¨À8`wÙ\x04\v\x00\x00tsXrcsXYs9\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00sbrb99YrXt\x00\x00\x00\x00\x00\x00'.
+[2015-10-17 16:42:41] ERROR bad Request-Line `\x00\x00\x00TZ\x00\x00\x00\x00\x00\x00\x00\x00\x01\x00\x00\x04\x00(Á\x00\x00\x00\x00>\x00¨À8`wÙ\x04\v\x00\x00tsXrcsXYs9\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00ctYYsbctXt\x00\x00\x00\x00\x00\x00'.
+[2015-10-17 17:00:09] ERROR bad Request-Line `\x00\x00\x00TZ\x00\x00\x00\x00\x00\x00\x00\x00\x01\x00\x00\x04\x00(Á\x00\x00\x00\x00>\x00¨À8`wÙ\x04\v\x00\x00tsXrcsXYs9\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00ssttbs9cst\x00\x00\x00\x00\x00\x00'.
+[2015-10-17 17:22:31] ERROR bad Request-Line `\x00\x00\x00TZ\x00\x00\x00\x00\x00\x00\x00\x00\x01\x00\x00\x04\x00(Á\x00\x00\x00\x00>\x00¨À8`wÙ\x04\v\x00\x00tsXrcsXYs9\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00tsXrcsXYs9\x00\x00\x00\x00\x00\x00'.
+[2015-10-17 17:37:43] ERROR bad Request-Line `\x00\x00\x00TZ\x00\x00\x00\x00\x00\x00\x00\x00\x01\x00\x00\x04\x00(Á\x00\x00\x00\x00>\x00¨À8`wÙ\x04\v\x00\x00tsXrcsXYs9\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00t9tbctttXt\x00\x00\x00\x00\x00\x00'.
+[2015-10-17 17:40:53] ERROR bad Request-Line `\x00\x00\x00TZ\x00\x00\x00\x00\x00\x00\x00\x00\x01\x00\x00\x04\x00(Á\x00\x00\x00\x00>\x00¨À8`wÙ\x04\v\x00\x00tsXrcsXYs9\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00'.
+[2015-10-17 17:57:18] ERROR bad Request-Line `\x00\x00\x00TZ\x00\x00\x00\x00\x00\x00\x00\x00\x01\x00\x00\x04\x00(Á\x00\x00\x00\x00>\x00¨À8`wÙ\x04\v\x00\x00tsXrcsXYs9\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00csYXstcY9s\x00\x00\x00\x00\x00\x00'.
+[2015-10-19 18:13:00] ERROR bad Request-Line `\x00\x00\x00TZ\x00\x00\x00\x00\x00\x00\x00\x00\x01\x00\x00\x04\x00(Á\x00\x00\x00\x00>\x00¨À8`wÙ\x04\v\x00\x00tsXrcsXYs9\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00sX9tssXXst\x00\x00\x00\x00\x00\x00'.
+Processing by HomeController#index as JSON
+Completed 200 OK in 22ms (Views: 0.1ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/testproxy.php" for 185.25.151.159 at 2015-10-11 21:54:58 +0000
+Cannot render console from 185.25.151.159! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+
+ActionController::RoutingError (No route matches [GET] "/testproxy.php"):
+  actionpack (4.2.4) lib/action_dispatch/middleware/debug_exceptions.rb:21:in `call'
+  web-console (2.2.1) lib/web_console/middleware.rb:31:in `call'
+  actionpack (4.2.4) lib/action_dispatch/middleware/show_exceptions.rb:30:in `call'
+  railties (4.2.4) lib/rails/rack/logger.rb:38:in `call_app'
+  railties (4.2.4) lib/rails/rack/logger.rb:20:in `block in call'
+  activesupport (4.2.4) lib/active_support/tagged_logging.rb:68:in `block in tagged'
+  activesupport (4.2.4) lib/active_support/tagged_logging.rb:26:in `tagged'
+  activesupport (4.2.4) lib/active_support/tagged_logging.rb:68:in `tagged'
+  railties (4.2.4) lib/rails/rack/logger.rb:20:in `call'
+  actionpack (4.2.4) lib/action_dispatch/middleware/request_id.rb:21:in `call'
+  rack (1.6.4) lib/rack/methodoverride.rb:22:in `call'
+  rack (1.6.4) lib/rack/runtime.rb:18:in `call'
+  activesupport (4.2.4) lib/active_support/cache/strategy/local_cache_middleware.rb:28:in `call'
+  rack (1.6.4) lib/rack/lock.rb:17:in `call'
+  actionpack (4.2.4) lib/action_dispatch/middleware/static.rb:116:in `call'
+  rack (1.6.4) lib/rack/sendfile.rb:113:in `call'
+  railties (4.2.4) lib/rails/engine.rb:518:in `call'
+  railties (4.2.4) lib/rails/application.rb:165:in `call'
+  rack (1.6.4) lib/rack/lock.rb:17:in `call'
+  rack (1.6.4) lib/rack/content_length.rb:15:in `call'
+  rack (1.6.4) lib/rack/handler/webrick.rb:88:in `service'
+  /home/ubuntu/.rvm/rubies/ruby-2.2.1/lib/ruby/2.2.0/webrick/httpserver.rb:138:in `service'
+  /home/ubuntu/.rvm/rubies/ruby-2.2.1/lib/ruby/2.2.0/webrick/httpserver.rb:94:in `run'
+  /home/ubuntu/.rvm/rubies/ruby-2.2.1/lib/ruby/2.2.0/webrick/server.rb:294:in `block in start_thread'
+
+
+  Rendered /home/ubuntu/.rvm/gems/ruby-2.2.1/gems/actionpack-4.2.4/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (1.1ms)
+  Rendered /home/ubuntu/.rvm/gems/ruby-2.2.1/gems/actionpack-4.2.4/lib/action_dispatch/middleware/templates/routes/_route.html.erb (0.6ms)
+  Rendered /home/ubuntu/.rvm/gems/ruby-2.2.1/gems/actionpack-4.2.4/lib/action_dispatch/middleware/templates/routes/_table.html.erb (9.3ms)
+  Rendered /home/ubuntu/.rvm/gems/ruby-2.2.1/gems/actionpack-4.2.4/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (0.8ms)
+  Rendered /home/ubuntu/.rvm/gems/ruby-2.2.1/gems/actionpack-4.2.4/lib/action_dispatch/middleware/templates/rescues/routing_error.html.erb within rescues/layout (37.2ms)
+
+
+Started GET "/" for 98.208.93.30 at 2015-10-12 02:00:22 +0000
+Cannot render console from 98.208.93.30! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by HomeController#index as HTML
+  Rendered home/index.html.erb within layouts/application (3.0ms)
+Completed 200 OK in 26ms (Views: 25.2ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/app.js" for 98.208.93.30 at 2015-10-12 02:00:22 +0000
+Cannot render console from 98.208.93.30! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+
+
+Started GET "/" for 98.208.93.30 at 2015-10-12 02:00:22 +0000
+Cannot render console from 98.208.93.30! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by HomeController#index as JSON
+Completed 200 OK in 15ms (Views: 0.1ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/" for 98.208.93.30 at 2015-10-12 02:49:33 +0000
+Cannot render console from 98.208.93.30! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by HomeController#index as HTML
+  Rendered home/index.html.erb within layouts/application (3.0ms)
+Completed 200 OK in 24ms (Views: 23.4ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/app.js" for 98.208.93.30 at 2015-10-12 02:49:33 +0000
+Cannot render console from 98.208.93.30! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+
+
+Started GET "/" for 98.208.93.30 at 2015-10-12 02:49:34 +0000
+Cannot render console from 98.208.93.30! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by HomeController#index as JSON
+Completed 200 OK in 8ms (Views: 0.1ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/" for 98.208.93.30 at 2015-10-12 02:49:45 +0000
+Cannot render console from 98.208.93.30! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by HomeController#index as JSON
+Completed 200 OK in 7ms (Views: 0.1ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/" for 222.186.56.107 at 2015-10-17 07:48:13 +0000
+Cannot render console from 222.186.56.107! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by HomeController#index as HTML
+  Rendered home/index.html.erb within layouts/application (5.3ms)
+Completed 200 OK in 36ms (Views: 36.1ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/" for 210.209.88.140 at 2015-10-17 08:00:05 +0000
+Cannot render console from 210.209.88.140! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by HomeController#index as HTML
+  Rendered home/index.html.erb within layouts/application (3.1ms)
+Completed 200 OK in 24ms (Views: 23.5ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/" for 210.209.88.140 at 2015-10-17 08:14:47 +0000
+Cannot render console from 210.209.88.140! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by HomeController#index as HTML
+  Rendered home/index.html.erb within layouts/application (3.1ms)
+Completed 200 OK in 23ms (Views: 23.1ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/" for 210.209.88.140 at 2015-10-17 08:29:14 +0000
+Cannot render console from 210.209.88.140! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by HomeController#index as HTML
+  Rendered home/index.html.erb within layouts/application (3.3ms)
+Completed 200 OK in 24ms (Views: 23.5ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/" for 210.209.88.140 at 2015-10-17 08:44:08 +0000
+Cannot render console from 210.209.88.140! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by HomeController#index as HTML
+  Rendered home/index.html.erb within layouts/application (3.3ms)
+Completed 200 OK in 24ms (Views: 23.8ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/" for 73.48.150.116 at 2015-10-19 02:39:24 +0000
+Cannot render console from 73.48.150.116! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by HomeController#index as HTML
+  Rendered home/index.html.erb within layouts/application (2.8ms)
+Completed 200 OK in 31ms (Views: 30.7ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/app.js" for 73.48.150.116 at 2015-10-19 02:39:24 +0000
+Cannot render console from 73.48.150.116! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+
+
+Started GET "/assets/application.self-35f1633322a4646081c8515d225dd9738f17658b7d73de124dd04468c52ae369.css?body=1" for 73.48.150.116 at 2015-10-19 02:39:24 +0000
+Cannot render console from 73.48.150.116! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+
+
+Started GET "/assets/vendor/modernizr.self-74da3245def7569da28115667be6a85a2ad97464abe707c9829c46d8975597bc.js?body=1" for 73.48.150.116 at 2015-10-19 02:39:24 +0000
+Cannot render console from 73.48.150.116! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+
+
+Started GET "/assets/foundation_and_overrides.self-e769e48c38aa6df0e872a69f128919a16c4711a789e7221f70f4e42eb42be9bb.css?body=1" for 73.48.150.116 at 2015-10-19 02:39:24 +0000
+Cannot render console from 73.48.150.116! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+
+
+Started GET "/assets/rocket-9dedca3d66373c8f9b67604e3970f4b2d51ead88493faca008ae796c51f5c1ce.gif" for 73.48.150.116 at 2015-10-19 02:39:24 +0000
+Cannot render console from 73.48.150.116! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+
+
+Started GET "/" for 73.48.150.116 at 2015-10-19 02:39:24 +0000
+Cannot render console from 73.48.150.116! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by HomeController#index as JSON
+Completed 200 OK in 11ms (Views: 0.1ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/" for 62.75.207.109 at 2015-10-20 04:22:14 +0000
+[2015-10-20 04:22:22] ERROR bad Request-Line `\x00\x00\x00TZ\x00\x00\x00\x00\x00\x00\x00\x00\x01\x00\x10\x04\x01.\x05\x00\x00\x00\x00I¨À\x00\f)ƒz»\x01\x00zÚf\x00\x16Ò~U\x05ñ\x1Fi»©\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00ÃÐ¢|¦v½ó\x1EOÑËÜ®Ëd'.
+[2015-10-20 20:08:21] INFO  WEBrick 1.3.1
+[2015-10-20 20:08:21] INFO  ruby 2.2.1 (2015-02-26) [x86_64-linux]
+[2015-10-20 20:08:21] INFO  WEBrick::HTTPServer#start: pid=24438 port=8000
+[2015-10-20 20:08:35] INFO  going to shutdown ...
+[2015-10-20 20:08:36] INFO  WEBrick::HTTPServer#start done.
+=> Booting WEBrick
+=> Rails 4.2.4 application starting in development on http://0.0.0.0:8000
+=> Run `rails server -h` for more startup options
+=> Ctrl-C to shutdown server
+
+
+Started GET "/" for 132.241.216.103 at 2015-10-20 20:08:27 +0000
+Cannot render console from 132.241.216.103! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by HomeController#index as HTML
+  Rendered home/index.html.erb within layouts/application (101.7ms)
+Completed 200 OK in 184ms (Views: 175.7ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/app.js" for 132.241.216.103 at 2015-10-20 20:08:28 +0000
+Cannot render console from 132.241.216.103! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+
+
+Started GET "/assets/foundation_and_overrides.self-e769e48c38aa6df0e872a69f128919a16c4711a789e7221f70f4e42eb42be9bb.css?body=1" for 132.241.216.103 at 2015-10-20 20:08:28 +0000
+Cannot render console from 132.241.216.103! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+
+
+Started GET "/assets/application.self-35f1633322a4646081c8515d225dd9738f17658b7d73de124dd04468c52ae369.css?body=1" for 132.241.216.103 at 2015-10-20 20:08:28 +0000
+Cannot render console from 132.241.216.103! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+
+
+Started GET "/assets/vendor/modernizr.self-74da3245def7569da28115667be6a85a2ad97464abe707c9829c46d8975597bc.js?body=1" for 132.241.216.103 at 2015-10-20 20:08:28 +0000
+Cannot render console from 132.241.216.103! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+
+
+Started GET "/assets/rocket-9dedca3d66373c8f9b67604e3970f4b2d51ead88493faca008ae796c51f5c1ce.gif" for 132.241.216.103 at 2015-10-20 20:08:28 +0000
+Cannot render console from 132.241.216.103! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+
+
+Started GET "/" for 132.241.216.103 at 2015-10-20 20:08:28 +0000
+Cannot render console from 132.241.216.103! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by HomeController#index as JSON
+balls
+Completed 200 OK in 17ms (Views: 0.1ms | ActiveRecord: 0.0ms)
+Exiting
+[2015-10-20 20:09:01] INFO  WEBrick 1.3.1
+[2015-10-20 20:09:01] INFO  ruby 2.2.1 (2015-02-26) [x86_64-linux]
+[2015-10-20 20:09:01] INFO  WEBrick::HTTPServer#start: pid=24450 port=8000

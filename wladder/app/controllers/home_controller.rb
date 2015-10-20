@@ -15,6 +15,7 @@ class HomeController < ApplicationController
           @words['end_word'] = words.sample
         end
         render :json => @words.to_json 
+	puts 'balls'
       }
     end
   end
