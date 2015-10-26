@@ -10,5 +10,19 @@
   <%= @topic.description %>
 </p>
 
+<% @topic.references.each do |r| %>
+ 	<% if !r.new_record? %>
+		<p>
+		  <strong>Url:</strong>
+		  <a href="<%= r.url %>"><%= r.url %></a>
+		  <%= link_to 'edit', edit_reference_path(r) %>
+		  <%= link_to 'destroy', r, method: :delete, data: {confirm: "super cerial?"} %>
+		</p>
+	<% end %>		
+<% end %>
+
+<h3> Create new reference </h3>
+<%= render 'references/form'%>
+
 <%= link_to 'Edit', edit_topic_path(@topic) %> |
 <%= link_to 'Back', topics_path %>

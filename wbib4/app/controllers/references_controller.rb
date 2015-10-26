@@ -10,11 +10,13 @@ class ReferencesController < ApplicationController
   # GET /references/1
   # GET /references/1.json
   def show
+    @topic = @reference.topic
   end
 
   # GET /references/new
   def new
-    @reference = Reference.new
+    @topic = Topic.find params[:topic_id]
+    @reference = @topic.references.new
   end
 
   # GET /references/1/edit
@@ -28,7 +30,7 @@ class ReferencesController < ApplicationController
 
     respond_to do |format|
       if @reference.save
-        format.html { redirect_to @reference, notice: 'Reference was successfully created.' }
+        format.html { redirect_to @reference.topic, notice: 'Reference was successfully created.' }
         format.json { render :show, status: :created, location: @reference }
       else
         format.html { render :new }

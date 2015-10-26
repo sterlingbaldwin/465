@@ -10,6 +10,7 @@ class TopicsController < ApplicationController
   # GET /topics/1
   # GET /topics/1.json
   def show
+    @reference = @topic.references.new
   end
 
   # GET /topics/new

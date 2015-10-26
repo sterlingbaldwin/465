@@ -2,7 +2,7 @@
 
 <p>
   <strong>Url:</strong>
-  <%= @reference.url %>
+  <a href="#{@reference.url}"> <%= @reference.url %></a>
 </p>
 
 <p>
@@ -10,5 +10,4 @@
   <%= @reference.topic %>
 </p>
 
-<%= link_to 'Edit', edit_reference_path(@reference) %> |
-<%= link_to 'Back', references_path %>
+<%= link_to 'Edit', edit_reference_path(@reference) %> 
