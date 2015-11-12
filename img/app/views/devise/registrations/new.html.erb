@@ -9,11 +9,6 @@
   </div>
 
   <div class="field">
-    <%= f.label :name %> <i>(leave blank if you don't want to change it)</i><br />
-    <%= f.username_field :name, autocomplete: "off" %>
-  </div>
-
-  <div class="field">
     <%= f.label :password %>
     <% if @minimum_password_length %>
     <em>(<%= @minimum_password_length %> characters minimum)</em>
@@ -31,4 +26,4 @@
   </div>
 <% end %>
 
-<%= render "users/shared/links" %>
+<%= render "devise/shared/links" %>
