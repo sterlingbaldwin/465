@@ -1,9 +1,9 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  text: MyString
-  image_id: 
+  str: MyString
+  imgage_id: 
 
 two:
-  text: MyString
-  image_id: 
+  str: MyString
+  imgage_id: 

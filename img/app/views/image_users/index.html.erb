@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Image Users</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>User</th>
+      <th>Image</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @image_users.each do |image_user| %>
+      <tr>
+        <td><%= image_user.user %></td>
+        <td><%= image_user.image %></td>
+        <td><%= link_to 'Show', image_user %></td>
+        <td><%= link_to 'Edit', edit_image_user_path(image_user) %></td>
+        <td><%= link_to 'Destroy', image_user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Image user', new_image_user_path %>
