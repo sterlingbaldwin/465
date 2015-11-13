@@ -1,3 +1,3 @@
 class Tag < ActiveRecord::Base
-  belongs_to :imgage
+  belongs_to :image
 end
