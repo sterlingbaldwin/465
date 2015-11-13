@@ -11,7 +11,7 @@ app.controller('ImgCtrl', ['$scope','$http', function($scope, $http){
         'Accept': 'application/json'
       }
     }).success(function(response) {
-      console.log('ajax success');
+      console.log(response);
     });
   }
 }]);
