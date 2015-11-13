@@ -21,6 +21,7 @@ app.controller('ImgCtrl', ['$scope','$http', function($scope, $http){
     })
     .success(function(response) {
       console.log(response);
+      $scope.tags = response.tags;
       // get resonse info and set it for the front end
 
     });

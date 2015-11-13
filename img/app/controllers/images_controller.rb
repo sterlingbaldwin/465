@@ -18,17 +18,22 @@ class ImagesController < ApplicationController
         users = ImageUser.all.map { |e|
           if e.user_id == current_user.id || e.image_id == @image.id
             user = User.find e.user_id
-            return {
+            {
                'name' => user.name,
                'email' => user.email
-             }
+            }
            end
-        }.compact!
+        }.compact!.uniq
         puts 'users:',
         users.each { |e| puts e.inspect }
+
+        puts 'image', @image.inspect
+
+        tags = Tag.where(:image_id => @image.id).map { |e|  e.str }
+
         response = {
-          'shared_users' => '',
-          'tags' => ''
+          'shared_users' => users,
+          'tags' => tags
         }
         render :json => response.to_json
       }

@@ -1,17 +1,17 @@
 <div ng-controller="ImgCtrl">
   <div ng-init="init()">
-    <div style="margin-left:auto;margin-right:auto;display:inline-block;">
+    <div>
       <div>
         <h2 class="large-6 row"> Your Private Images </h2>
         <img ng-repeat="image in private_image_names" class="image small-2" ng-click="img_show(image)" src="/images/{{image.filename}}">
       </div>
       <div>
         <h2 class="large-6 row"> Shared With You </h2>
-        <a href="#" ng-repeat="image in shared_image_names" ><img class="image small-2" ng-click="img_show(image)" src="/images/{{image.filename}}"></a>
+        <img class="image small-2" ng-repeat="image in shared_image_names" ng-click="img_show(image)" src="/images/{{image.filename}}">
       </div>
       <div>
         <h2 class="large-6 row"> Public Images </h2>
-        <a href="#" ng-repeat="image in public_image_names" ><img class="image small-2" ng-click="img_show(image)" src="/images/{{image.filename}}"></a>
+        <img class="image small-2" ng-repeat="image in public_image_names" ng-click="img_show(image)" src="/images/{{image.filename}}">
       </div>
     </div>
 
