@@ -4,9 +4,11 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title><%= content_for?(:title) ? yield(:title) : "foundation-rails" %></title>
-    <script src="/assets/angular.min.js"></script>
+    <title>Social Image</title>
+    <link rel="stylesheet" href="https://code.jquery.com/jquery-2.1.4.min.js">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.3/js/foundation.min.js">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.3/css/foundation.css">
+    <script src="/assets/angular.min.js"></script>
     <script src="/assets/app.js"></script>
 
     <%= stylesheet_link_tag    "application" %>
@@ -44,15 +46,8 @@
     <%= yield %>
 
     <%= javascript_include_tag "application" %>
-    <div id="imgModal" class="reveal-modal" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
-      <img src="images/{{image}}">
-      <ul>
-        <li ng-repeat="tag in tags">
-          <p>{{tag}}</p>
-        </li>
-        <button id="newTagButton" ng-show="user_has_access">New Tag</button>
-      </ul>
-      <a class="close-reveal-modal" aria-label="Close">&#215;</a>
-    </div>
+    <script>
+      $(document).foundation();
+    </script>
   </body>
 </html>

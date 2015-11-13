@@ -7,6 +7,11 @@ app.controller('ImgCtrl', ['$scope','$http', function($scope, $http){
   $scope.img_show = function(image){
     console.log('looking for image ' + image.id);
     var url = "http://localhost:3000/images/" + image.id;
+    $('#imgModal').foundation('reveal','open');
+    $('#imgModalSrc').attr({
+        'src': '/images/' + image.filename
+    });
+
     $http({
       method: 'GET',
       url: url,
@@ -17,7 +22,7 @@ app.controller('ImgCtrl', ['$scope','$http', function($scope, $http){
     .success(function(response) {
       console.log(response);
       // get resonse info and set it for the front end
-      
+
     });
   }
 

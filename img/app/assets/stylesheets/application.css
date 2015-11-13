@@ -33,3 +33,11 @@ h2 {
   border-color: grey;
   margin: 1em 1em 1em 1em;
 }
+
+.image-modal {
+  background-color: #111;
+  border-radius: 1em;
+  border-width: 1px;
+  border-color: grey;
+
+}

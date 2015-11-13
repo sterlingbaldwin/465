@@ -3,7 +3,7 @@
     <div style="margin-left:auto;margin-right:auto;display:inline-block;">
       <div>
         <h2 class="large-6 row"> Your Private Images </h2>
-        <a href="#" ng-repeat="image in private_image_names" ><img class="image small-2" ng-click="img_show(image)" src="/images/{{image.filename}}"></a>
+        <img ng-repeat="image in private_image_names" class="image small-2" ng-click="img_show(image)" src="/images/{{image.filename}}">
       </div>
       <div>
         <h2 class="large-6 row"> Shared With You </h2>
@@ -13,6 +13,17 @@
         <h2 class="large-6 row"> Public Images </h2>
         <a href="#" ng-repeat="image in public_image_names" ><img class="image small-2" ng-click="img_show(image)" src="/images/{{image.filename}}"></a>
       </div>
+    </div>
+
+    <div id="imgModal" class="reveal-modal image-modal" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
+      <img id='imgModalSrc' src="" class="image">
+      <ul>
+        <li ng-repeat="tag in tags">
+          <p>{{tag}}</p>
+        </li>
+        <button id="newTagButton" ng-show="user_has_access">New Tag</button>
+      </ul>
+      <a class="close-reveal-modal" aria-label="Close">&#215;</a>
     </div>
   </div>
 </div>
