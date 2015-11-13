@@ -44,5 +44,15 @@
     <%= yield %>
 
     <%= javascript_include_tag "application" %>
+    <div id="imgModal" class="reveal-modal" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
+      <img src="images/{{image}}">
+      <ul>
+        <li ng-repeat="tag in tags">
+          <p>{{tag}}</p>
+        </li>
+        <button id="newTagButton" ng-show="user_has_access">New Tag</button>
+      </ul>
+      <a class="close-reveal-modal" aria-label="Close">&#215;</a>
+    </div>
   </body>
 </html>

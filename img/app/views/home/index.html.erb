@@ -3,15 +3,15 @@
     <div style="margin-left:auto;margin-right:auto;display:inline-block;">
       <div>
         <h2 class="large-6 row"> Your Private Images </h2>
-        <a href="/images/{{image.id}}" ng-repeat="image in private_image_names" ><img class="image small-2" src="/images/{{image.filename}}"></a>
+        <a href="#" ng-repeat="image in private_image_names" ><img class="image small-2" ng-click="img_show(image)" src="/images/{{image.filename}}"></a>
       </div>
       <div>
         <h2 class="large-6 row"> Shared With You </h2>
-        <a href="/images/{{image.id}}" ng-repeat="image in shared_image_names" ><img class="image small-2" src="/images/{{image.filename}}"></a>
+        <a href="#" ng-repeat="image in shared_image_names" ><img class="image small-2" ng-click="img_show(image)" src="/images/{{image.filename}}"></a>
       </div>
       <div>
         <h2 class="large-6 row"> Public Images </h2>
-        <a href="/images/{{image.id}}" ng-repeat="image in public_image_names" ><img class="image small-2" src="/images/{{image.filename}}"></a>
+        <a href="#" ng-repeat="image in public_image_names" ><img class="image small-2" ng-click="img_show(image)" src="/images/{{image.filename}}"></a>
       </div>
     </div>
   </div>

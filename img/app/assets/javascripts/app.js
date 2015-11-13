@@ -2,6 +2,25 @@ var app = angular.module('app', []);
 
 app.controller('ImgCtrl', ['$scope','$http', function($scope, $http){
 
+  $scope.tags = {};
+
+  $scope.img_show = function(image){
+    console.log('looking for image ' + image.id);
+    var url = "http://localhost:3000/images/" + image.id;
+    $http({
+      method: 'GET',
+      url: url,
+      headers: {
+        'Accept': 'application/json'
+      }
+    })
+    .success(function(response) {
+      console.log(response);
+      // get resonse info and set it for the front end
+      
+    });
+  }
+
   $scope.init = function(){
     console.log('starting init');
     $http({

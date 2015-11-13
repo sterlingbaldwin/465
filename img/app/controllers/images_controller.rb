@@ -10,6 +10,29 @@ class ImagesController < ApplicationController
   # GET /images/1
   # GET /images/1.json
   def show
+    respond_to do |format|
+      format.html
+      format.json {
+        puts 'starting json response for image'
+        puts ImageUser.inspect
+        users = ImageUser.all.map { |e|
+          if e.user_id == current_user.id || e.image_id == @image.id
+            user = User.find e.user_id
+            return {
+               'name' => user.name,
+               'email' => user.email
+             }
+           end
+        }.compact!
+        puts 'users:',
+        users.each { |e| puts e.inspect }
+        response = {
+          'shared_users' => '',
+          'tags' => ''
+        }
+        render :json => response.to_json
+      }
+    end
   end
 
   # GET /images/new
