@@ -20,18 +20,19 @@ class HomeController < ApplicationController
           response.push Image.all.map { |image|
             if !image[:private]
               # the image is public
-              image.filename
+              { "filename" => image.filename, "id" => image.id }
             end
           }.compact!
 
           response.push Image.all.map { |image|
             if image.user == current_user
-              image.filename
+              { "filename" => image.filename, "id" => image.id }
             end
           }.compact!
 
           response.push current_user.image_users.map { |user|
             user.image
+            { "filename" => user.image.filename, "id" => user.id}
           }
 
         end

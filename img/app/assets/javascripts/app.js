@@ -12,6 +12,9 @@ app.controller('ImgCtrl', ['$scope','$http', function($scope, $http){
       }
     }).success(function(response) {
       console.log(response);
+      $scope.public_image_names = response[0];
+      $scope.private_image_names = response[1];
+      $scope.shared_image_names = response[2];
     });
   }
 }]);
