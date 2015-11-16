@@ -39,6 +39,10 @@ GEM
     angular-rails (0.0.12)
       coffee-script (~> 2.2.0)
       rails
+    angular-rails-templates (0.1.4)
+      railties (>= 3.1)
+      sprockets
+      tilt
     arel (6.0.3)
     bcrypt (3.1.10)
     binding_of_caller (0.7.2)
@@ -160,6 +164,7 @@ PLATFORMS
 
 DEPENDENCIES
   angular-rails
+  angular-rails-templates
   byebug
   coffee-rails (~> 4.1.0)
   devise

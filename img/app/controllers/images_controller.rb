@@ -29,12 +29,25 @@ class ImagesController < ApplicationController
 
         puts 'image', @image.inspect
 
-        tags = Tag.where(:image_id => @image.id).map { |e|  e.str }
+        tags = Tag.where(:image_id => @image.id).map { |e|
+          {
+            'str' => e.str,
+            'tag_id' => e.id
+          }
+        }
 
+        owner = 'false'
+        puts @image.user_id, current_user.id
+        puts @image.inspect, current_user.inspect
+        if @image.user_id == current_user.id
+          owner = 'true'
+        end
         response = {
           'shared_users' => users,
-          'tags' => tags
+          'tags' => tags,
+          'owner' => owner
         }
+        puts response
         render :json => response.to_json
       }
     end

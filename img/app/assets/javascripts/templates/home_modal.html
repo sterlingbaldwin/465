@@ -1,0 +1,13 @@
+<div id="imgModal" class="reveal-modal image-modal" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
+  <img id='imgModalSrc' src="" class="image large-6" data-image-id="" style="float:right; margin-right:3em;">
+  <div class="large-2 columns">
+    <h3> Tags </h3>
+    <ul>
+      <li ng-repeat="tag in tags" id="tag_{{tag.tag_id}}">
+        <p id="tag_{{tag.tag_id}}_p">{{tag.str}}<a href="#" class="tag-modify" ng-show="owner == 'true'" ng-click="modify_tag(i, tag.tag_id)" ng-repeat="i in ['edit', 'delete']">{{i}}</a></p>
+      </li>
+      <button id="newTagButton" class="round" ng-show="owner == 'true'" ng-click="new_tag()">New Tag</button>
+    </ul>
+  </div>
+  <a class="close-reveal-modal" aria-label="Close">&#215;</a>
+</div>

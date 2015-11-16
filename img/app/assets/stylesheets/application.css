@@ -27,8 +27,18 @@ h2 {
   color: #F8F8F2 !important;
 }
 
+li p {
+    margin: 0;
+    padding: 0;
+}
+
+.tag_holder {
+  border-radius: 0.5em;
+  border: 1px dashed grey;
+  margin-bottom: 1em;
+}
 .image {
-  border-radius: 1em;
+  border-radius: 1em!important;
   border-width: 1px;
   border-color: grey;
   margin: 1em 1em 1em 1em;
@@ -36,8 +46,23 @@ h2 {
 
 .image-modal {
   background-color: #111;
-  border-radius: 1em;
+  border-radius: 1em!important;
   border-width: 1px;
   border-color: grey;
+}
 
+.image-modal h3 {
+  color: #F8F8F2;
+}
+
+.image-modal li {
+  list-style-type:none;
+}
+
+a.tag-modify {
+  margin-right: 5px;
+}
+
+a {
+  color: #A8A8A2 !important;
 }

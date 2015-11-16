@@ -41,9 +41,11 @@ class TagsController < ApplicationController
   # PATCH/PUT /tags/1.json
   def update
     respond_to do |format|
-      if @tag.update(tag_params)
+      puts @tag.inspect
+      puts Tag.find(@tag.id).inspect
+      if Tag.update(@tag.id, 'str' => params[:text])
         format.html { redirect_to @tag, notice: 'Tag was successfully updated.' }
-        format.json { render :show, status: :ok, location: @tag }
+        format.json { render json: {'success' => 'true'} , status: :ok }
       else
         format.html { render :edit }
         format.json { render json: @tag.errors, status: :unprocessable_entity }
