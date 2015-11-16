@@ -42,6 +42,11 @@ li p {
   border-width: 1px;
   border-color: grey;
   margin: 1em 1em 1em 1em;
+  display:inline-block;
+}
+
+.image-holder {
+  margin-left: 10em;
 }
 
 .image-modal {
@@ -57,10 +62,6 @@ li p {
 
 .image-modal li {
   list-style-type:none;
-}
-
-a.tag-modify {
-  margin-right: 5px;
 }
 
 a {

@@ -1,10 +1,19 @@
 <div ng-controller="ImgCtrl">
   <div ng-init="init()">
-    <div>
-      <div ng-repeat="key in get_types()">
+    <div class="image-holder">
+      <div ng-repeat="key in get_types()" ng-show="is_logged_in()">
         <h2 class="large-6 row">{{key}}</h2>
-        <img ng-repeat="image in get_img_vals(key)" class="image small-2" ng-click="img_show(image)" src="/images/{{image.filename}}">
-        <p> {{image.user}} </p>
+        <div class="large-3 image" ng-repeat="image in get_img_vals(key)">
+          <img class="image" ng-click="img_show(image)" src="/images/{{image.filename}}">
+          <p style="text-align:center;" ng-show="key != 'Your Private Images'">{{image.user}}</p>
+        </div>
+      </div>
+      <div class="" ng-show="!is_logged_in()">
+        <h2 class="large-6 row">Public Images</h2>
+        <div class="large-3 image" ng-repeat="image in get_img_vals('Public Images')">
+          <img class="image" ng-click="img_show(image)" src="/images/{{image.filename}}">
+          <p style="text-align:center;"> {{image.user}} </p>
+        </div>
       </div>
     </div>
 
@@ -25,9 +34,30 @@
             </div>
           </li>
           </li>
-            <button id="newTagButton" class="round" ng-show="owner == 'true'" ng-click="new_tag()">New Tag</button>
+            <button id="newTagButton" class="round" ng-show="owner == 'true'" ng-click="new_tag = true">New Tag</button>
+            <div id="tag-new" ng-show="new_tag">
+              <input id="new-tag-input" type="text" value="">
+              <button class="success round" ng-click="new_tag_submit()">Submit</button>
+            </div>
           </li>
         </ul>
+      </div>
+      <div class="large-2 row columns" ng-show="owner == 'true'">
+        <h3> Shared Users </h3>
+        <ul>
+          <li ng-repeat="user in get_users()">
+            <p>
+              {{user.name}} - {{user.email}}
+            </p>
+            <a class="small-3" href="#" ng-show="owner == 'true'" ng-click="remove_user(user)">
+              remove
+            </a>
+          </li>
+        </ul>
+        <select class="medium">
+          <option ng-repeat="user in unallowed_users" value="user">{{user.name}}</option>
+        </select>
+        <button class="round" ng-click="add_user(user)">Add User</button>
       </div>
       <a class="close-reveal-modal" aria-label="Close">&#215;</a>
     </div>

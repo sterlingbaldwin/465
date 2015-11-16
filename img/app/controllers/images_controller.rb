@@ -13,22 +13,33 @@ class ImagesController < ApplicationController
     respond_to do |format|
       format.html
       format.json {
+        puts params
         puts 'starting json response for image'
-        puts ImageUser.inspect
-        users = ImageUser.all.map { |e|
-          if e.user_id == current_user.id || e.image_id == @image.id
-            user = User.find e.user_id
-            {
-               'name' => user.name,
-               'email' => user.email
-            }
-           end
-        }.compact!.uniq
-        puts 'users:',
-        users.each { |e| puts e.inspect }
+        puts @image.inspect
+        # return all users allowed access
+        allowed_users = @image.image_users.map { |e|
+          e.user
+        }
+        if !allowed_users
+          allowed_users = Array.new
+        end
+        # allowed_users = ImageUser.where(:image_id => @image.id).map { |e|
+        #   puts 'adding user to shared list', e.inspect, current_user.inspect
+        #   user = User.find e.user_id
+        #   {
+        #      'name' => user.name,
+        #      'email' => user.email
+        #   }
+        # }.compact!
+        unallowed_users = User.all - allowed_users
+        if user_signed_in?
+          unallowed_users.delete_if do |x|
+            x[:id] == current_user[:id]
+          end
+        end
 
         puts 'image', @image.inspect
-
+        # return all tags on the image
         tags = Tag.where(:image_id => @image.id).map { |e|
           {
             'str' => e.str,
@@ -37,16 +48,20 @@ class ImagesController < ApplicationController
         }
 
         owner = 'false'
-        puts @image.user_id, current_user.id
-        puts @image.inspect, current_user.inspect
-        if @image.user_id == current_user.id
+        puts current_user.inspect
+
+        # return if the user owns the image
+        if user_signed_in? && @image.user_id == current_user.id
           owner = 'true'
         end
+        puts 'Allowed users', allowed_users.inspect
         response = {
-          'shared_users' => users,
+          'shared_users' => allowed_users,
           'tags' => tags,
-          'owner' => owner
+          'owner' => owner,
+          'unallowed_users' => unallowed_users
         }
+
         puts response
         render :json => response.to_json
       }

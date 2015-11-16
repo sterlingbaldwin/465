@@ -2,15 +2,24 @@ var app = angular.module('app', []);
 
 app.controller('ImgCtrl', ['$scope','$http', function($scope, $http){
 
+  $scope.loggedin = false;
   $scope.tags = {};
+  $scope.users = {};
   $scope.tag_modify_id = 0;
+  $scope.unallowed_users = {};
   $scope.image_types = {
       'Your Private Images': '',
       'Your Shared Images': '',
       'Public Images': ''
   }
 
+  $scope.get_users = function() {
+    //console.log('returning users:' + $scope.users);
+    return $scope.users;
+  }
+
   $scope.get_img_vals = function(key){
+    console.log($scope.image_types[key])
     return $scope.image_types[key];
   }
 
@@ -68,8 +77,6 @@ app.controller('ImgCtrl', ['$scope','$http', function($scope, $http){
         'src': '/images/' + image.filename,
         'data-image-id': image.id
     });
-
-
     $http({
       method: 'GET',
       url: url,
@@ -78,13 +85,35 @@ app.controller('ImgCtrl', ['$scope','$http', function($scope, $http){
       }
     })
     .success(function(response) {
-      console.log(response);
       $scope.tags = response.tags;
       $scope.owner = response.owner;
-      // get resonse info and set it for the front end
-
+      $scope.users = response.shared_users;
+      $scope.unallowed_users = response.unallowed_users;
+      // get response info and set it for the front end
     });
   }
+
+  $scope.is_logged_in = function(){
+    console.log('loggedin:' + $scope.loggedin);
+    return $scope.loggedin;
+  }
+
+  $scope.new_tag_submit = function(){
+    var image_id = $('#imgModalSrc').attr('data-image-id');
+    var url = 'http://localhost:3000/images/' + image_id;
+    var data = $('#new-tag-input').value();
+    $http({
+      url: url,
+      data: data,
+      method: 'PATCH',
+      headers: {
+        'Accept': 'application/json'
+      }
+    }).success(function(response){
+      console.log(response);
+    });
+  }
+
 
   $scope.init = function(){
     console.log('starting init');
@@ -98,6 +127,11 @@ app.controller('ImgCtrl', ['$scope','$http', function($scope, $http){
       $scope.image_types['Your Private Images'] = response['user_owned'];
       $scope.image_types['Your Shared Images'] = response['shared'];
       $scope.image_types['Public Images'] = response['public'];
+      if(response['logged_in'] == 'true'){
+        console.log('logged in');
+        $scope.loggedin = response['logged_in'];
+      }
+      console.log(response);
     });
   }
 }]);

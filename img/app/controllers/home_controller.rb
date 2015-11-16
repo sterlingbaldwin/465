@@ -2,25 +2,33 @@ class HomeController < ApplicationController
 
   def index
     respond_to do |format|
-      format.html
-      format.json {
+      format.html {
 
+      }
+      format.json {
+        response = {
+          'logged_in' => 'false',
+          'user_owned' => '',
+          'shared' => '',
+          'public' => ''
+        }
+        puts 'is the user signed in?', user_signed_in?
         if !user_signed_in?
           # user is not signed in
-          response = Image.all.map { |image|
+          puts 'not logged in'
+          response['public'] = Image.all.map { |image|
             if !image[:private]
               # the image is public
-              image.filename
+              {
+                "filename" => image.filename,
+                "id" => image.id,
+                "user" => User.find(image.user_id).name
+              }
             end
           }.compact!
-
         else
           # the user is signed in
-          response = {
-            'user_owned' => '',
-            'shared' => '',
-            'public' => ''
-          }
+          response['logged_in'] = 'true'
           response['public'] = Image.all.map { |image|
             if !image[:private]
               # the image is public
@@ -35,7 +43,6 @@ class HomeController < ApplicationController
           response['user_owned'] = Image.all.map { |image|
             # the image belongs to the current user
             if image.user_id == current_user.id
-              puts 'DEBUG 2:', image.inspect
               {
                 "filename" => image.filename,
                 "id" => image.id,
@@ -53,7 +60,7 @@ class HomeController < ApplicationController
           }
 
         end
-
+        puts 'sending response', response.to_json
         render :json => response.to_json
       }
     end
