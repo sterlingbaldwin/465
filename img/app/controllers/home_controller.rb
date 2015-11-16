@@ -29,10 +29,16 @@ class HomeController < ApplicationController
         else
           # the user is signed in
           response['logged_in'] = 'true'
-          response['user_public'] = Image.where(:private => false, :user_id => current_user[:id])
+          response['user_public'] = Image.where(:private => false, :user_id => current_user[:id]).map { |e|
+            {
+              "filename" => e.filename,
+              "id" => e.id,
+              "user" => User.find(e.user_id).name
+            }
+          }
           response['public'] = Image.all.map { |image|
             if !image[:private] && image[:user_id] != current_user[:id]
-              # the image is public
+              # the image is public and owned by someone else
               {
                 "filename" => image.filename,
                 "id" => image.id,
@@ -51,16 +57,16 @@ class HomeController < ApplicationController
             end
           }.compact!
 
-          response['shared'] = current_user.image_users.map { |user|
+          response['shared'] = current_user.image_users.map { |image|
              {
-               "filename" => user.image.filename,
-               "id" => user.id,
-               'user' => Image.find(user.user_id)['name']
+               "filename" => image.image.filename,
+               "id" => image.id,
+               'user' => User.find(Image.find(image.image_id).user_id).name
              }
           }
 
         end
-        puts 'sending response', response.to_json
+        #puts 'sending response', response.to_json
         render :json => response.to_json
       }
     end
