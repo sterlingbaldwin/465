@@ -1,5 +1,6 @@
 class TagsController < ApplicationController
-  before_action :set_tag, only: [:show, :edit, :update, :destroy]
+  before_action :set_tag, only: [:show, :edit, :destroy]
+  before_action :verify_request_type, only: [:update]
 
   # GET /tags
   # GET /tags.json
@@ -25,7 +26,6 @@ class TagsController < ApplicationController
   # POST /tags.json
   def create
     @tag = Tag.new(tag_params)
-
     respond_to do |format|
       if @tag.save
         format.html { redirect_to @tag, notice: 'Tag was successfully created.' }
@@ -40,15 +40,24 @@ class TagsController < ApplicationController
   # PATCH/PUT /tags/1
   # PATCH/PUT /tags/1.json
   def update
-    respond_to do |format|
-      puts @tag.inspect
-      puts Tag.find(@tag.id).inspect
-      if Tag.update(@tag.id, 'str' => params[:text])
-        format.html { redirect_to @tag, notice: 'Tag was successfully updated.' }
-        format.json { render json: {'success' => 'true'} , status: :ok }
-      else
-        format.html { render :edit }
-        format.json { render json: @tag.errors, status: :unprocessable_entity }
+    if request.method_symbol == :patch
+      @tag = Tag.new
+      @tag[:image_id] = params[:image_id]
+      @tag[:str] = params[:str]
+      @tag.save
+      render json:{'tag_id' => @tag[:id]} 
+    else
+      respond_to do |format|
+        @tag = Tag.find(params[:id])
+        puts @tag.inspect
+        puts Tag.find(@tag.id).inspect
+        if Tag.update(@tag.id, 'str' => params[:text])
+          format.html { redirect_to @tag, notice: 'Tag was successfully updated.' }
+          format.json { render json: {'success' => 'true'} , status: :ok }
+        else
+          format.html { render :edit }
+          format.json { render json: @tag.errors, status: :unprocessable_entity }
+        end
       end
     end
   end
@@ -58,7 +67,7 @@ class TagsController < ApplicationController
   def destroy
     @tag.destroy
     respond_to do |format|
-      format.html { redirect_to tags_url, notice: 'Tag was successfully destroyed.' }
+      format.html { head :no_content }
       format.json { head :no_content }
     end
   end
@@ -72,5 +81,15 @@ class TagsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def tag_params
       params.require(:tag).permit(:str, :image_id)
+    end
+
+    def verify_request_type
+      unless allowed_methods.include?(request.method_symbol)
+        head :method_not_allowed # 405
+      end
+    end
+
+    def allowed_methods
+      %i(get post patch options)
     end
 end

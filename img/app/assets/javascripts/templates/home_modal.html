@@ -1,13 +1,43 @@
 <div id="imgModal" class="reveal-modal image-modal" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
   <img id='imgModalSrc' src="" class="image large-6" data-image-id="" style="float:right; margin-right:3em;">
-  <div class="large-2 columns">
+  <div class="large-3 columns">
     <h3> Tags </h3>
     <ul>
-      <li ng-repeat="tag in tags" id="tag_{{tag.tag_id}}">
-        <p id="tag_{{tag.tag_id}}_p">{{tag.str}}<a href="#" class="tag-modify" ng-show="owner == 'true'" ng-click="modify_tag(i, tag.tag_id)" ng-repeat="i in ['edit', 'delete']">{{i}}</a></p>
+      <li ng-repeat="tag in tags" id="tag_{{tag.tag_id}}" class="row tag_holder">
+        <p class="small-3" id="tag_{{tag.tag_id}}_p"> {{tag.str}} </p>
+        <a class="small-3" href="#" class="tag-modify" ng-show="owner == 'true'" ng-click="modify_tag(i, tag.tag_id)" ng-repeat="i in ['edit', 'delete']">
+          {{i}}
+        </a>
+        <div id="tag-edit-div" ng-show="tag_modify_id == tag.tag_id">
+          <input id="edit-tag-input" type="text" value="{{tag.str}}">
+          <button class="success round" ng-click="submit_edit(tag.tag_id)">Submit</button>
+        </div>
       </li>
-      <button id="newTagButton" class="round" ng-show="owner == 'true'" ng-click="new_tag()">New Tag</button>
+      </li>
+        <button id="newTagButton" class="round" ng-show="owner == 'true'" ng-click="new_tag = true">New Tag</button>
+        <div id="tag-new" ng-show="new_tag">
+          <input id="new-tag-input" type="text" value="">
+          <button class="success round" ng-click="new_tag_submit()">Submit</button>
+        </div>
+      </li>
     </ul>
+  </div>
+  <div class="large-2 row columns" ng-show="owner == 'true'">
+    <h3> Shared Users </h3>
+    <ul>
+      <li ng-repeat="user in get_users()">
+        <p>
+          {{user.name}} - {{user.email}}
+        </p>
+        <a class="small-3" href="#" ng-show="owner == 'true'" ng-click="remove_user(user)">
+          remove
+        </a>
+      </li>
+    </ul>
+    <select class="medium">
+      <option ng-repeat="user in unallowed_users" value="user">{{user.name}}</option>
+    </select>
+    <button class="round" ng-click="add_user(user)">Add User</button>
   </div>
   <a class="close-reveal-modal" aria-label="Close">&#215;</a>
 </div>

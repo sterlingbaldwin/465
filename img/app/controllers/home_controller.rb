@@ -29,8 +29,9 @@ class HomeController < ApplicationController
         else
           # the user is signed in
           response['logged_in'] = 'true'
+          response['user_public'] = Image.where(:private => false, :user_id => current_user[:id])
           response['public'] = Image.all.map { |image|
-            if !image[:private]
+            if !image[:private] && image[:user_id] != current_user[:id]
               # the image is public
               {
                 "filename" => image.filename,
@@ -39,10 +40,9 @@ class HomeController < ApplicationController
               }
             end
           }.compact!
-
           response['user_owned'] = Image.all.map { |image|
             # the image belongs to the current user
-            if image.user_id == current_user.id
+            if image.user_id == current_user.id && image.private
               {
                 "filename" => image.filename,
                 "id" => image.id,

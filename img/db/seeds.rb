@@ -1,6 +1,6 @@
 # WARNING: these seeds assume you have edited the devise config to allow for single letter passwords
 #
-# 
+#
 # uses this dictionary to generate random tags
 load "#{Rails.root}/db/words.rb"
 
@@ -270,7 +270,7 @@ images.each do |image|
       ImageUser.create(user_id: user_id, image_id: image.id)
     end
   end
-  
+
   # create tags
   for i in 0..rand(4)
     random_tag_string = gen_tag

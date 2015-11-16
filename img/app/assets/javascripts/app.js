@@ -9,6 +9,7 @@ app.controller('ImgCtrl', ['$scope','$http', function($scope, $http){
   $scope.unallowed_users = {};
   $scope.image_types = {
       'Your Private Images': '',
+      'Your Public Images': '',
       'Your Shared Images': '',
       'Public Images': ''
   }
@@ -18,8 +19,13 @@ app.controller('ImgCtrl', ['$scope','$http', function($scope, $http){
     return $scope.users;
   }
 
+  $scope.add_user = function(user){
+    console.log(user);
+    var image_id = $('#imgModalSrc').attr('data-image-id');
+  }
+
   $scope.get_img_vals = function(key){
-    console.log($scope.image_types[key])
+    //console.log($scope.image_types[key])
     return $scope.image_types[key];
   }
 
@@ -29,21 +35,25 @@ app.controller('ImgCtrl', ['$scope','$http', function($scope, $http){
 
   $scope.modify_tag = function(mode, tag_id){
     var image_id = $('#imgModalSrc').attr('data-image-id');
-    console.log('mode:' + mode + ' tag_id:' + tag_id + ' image_id:' + image_id);
+    //console.log('mode:' + mode + ' tag_id:' + tag_id + ' image_id:' + image_id);
     if(mode == 'delete'){
       $http({
         method: 'DELETE',
-        url: '/tags/' + tag_id
+        url: '/tags/' + tag_id,
+        headers: {
+          'Accept': 'application/json'
+        }
       })
       .success(function(){
         $('#tag_' + tag_id).remove();
+        $scope.tags.splice($scope.tags.indexOf({'tag_id': tag_id}), 1);
       });
     } else {
-      console.log('tag_id: ' + tag_id);
+      //console.log('tag_id: ' + tag_id);
       var tag = $.grep($scope.tags, function(e){
         return e.tag_id == tag_id
       });
-      console.log(tag[0]);
+      //console.log(tag[0]);
       $scope.tag_modify_id = tag[0].tag_id
     }
   };
@@ -52,7 +62,7 @@ app.controller('ImgCtrl', ['$scope','$http', function($scope, $http){
     var data = {
         'text': $('#edit-tag-input').val()
     }
-    console.log('in submit edit with tag_id:' + tag_id + "\nwith input:" + $('#edit-tag-input').val());
+    //console.log('in submit edit with tag_id:' + tag_id + "\nwith input:" + $('#edit-tag-input').val());
     $('#tag_' + tag_id + '_p').text(data['text']);
     $http({
       method: 'PUT',
@@ -63,15 +73,15 @@ app.controller('ImgCtrl', ['$scope','$http', function($scope, $http){
       }
     })
     .success(function(response){
-      console.log('success');
+      //console.log('success');
       $('#tag-edit-div').hide();
       $scope.tag_modify_id = 0;
     });
   }
 
   $scope.img_show = function(image){
-    console.log('looking for image ' + image.id);
-    var url = "http://localhost:3000/images/" + image.id;
+    //console.log('looking for image ' + image.id);
+    var url = "/images/" + image.id;
     $('#imgModal').foundation('reveal','open');
     $('#imgModalSrc').attr({
         'src': '/images/' + image.filename,
@@ -94,23 +104,29 @@ app.controller('ImgCtrl', ['$scope','$http', function($scope, $http){
   }
 
   $scope.is_logged_in = function(){
-    console.log('loggedin:' + $scope.loggedin);
+    //console.log('loggedin:' + $scope.loggedin);
     return $scope.loggedin;
   }
 
   $scope.new_tag_submit = function(){
     var image_id = $('#imgModalSrc').attr('data-image-id');
-    var url = 'http://localhost:3000/images/' + image_id;
-    var data = $('#new-tag-input').value();
+    var data = {
+      'str': $('#new-tag-input').val(),
+      'image_id': image_id
+    }
+    var url = '/tags/1';
+    //console.log('new tag submit image_id:' + image_id + ' data:' + data + ' url:' + url);
     $http({
       url: url,
-      data: data,
       method: 'PATCH',
-      headers: {
-        'Accept': 'application/json'
-      }
+      data: data,
     }).success(function(response){
       console.log(response);
+      $scope.new_tag = false;
+      $scope.tags.push({
+        'str': $('#new-tag-input').val(),
+        'tag_id': response
+      })
     });
   }
 
@@ -127,11 +143,12 @@ app.controller('ImgCtrl', ['$scope','$http', function($scope, $http){
       $scope.image_types['Your Private Images'] = response['user_owned'];
       $scope.image_types['Your Shared Images'] = response['shared'];
       $scope.image_types['Public Images'] = response['public'];
+      $scope.image_types['Your Public Images'] = response['user_public'];
       if(response['logged_in'] == 'true'){
         console.log('logged in');
         $scope.loggedin = response['logged_in'];
       }
-      console.log(response);
+      //console.log(response);
     });
   }
 }]);
