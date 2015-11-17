@@ -183,7 +183,7 @@ app.controller('ImgCtrl', ['$scope','$http', function($scope, $http){
     console.log('starting init');
     $http({
       method: 'GET',
-      url: "http://localhost:3000",
+      url: "http://baldwin.codes:8001",
       headers: {
         'Accept': 'application/json'
       }
