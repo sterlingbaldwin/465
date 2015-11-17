@@ -80,13 +80,13 @@ class ImagesController < ApplicationController
   # POST /images
   def create
     @image = Image.new(image_params)
-    @image.generate_filename  # a function you write to generate a random filename and put it in the images "filename" variable
+    @image.filename = ""; 8.times{@image.filename  << (65 + rand(25)).chr}
     @image.user = current_user
-
-    @uploaded_io = params[:image][:uploaded_file]
-
+    puts 'User is uploading an Image'
+    uploaded_io = params[:image][:uploaded_file]
+    puts uploaded_io.inspect
     File.open(Rails.root.join('public', 'images', @image.filename), 'wb') do |file|
-        file.write(@uploaded_io.read)
+        file.write(uploaded_io.read)
     end
 
     if @image.save
@@ -128,6 +128,6 @@ class ImagesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def image_params
-      params.require(:image).permit(:filename, :private, :user_id)
+      #params.require(:image).permit(:filename, :private, :user_id)
     end
 end

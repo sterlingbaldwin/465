@@ -2,9 +2,7 @@ class HomeController < ApplicationController
 
   def index
     respond_to do |format|
-      format.html {
-
-      }
+      format.html
       format.json {
         response = {
           'logged_in' => 'false',
@@ -42,7 +40,7 @@ class HomeController < ApplicationController
               {
                 "filename" => image.filename,
                 "id" => image.id,
-                'user' => User.find(image.user_id).name
+                "user" => User.find(image.user_id).name
               }
             end
           }.compact!
@@ -52,7 +50,7 @@ class HomeController < ApplicationController
               {
                 "filename" => image.filename,
                 "id" => image.id,
-                'user' => User.find(image.user_id).name
+                "user" => User.find(image.user_id).name
               }
             end
           }.compact!
@@ -61,10 +59,9 @@ class HomeController < ApplicationController
              {
                "filename" => image.image.filename,
                "id" => image.id,
-               'user' => User.find(Image.find(image.image_id).user_id).name
+               "user" => User.find(Image.find(image.image_id).user_id).name
              }
           }
-
         end
         #puts 'sending response', response.to_json
         render :json => response.to_json

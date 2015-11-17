@@ -1,11 +1,11 @@
-<div ng-controller="ImgCtrl">
+<div>
   <div ng-init="init()">
     <div class="image-holder">
       <div ng-repeat="key in get_types()" ng-show="is_logged_in()">
         <h2 class="large-6 row">{{key}}</h2>
         <div class="large-3 image" ng-repeat="image in get_img_vals(key)">
           <img class="image" ng-click="img_show(image)" src="/images/{{image.filename}}">
-          <p style="text-align:center;" ng-show="key != 'Your Private Images'">{{image.user}}</p>
+          <p style="text-align:center;" ng-show="key != 'Your Private Images' && key != 'Your Public Images'">{{image.user}}</p>
         </div>
       </div>
       <div class="" ng-show="!is_logged_in()">
@@ -17,6 +17,14 @@
       </div>
     </div>
 
+
+    <div id="uploadModal" class="reveal-modal" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
+      <%= form_tag({controller: 'images', action: 'create'}, remote: true, :html => {:multipart => true}) do %>
+        <%= hidden_field_tag :image, @image_id %>
+        <%= file_field_tag :uploaded_file %>
+        <%= submit_tag "Save", class: "button success" %>
+      <% end %>
+    </div>
     <!-- <ng-include src="templates/home_modal.html"></ng-include> -->
     <div id="imgModal" class="reveal-modal image-modal" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
       <img id='imgModalSrc' src="" class="image large-6" data-image-id="" style="float:right; margin-right:3em;">

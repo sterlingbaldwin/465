@@ -121,13 +121,18 @@ app.controller('ImgCtrl', ['$scope','$http', function($scope, $http){
       method: 'PATCH',
       data: data,
     }).success(function(response){
-      console.log(response);
+      //console.log(response);
       $scope.new_tag = false;
       $scope.tags.push({
         'str': $('#new-tag-input').val(),
         'tag_id': response
       })
     });
+  }
+
+  $scope.upload_modal = function(){
+    console.log('opening up the upload modal');
+    $('#uploadModal').foundation('reveal','open');
   }
 
 
