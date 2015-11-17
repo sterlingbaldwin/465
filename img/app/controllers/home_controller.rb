@@ -1,6 +1,7 @@
 class HomeController < ApplicationController
 
   def index
+    response.headers["X-FRAME-OPTIONS"] = "ALLOW-FROM http://baldwin.codes"
     respond_to do |format|
       format.html
       format.json {
