@@ -1,5 +1,5 @@
 class ImageUsersController < ApplicationController
-  before_action :set_image_user, only: [:show, :edit, :update, :destroy]
+  before_action :set_image_user, only: [:show, :edit]
 
   # GET /image_users
   # GET /image_users.json
@@ -40,14 +40,15 @@ class ImageUsersController < ApplicationController
   # PATCH/PUT /image_users/1
   # PATCH/PUT /image_users/1.json
   def update
+    puts params
+    @image_user = ImageUser.where(:user_id => params[:user_id], :image_id => params[:image_id]).map { |e|
+      puts e.inspect
+      e.destroy
+    }
     respond_to do |format|
-      if @image_user.update(image_user_params)
-        format.html { redirect_to @image_user, notice: 'Image user was successfully updated.' }
-        format.json { render :show, status: :ok, location: @image_user }
-      else
-        format.html { render :edit }
-        format.json { render json: @image_user.errors, status: :unprocessable_entity }
-      end
+      format.json {
+        puts params
+        head :no_content }
     end
   end
 
@@ -57,7 +58,9 @@ class ImageUsersController < ApplicationController
     @image_user.destroy
     respond_to do |format|
       format.html { redirect_to image_users_url, notice: 'Image user was successfully destroyed.' }
-      format.json { head :no_content }
+      format.json {
+        puts params
+        head :no_content }
     end
   end
 

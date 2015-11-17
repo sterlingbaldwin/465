@@ -74,7 +74,7 @@ app.controller('ImgCtrl', ['$scope','$http', function($scope, $http){
     })
     .success(function(response){
       //console.log('success');
-      $('#tag-edit-div').hide();
+      $('#tag-edit-div').fadeOut();
       $scope.tag_modify_id = 0;
     });
   }
@@ -133,6 +133,28 @@ app.controller('ImgCtrl', ['$scope','$http', function($scope, $http){
   $scope.upload_modal = function(){
     console.log('opening up the upload modal');
     $('#uploadModal').foundation('reveal','open');
+  }
+
+  $scope.remove_user = function(user){
+    console.log('user');
+    console.log(user);
+    var data = {
+        'image_id': $('#imgModalSrc').attr('data-image-id'),
+        'user_id': user.id
+    }
+    $http({
+      url: '/image_users/' + user.id,
+      method: 'PATCH',
+      data: data,
+      headers: {
+        'Accept': 'application/json'
+      }
+    })
+    .success(function(response){
+      console.log('response');
+      console.log(response);
+      $('#user_'  + user.id).fadeOut();
+    });
   }
 
 
