@@ -19,9 +19,30 @@ app.controller('ImgCtrl', ['$scope','$http', function($scope, $http){
     return $scope.users;
   }
 
-  $scope.add_user = function(user){
-    console.log(user);
+  $scope.add_user = function(){
+    console.log($('#user-selector').val());
     var image_id = $('#imgModalSrc').attr('data-image-id');
+    var url = '/images/' + image_id + '/image_users';
+    var data = {
+      'image_id': image_id,
+      'user_id': $('#user-selector').val()
+    }
+    $http({
+      url: url,
+      method: 'POST',
+      data: data,
+      headers: {
+        'Accept': 'application/json'
+      }
+    })
+    .success(function(response){
+      console.log('got a response for the new user request');
+      console.log($scope.users);
+      $scope.users.push({
+        'id': $('#user-selector').val(),
+        'name': $('#user-selector option:selected').text()
+      })
+    });
   }
 
   $scope.get_img_vals = function(key){

@@ -25,13 +25,16 @@ class ImageUsersController < ApplicationController
   # POST /image_users.json
   def create
     @image_user = ImageUser.new(image_user_params)
-
+    @image_user.user_id = params[:user_id]
+    @image_user.image_id = params[:image_id]
+    puts 'CREATING NEW IMAGEUSER', @image_user.inspect
     respond_to do |format|
       if @image_user.save
-        format.html { redirect_to @image_user, notice: 'Image user was successfully created.' }
-        format.json { render :show, status: :created, location: @image_user }
+        format.json {
+          puts @image_user.inspect
+          head :no_content
+        }
       else
-        format.html { render :new }
         format.json { render json: @image_user.errors, status: :unprocessable_entity }
       end
     end

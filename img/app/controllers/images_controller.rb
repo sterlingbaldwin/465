@@ -18,19 +18,12 @@ class ImagesController < ApplicationController
         puts @image.inspect
         # return all users allowed access
         allowed_users = @image.image_users.map { |e|
+          puts e.inspect
           e.user
         }
         if !allowed_users
           allowed_users = Array.new
         end
-        # allowed_users = ImageUser.where(:image_id => @image.id).map { |e|
-        #   puts 'adding user to shared list', e.inspect, current_user.inspect
-        #   user = User.find e.user_id
-        #   {
-        #      'name' => user.name,
-        #      'email' => user.email
-        #   }
-        # }.compact!
         unallowed_users = User.all - allowed_users
         if user_signed_in?
           unallowed_users.delete_if do |x|
@@ -62,7 +55,7 @@ class ImagesController < ApplicationController
           'unallowed_users' => unallowed_users
         }
 
-        puts response
+        #puts response
         render :json => response.to_json
       }
     end

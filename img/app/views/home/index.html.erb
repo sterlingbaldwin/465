@@ -62,10 +62,10 @@
             </a>
           </li>
         </ul>
-        <select class="medium">
-          <option ng-repeat="user in unallowed_users" value="user">{{user.name}}</option>
+        <select class="medium" id="user-selector">
+          <option ng-repeat="user in unallowed_users" value="{{user.id}}">{{user.name}}</option>
         </select>
-        <button class="round" ng-click="add_user(user)">Add User</button>
+        <button class="round" ng-click="add_user()">Add User</button>
       </div>
       <a class="close-reveal-modal" aria-label="Close">&#215;</a>
     </div>
