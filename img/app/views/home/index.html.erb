@@ -22,7 +22,9 @@
       <%= form_tag({controller: 'images', action: 'create'}, remote: true, :html => {:multipart => true}) do %>
         <%= hidden_field_tag :image, @image_id %>
         <%= file_field_tag :uploaded_file %>
-        <%= submit_tag "Save", class: "button success" %>
+        <%= check_box_tag :private%>
+        <%= label_tag :private, 'Private', {:class => "checkbox inline"} %>
+        <%= button_tag 'Save', class: "round success" %>
       <% end %>
     </div>
     <!-- <ng-include src="templates/home_modal.html"></ng-include> -->
