@@ -17,16 +17,15 @@
       </div>
     </div>
 
-
     <div id="uploadModal" class="reveal-modal image-modal" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
-      <%= form_tag({controller: 'images', action: 'create'}, remote: true, :html => {:multipart => true}) do %>
-        <%= hidden_field_tag :image, @image_id %>
-        <%= file_field_tag :uploaded_file %>
-        <%= check_box_tag :private%>
-        <%= label_tag :private, 'Private', {:class => "checkbox inline"} %>
-        <%= button_tag 'Save', class: "round success" %>
+      <%= form_for(@new_image, controller: 'images', action: 'create', remote: true, :html => {:multipart => true}) do |f| %>
+        <%= f.check_box :private %>
+	<%= f.label :private, 'Private', {:class => "checkbox inline"} %>
+        <%= f.file_field :uploaded_file %>
+        <%= f.submit "Save", class: "button success" %>
       <% end %>
     </div>
+
     <!-- <ng-include src="templates/home_modal.html"></ng-include> -->
     <div id="imgModal" class="reveal-modal image-modal" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
       <img id='imgModalSrc' src="" class="image large-6" data-image-id="" style="float:right; margin-right:3em;">

@@ -1,6 +1,7 @@
 class HomeController < ApplicationController
 
   def index
+    @new_image = Image.new
     response.headers["X-FRAME-OPTIONS"] = "ALLOW-FROM http://baldwin.codes"
     respond_to do |format|
       format.html
