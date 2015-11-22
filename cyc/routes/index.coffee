@@ -3,7 +3,7 @@ router = express.Router()
 
 # GET home page.
 router.get '/', (req, res, next) ->
-  res.render 'index', { title: 'CYC' }
+  res.render 'index', title: 'CYC'
 
 
 module.exports = router;

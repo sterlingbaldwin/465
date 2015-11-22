@@ -1,9 +1,11 @@
 {
   "name": "cyc",
   "version": "0.0.0",
+  "description": "Web infrastructure for the Chico Youth Court",
+  "author": "Sterling Baldwin, Nov 22 2015",
   "private": true,
   "scripts": {
-    "start": "(coffee -wc */*.coffee &); node ./bin/www"
+    "start": "(coffee -wc **/*.coffee &); node ./bin/www"
   },
   "dependencies": {
     "body-parser": "~1.13.2",
