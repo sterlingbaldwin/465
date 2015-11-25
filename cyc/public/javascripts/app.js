@@ -3,8 +3,29 @@
   var cyc;
 
   cyc = angular.module('cyc', []).controller('CycCtrl', [
-    '$scope', function($scope) {
-      return $scope.hello = "Hello World from Angular Coffee";
+    '$scope', '$http', function($scope, $http) {
+      $scope.page = 'home';
+      $scope.home = function() {
+        return $scope.page = 'home';
+      };
+      $scope.about = function() {
+        $scope.page = 'about';
+        return $http({
+          url: '/about',
+          method: 'GET'
+        }).success(function(res) {
+          $scope.about_text = res['text'];
+        });
+      };
+      return $scope.history = function() {
+        $scope.page = 'history';
+        return $http({
+          url: '/history',
+          method: 'GET'
+        }).success(function(res) {
+          $scope.history_text = res['text'];
+        });
+      };
     }
   ]);
 

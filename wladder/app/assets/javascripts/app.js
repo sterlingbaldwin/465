@@ -47,7 +47,7 @@ wladder = angular.module('wladder', []).controller('MainCtrl', [
 			return distance;
 		}
 		$scope.check = function() {
-			$scope.victory = true;
+			var good = true;
 			$scope.attempts.forEach(function(element, index, array) {
 				if (index != 5 && element.length != 0 && array[index + 1].length == 0) {
 					if ($scope.distance(element, $scope.end_word) != 1) {

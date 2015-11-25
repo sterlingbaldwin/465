@@ -1,7 +1,15 @@
 extends layout
 
 block content
-  div(ng-app="cyc" ng-controller="CycCtrl")
-    h1 #{title}
-    p Welcome to #{title}
-    p(ng-model="hello") {{hello}}
+
+  div(style="margin-top: 5em;")
+    div(ng-show="page == 'home'" id="home_text" class="large-8 large-offset-2 row")
+      h2(class="row large-6") Welcome to the Chico Youth Courts home page
+        img(src="/images/cyc_logo.jpg" class="" style="margin: 0 auto 0 auto;")
+    div(ng-show="page =='about'" id="about_text" class="large-6 row")
+      h2 About Chico Youth Court
+      p {{about_text}}
+    div(ng-show="page =='history'" id="history_text" class="large-6 row")
+      h2 History
+      p {{history_text}}
+        
