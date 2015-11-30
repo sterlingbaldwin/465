@@ -12,7 +12,11 @@ cyc = angular.module('cyc', [])
       method: 'GET',
     })
     .success (res) ->
-      $scope.about_text = res['about_text']
+      console.log res['text']
+      $scope.about_text = res['text']
+      return
+    .fail (res) ->
+      console.log res
       return
 
   $scope.history = () ->
@@ -22,6 +26,10 @@ cyc = angular.module('cyc', [])
       method: 'GET'
     })
     .success (res) ->
-      $scope.history_text = res['history_text']
+      console.log res['text']
+      $scope.history_text = res['text']
+      return
+    .fail (res) ->
+      console.log res
       return
 ]

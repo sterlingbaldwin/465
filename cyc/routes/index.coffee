@@ -1,16 +1,7 @@
 express = require('express')
 fs = require('fs')
 router = express.Router()
-
-readFileData = (filename, callback) ->
-  fs.readFile filename, 'utf8', (err, data, callback) ->
-    if(err)
-      console.log err
-      throw err
-    console.log data
-    callback(data)
-    return
-  return
+passport = require('passport')
 
 # GET home page.
 router.get '/', (req, res, next) ->
@@ -25,6 +16,7 @@ router.get '/about', (req, res, next) ->
       console.log err
       throw err
     response['text'] = data
+    console.log response
     res.json response
     return
   return
@@ -43,6 +35,25 @@ router.get '/history', (req, res, next) ->
   return
 
 router.get '/volunteer', (req, res, next) ->
+  res.json {blarg: 'blarg'}
+
+router.post '/reg', passport.authenticate('local-signup', {
+  successRedirect: '/',
+  failureRedirect: '/signin'
+  })
+
+router.post('/login', passport.authenticate('local-signin', {
+  successRedirect: '/',
+  failureRedirect: '/signin'
+  })
+)
+
+router.get '/logout', (req, res) ->
+  name = req.user.username
+  console.log("LOGGIN OUT " + req.user.username)
+  req.logout()
+  res.redirect('/')
+  req.session.notice = "You have successfully been logged out " + name + "!"
 
 
 module.exports = router

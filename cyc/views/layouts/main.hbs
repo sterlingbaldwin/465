@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>{{title}}</title>
+  <link rel='stylesheet' type="text/css" href='/stylesheets/style.css'>
+  <link rel='stylesheet' type="text/css" href='http://cdn.foundation5.zurb.com/foundation.css'>
+  <script src="/javascripts/jquery-2.1.4.min.js"></script>
+  <script src='/javascripts/foundation.js'></script>
+  <script src="/javascripts/angular.min.js"></script>
+  <script src="/javascripts/app.js"></script>
+</head>
+<body ng-app="cyc" ng-controller="CycCtrl">
+  <nav class="top-bar" data-topbar role="navigation">
+    <ul class="title-area">
+      <li class="name">
+        <h1>
+          <a href="#" ng-click="home()">Chico Youth Court</a>
+        </h1>
+      </li>
+      <li class="toggle-topbar menu-icon">
+        <a href="#">Menu</a>
+      </li>
+    </ul>
+    <section class="top-bar-section">
+      <ul class="left">
+        <li><a href="#" ng-click="about()"> About </a></li>
+        <li><a href="#" ng-click="history()"> History </a></li>
+        <li><a href="/mission"> Mission </a></li>
+        <li><a href="/volunteer_info"> Volunteer Information </a></li>
+        <li><a href="/blog"> Blog </a></li>
+        <li><a href="/calendar"> Calendar </a></li>
+        <li><a href="/members"> Members </a></li>
+        <li><a href="/donation_info"> Donate </a></li>
+      </ul>
+    </section>
+  </nav>
+
+  {{{body}}}
+
+  </body>
+</html>

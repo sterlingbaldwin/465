@@ -14,7 +14,10 @@
           url: '/about',
           method: 'GET'
         }).success(function(res) {
+          console.log(res['text']);
           $scope.about_text = res['text'];
+        }).fail(function(res) {
+          console.log(res);
         });
       };
       return $scope.history = function() {
@@ -23,7 +26,10 @@
           url: '/history',
           method: 'GET'
         }).success(function(res) {
+          console.log(res['text']);
           $scope.history_text = res['text'];
+        }).fail(function(res) {
+          console.log(res);
         });
       };
     }
