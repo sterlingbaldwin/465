@@ -5,7 +5,7 @@ var bcrypt = require('bcryptjs'),
     monk = require('monk'),
     db = monk('localhost:27017/cyc');
 
-    
+
 //used in local-signup strategy
 exports.localReg = function (username, password) {
   var deferred = Q.defer();
@@ -51,7 +51,10 @@ exports.localReg = function (username, password) {
 exports.localAuth = function (username, password) {
   var deferred = Q.defer();
 
-  db.get('local-users', username)
+  var users = db.get('users');
+  users.find({
+    username: username
+  },{},function(e, docs){})
   .then(function (result){
     console.log("FOUND USER");
     var hash = result.body.password;
