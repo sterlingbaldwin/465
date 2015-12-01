@@ -10,7 +10,7 @@ var express = require('express'),
   mongo = require('mongodb'),
   monk = require('monk'),
   db = monk('localhost:27017/cyc'),
-  session = require('express-session'),
+  session = require('express-session');
 
 var app = express();
 
