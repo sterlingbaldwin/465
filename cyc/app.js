@@ -11,8 +11,6 @@ var express = require('express'),
   monk = require('monk'),
   db = monk('localhost:27017/cyc'),
   session = require('express-session'),
-  passport = require('passport'),
-  LocalStrategy = require('passport-local');
 
 var app = express();
 
