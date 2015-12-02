@@ -24,3 +24,12 @@ a {
   border-radius: 2em;
   padding: 5em;
 }
+
+.show-hide-transition {
+  -webkit-transition:all linear 0.5s;
+  transition:all linear 0.5s;
+}
+
+.show-hide-transition.ng-hide {
+  opacity:0;
+}

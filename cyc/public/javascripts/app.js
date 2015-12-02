@@ -2,33 +2,95 @@
 (function() {
   var cyc;
 
-  cyc = angular.module('cyc', []).controller('CycCtrl', [
+  cyc = angular.module('cyc', ['ngAnimate']).controller('CycCtrl', [
     '$scope', '$http', function($scope, $http) {
-      $scope.page = 'home';
+      $scope.init = function() {
+        $scope.page = 'home';
+        $scope.user = {
+          loggedin: false,
+          token: ''
+        };
+      };
+      $scope.hash = function(str) {
+        var char, hash, i, _i, _ref;
+        hash = 0;
+        if (str.length === 0) {
+          return hash;
+        }
+        for (i = _i = 0, _ref = str.length - 1; 0 <= _ref ? _i <= _ref : _i >= _ref; i = 0 <= _ref ? ++_i : --_i) {
+          char = str.charCodeAt(i);
+          hash = ((hash << 5) - hash) + char;
+          hash = hash & hash;
+        }
+        return hash;
+      };
+      $scope.login = function(username, password) {
+        $http({
+          url: '/login',
+          method: 'GET'
+        }).success(function(res) {
+          $scope.user['loggedin'] = res['loggedin'];
+          $scope.user['token'] = res['token'];
+        }).error(function(res) {
+          console.log(res);
+          $scope.user['loggedin'] = false;
+          $scope.user['token'] = '';
+        });
+      };
+      $scope.login_modal_trigger = function() {
+        $('#login_modal').foundation('reveal', 'open');
+      };
+      $scope.logout_modal_trigger = function() {
+        $('#logout_modal').foundation('reveal', 'open');
+      };
+      $scope.register_modal_trigger = function() {
+        $('#register_modal').foundation('reveal', 'open');
+      };
+      $scope.register_trigger = function() {
+        var data;
+        data = {
+          username: $('#reg-username-field').val(),
+          passhash: $scope.hash($('#reg-password-field').val()),
+          email: $('#reg-email-field').val()
+        };
+        $http({
+          url: '/register',
+          method: 'POST',
+          data: data
+        }).success(function(res) {
+          console.log(res);
+          $scope.user['loggedin'] = true;
+          $scope.user['token'] = res['token'];
+          $('#register_modal').foundation('reveal', 'close');
+        }).error(function(res) {
+          $scope.user['loggedin'] = false;
+          alert('Failed to register new user!');
+        });
+      };
       $scope.home = function() {
         return $scope.page = 'home';
       };
       $scope.about = function() {
         $scope.page = 'about';
-        return $http({
+        $http({
           url: '/about',
           method: 'GET'
         }).success(function(res) {
           console.log(res['text']);
           $scope.about_text = res['text'];
-        }).fail(function(res) {
+        }).error(function(res) {
           console.log(res);
         });
       };
       return $scope.history = function() {
         $scope.page = 'history';
-        return $http({
+        $http({
           url: '/history',
           method: 'GET'
         }).success(function(res) {
           console.log(res['text']);
           $scope.history_text = res['text'];
-        }).fail(function(res) {
+        }).error(function(res) {
           console.log(res);
         });
       };
