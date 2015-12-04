@@ -20,14 +20,26 @@ cyc = angular.module('cyc', ['ngAnimate'])
     hash
 
   #TODO: finish this
-  $scope.login = (username, password) ->
+  $scope.login = () ->
+    username = $('#login-username-field').val()
+    passhash = $scope.hash $('#login-password-field').val()
+    console.log 'login'
+    console.log passhash
     $http({
       url: '/login',
-      method: 'GET'
+      method: 'POST',
+      data: {
+        username: username,
+        passhash: passhash
+      }
     })
     .success((res) ->
-      $scope.user['loggedin'] = res['loggedin']
-      $scope.user['token'] = res['token']
+      $scope.user['loggedin'] = true
+      $scope.user['token'] = res['response_data']['token']
+      $scope.user['username'] = $('#login-username-field').val()
+      $('#login_modal').foundation 'reveal', 'close'
+      console.log res
+      console.log 'login successful'
       return
     )
     .error((res) ->
@@ -50,12 +62,35 @@ cyc = angular.module('cyc', ['ngAnimate'])
     $('#register_modal').foundation 'reveal', 'open'
     return
 
-  $scope.register_trigger = () ->
+  $scope.logout = () ->
+    data = {
+      username: $scope.user.username,
+      token: $scope.user.token
+    }
+    console.log data
+    $http({
+      url: '/logout',
+      method: 'POST',
+      data: data
+    })
+    .success((res) ->
+      console.log res
+      console.log 'logout successful'
+      $('#logout_modal').foundation 'reveal', 'close'
+      $scope.user.loggedin = false
+    )
+    .error((res) ->
+      alert 'logout error'
+    )
+
+  $scope.register = () ->
     data = {
       username: $('#reg-username-field').val(),
       passhash: $scope.hash($('#reg-password-field').val()),
       email: $('#reg-email-field').val()
     }
+    console.log 'register'
+    console.log data
     $http({
       url: '/register',
       method: 'POST',
@@ -63,12 +98,15 @@ cyc = angular.module('cyc', ['ngAnimate'])
     })
     .success((res) ->
       console.log res
+      console.log 'registration successful'
       $scope.user['loggedin'] = true
       $scope.user['token'] = res['token']
+      $scope.user['username'] = $('#reg-username-field').val()
       $('#register_modal').foundation 'reveal', 'close'
       return
     )
     .error((res)->
+      console.log res
       $scope.user['loggedin'] = false
       alert 'Failed to register new user!'
       return

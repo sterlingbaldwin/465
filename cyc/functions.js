@@ -16,37 +16,6 @@
 
   exports = module.exports = {};
 
-  exports.signin = function(username, passhash) {
-    var stored_hash, token, users;
-    users = db.get('users');
-    stored_hash = users.find({
-      username: username
-    }, {}, function(e, docs) {
-      return docs.passhash;
-    });
-    if (bcrypt.compareSync(stored_hash, passhash)) {
-      token = crypto.randomBytes(16).toString('hex');
-      users.update({
-        username: username
-      }, {
-        $set: {
-          loggedin: true,
-          token: token
-        }
-      });
-      return token;
-    } else {
-      users.update({
-        username: username
-      }, {
-        $set: {
-          loggedin: false
-        }
-      });
-      return false;
-    }
-  };
-
   exports.signout = function(username, token) {
     var loggedin, stored_token, users;
     users = db.get('users');

@@ -50,12 +50,12 @@
   <div id="login_modal" class="reveal-modal" data-reveal aria-labelledby="login_modal" aria-hidden="true" role="dialog">
     <h2>Sign In</h2>
     <label>Username
-      <input type="text" placeholder="username" id="username-field">
+      <input type="text" placeholder="username" id="login-username-field">
     </label>
     <label>Password
-      <input type="password" placeholder="password" id="password-field">
+      <input type="password" placeholder="password" id="login-password-field">
     </label>
-    <button class="success round" ng-click="login_trigger()">sign in</button>
+    <button class="success round" ng-click="login()">sign in</button>
     <a class="close-reveal-modal" aria-label="Close">&#215;</a>
   </div>
 
@@ -70,7 +70,7 @@
     <label>Password
       <input type="password" placeholder="password" id="reg-password-field">
     </label>
-    <button class="success round" ng-click="register_trigger()">sign in</button>
+    <button class="success round" ng-click="register()">sign in</button>
     <a class="close-reveal-modal" aria-label="Close">&#215;</a>
   </div>
 
@@ -79,7 +79,7 @@
     <p>
       Are you sure you want to log out?
     </p>
-    <button class="success round" ng-click="logout_trigger()">sign out</button>
+    <button class="success round" ng-click="logout()">sign out</button>
     <a class="close-reveal-modal" aria-label="Close">&#215;</a>
   </div>
 

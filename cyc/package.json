@@ -5,7 +5,7 @@
   "author": "Sterling Baldwin, Nov 22 2015",
   "private": true,
   "scripts": {
-    "start": "(coffee -wc **/*.coffee &); node ./bin/www"
+    "start": "(coffeestand &); node ./bin/www"
   },
   "dependencies": {
     "body-parser": "~1.13.2",
@@ -23,6 +23,7 @@
     "express-session": "^1.8.2",
     "orchestrate": "^0.3.11",
     "passport-local": "^1.0.0",
-    "q": "^1.0.1"
+    "q": "^1.0.1",
+    "crypto": "~0.0.3"
   }
 }

@@ -8,6 +8,7 @@ Q = require 'q'
 mongo = require 'mongodb'
 monk = require 'monk'
 db = monk 'localhost:27017/cyc'
+sha = require '../sha256.js'
 
 # GET home page.
 router.get '/', (req, res, next) ->
@@ -46,20 +47,23 @@ router.get '/volunteer', (req, res, next) ->
 router.post '/register', (req, res, next) ->
   console.log req.body
   users = db.get('users')
-  users.find {username: req.username}, {}, (e, docs) ->
+  users.find {username: req.body.username}, {}, (e, docs) ->
     console.log 'DOCS'
     console.log docs
     if docs.length > 0
-      console.log 'user exists'
+      console.log 'user #{docs[0].username} exists'
       res.json {loggedin: false}
       return
     else
       console.log 'creating new user'
+      #passhash = bcrypt.hashSync req.body.passhash.toString()
+      #console.log 'posthash: ' + passhash
+      console.log 'passedhash__' + req.body.passhash + '__'
       token = crypto.randomBytes(16).toString('hex')
       users.insert {
-        username: req.username,
-        passhash: bcrypt.hashSync(req.passhash, 10),
-        email: req.email,
+        username: req.body.username,
+        passhash: req.body.passhash,
+        email: req.body.email,
         token: token
       }
       res.json {loggedin: true, token: token}
@@ -67,22 +71,76 @@ router.post '/register', (req, res, next) ->
   return
 
 router.post '/login', (req, res, next) ->
-  token = functions.signin res.params.username, res.params.token
-  if token #successfully logged in
-    res.json {loggedin: true, token: token}
-  else
-    res.json {loggedin: false}
+  console.log 'login request from ' + req.body.username
+  console.log 'with passhash:__' + req.body.passhash + '__'
 
-router.get '/logout', (req, res) ->
   users = db.get('users')
-  users.find {username: req.username}, {}, (e, docs) ->
-
-    if docs.length > 0 && docs.loggedin && docs.token == req.token
-      users.update {username: username}, {$set: {loggedin: false}}
-      res.json {success: true}
+  response_data = {}
+  users.find {username: req.body.username}, {}, (e, docs) ->
+    console.log docs
+    if docs.length > 0
+      #the user exists
+      console.log '[+] found user: ' + docs[0].username
+      # stored_hash = docs[0].passhash.toString()
+      # passed_hash = bcrypt.hashSync req.body.passhash.toString()
+      # console.log 'storedhash: ' + stored_hash
+      # console.log 'passedhash: ' + passed_hash
+      #if bcrypt.compareSync stored_hash, passed_hash
+      if docs[0].passhash == req.body.passhash
+        #stored hash matches the hash they sent
+        console.log '[+] correct password'
+        token = crypto.randomBytes(16).toString('hex')
+        users.update {
+          username: req.body.username
+        },{
+          $set: {
+            loggedin: true,
+            token: token
+          }
+        }
+        response_data['token'] = token
+      else
+        console.log '[-] incorrect password'
+        users.update {
+          username: req.body.username
+        },{
+          $set: {
+            loggedin: false,
+            token: ''
+          }
+        }
+        response_data['token'] = false
+      console.log 'sending response ' + response_data
+      res.json {response_data: response_data}
+      return
     else
-      console.log 'Attempted illegal logout from {username}'
-      res.status(500).send('logout failure')
+      console.log 'User not found'
+      res.status(500).send 'User not found'
+  console.log 'exiting login'
+  return
+
+router.post '/logout', (req, res, next) ->
+  users = db.get('users')
+  console.log req.body
+  users.find {
+    username: req.body.username,
+    token: req.body.token
+  }, {}, (e, docs) ->
+    console.log docs
+    if docs.length > 0
+      if docs[0].loggedin
+        users.update {
+          username: req.body.username
+        }, {
+          $set: {
+            loggedin: false,
+            token: ''
+          }
+        }
+        res.json {success: true}
+    else
+      console.log 'Attempted illegal logout for #{req.body.username}'
+      res.status(500).send 'logout failure'
 
 
 module.exports = router
