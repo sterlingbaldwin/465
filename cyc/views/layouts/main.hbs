@@ -4,12 +4,16 @@
   <title>{{title}}</title>
   <link rel='stylesheet' type="text/css" href='/stylesheets/style.css'>
   <link rel='stylesheet' type="text/css" href='http://cdn.foundation5.zurb.com/foundation.css'>
+  <link rel="stylesheet" href="/stylesheets/codemirror.css">
+  <link rel="stylesheet" href="/stylesheets/twilight.css" media="screen" title="no title" charset="utf-8">
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.js"></script>
   <script src="/javascripts/jquery-2.1.4.min.js"></script>
   <script src='http://cdn.foundation5.zurb.com/foundation.js'></script>
   <script src="/javascripts/angular.min.js"></script>
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0-beta.2/angular-animate.js"></script>
   <script src="/javascripts/app.js"></script>
+  <script src="/javascripts/codemirror.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui/0.4.0/angular-ui.js"></script>
   <script>
     $(document).foundation();
   </script>
@@ -29,7 +33,7 @@
         <li><a href="#" ng-click="about()"> About </a></li>
         <li><a href="#" ng-click="history()"> History </a></li>
         <li><a href="/volunteer_info"> Volunteer Information </a></li>
-        <li><a href="/blog"> Blog </a></li>
+        <li><a href="#" ng-click="blog()"> Blog </a></li>
         <li><a href="/calendar"> Calendar </a></li>
         <li><a href="/members"> Members </a></li>
         <li><a href="/donation_info"> Donate </a></li>

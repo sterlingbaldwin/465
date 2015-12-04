@@ -19,7 +19,16 @@ cyc = angular.module('cyc', ['ngAnimate'])
         hash = hash & hash
     hash
 
-  #TODO: finish this
+  $scope.blog = () ->
+    $scope.page = 'blog'
+    codeMirror = CodeMirror(document.getElementById('blog_edit'), {
+      mode: 'twilight',
+      lineNumbers: true,
+      inputStyle: 'textarea',
+      viewportMargin: Infinity
+    })
+    return
+
   $scope.login = () ->
     username = $('#login-username-field').val()
     passhash = $scope.hash $('#login-password-field').val()
@@ -36,6 +45,7 @@ cyc = angular.module('cyc', ['ngAnimate'])
     .success((res) ->
       $scope.user['loggedin'] = true
       $scope.user['token'] = res['response_data']['token']
+      $scope.user['type'] = res['response_data']['user_type']
       $scope.user['username'] = $('#login-username-field').val()
       $('#login_modal').foundation 'reveal', 'close'
       console.log res
@@ -102,6 +112,7 @@ cyc = angular.module('cyc', ['ngAnimate'])
       $scope.user['loggedin'] = true
       $scope.user['token'] = res['token']
       $scope.user['username'] = $('#reg-username-field').val()
+      $scope.user['type'] = res['user_type']
       $('#register_modal').foundation 'reveal', 'close'
       return
     )

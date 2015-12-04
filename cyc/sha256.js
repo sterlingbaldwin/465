@@ -3,6 +3,7 @@
 /*                                                                                                */
 /*  - see http://csrc.nist.gov/groups/ST/toolkit/secure_hashing.html                              */
 /*        http://csrc.nist.gov/groups/ST/toolkit/examples.html                                    */
+/*        http://www.movable-type.co.uk/scripts/sha256.html                                       */
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  */
 
 /* jshint node:true *//* global define, escape, unescape */

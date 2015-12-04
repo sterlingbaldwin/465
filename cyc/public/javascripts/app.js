@@ -24,6 +24,16 @@
         }
         return hash;
       };
+      $scope.blog = function() {
+        var codeMirror;
+        $scope.page = 'blog';
+        codeMirror = CodeMirror(document.getElementById('blog_edit'), {
+          mode: 'twilight',
+          lineNumbers: true,
+          inputStyle: 'textarea',
+          viewportMargin: Infinity
+        });
+      };
       $scope.login = function() {
         var passhash, username;
         username = $('#login-username-field').val();
@@ -40,6 +50,7 @@
         }).success(function(res) {
           $scope.user['loggedin'] = true;
           $scope.user['token'] = res['response_data']['token'];
+          $scope.user['type'] = res['response_data']['user_type'];
           $scope.user['username'] = $('#login-username-field').val();
           $('#login_modal').foundation('reveal', 'close');
           console.log(res);
@@ -98,6 +109,7 @@
           $scope.user['loggedin'] = true;
           $scope.user['token'] = res['token'];
           $scope.user['username'] = $('#reg-username-field').val();
+          $scope.user['type'] = res['user_type'];
           $('#register_modal').foundation('reveal', 'close');
         }).error(function(res) {
           console.log(res);

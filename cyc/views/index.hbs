@@ -13,4 +13,20 @@
       <br>
       <p ng-bind="history_text"></p>
     </div>
+    <div ng-show="page =='blog'" class="large-6 row content_text show-hide-transition">
+      <h2 style="text-align: center;"> CYC Blog </h2>
+      <br>
+      <div ng-show="user['type'] == 'admin'">
+        <h3>Edit</h3>
+        <input type="text" name="blog_title" placeholder="title">
+        <div id="blog_edit" style="text-align:left;"></div>
+        <button type="button" name="blog_submit" ng-click="blog_submit()">Save</button>
+      </div>
+      <div class="row blog_display" ng-repeat="blog in blogs" class="content_text">
+        <h2 ng-bind="blog.title"></h2>
+        <p ng-bind="blog.text"></p>
+        <a href="#" ng-show="user['type'] == 'admin'" ng-click="edit_blog(blog)">edit</a>
+        <a href="#" ng-show="user['type'] == 'admin'" ng-click="delete_blog(blog)">delete</a>
+      </div>
+    </div>
 </div>

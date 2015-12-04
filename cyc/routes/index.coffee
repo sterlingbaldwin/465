@@ -99,6 +99,7 @@ router.post '/login', (req, res, next) ->
           }
         }
         response_data['token'] = token
+        response_data['user_type'] = docs[0].user_type
       else
         console.log '[-] incorrect password'
         users.update {
