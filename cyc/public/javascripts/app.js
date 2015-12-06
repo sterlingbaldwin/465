@@ -84,6 +84,24 @@
         $scope.codeMirror = CodeMirror($('#' + blog_index + '_edit')[0], $scope.codeMirrorConfig);
         $scope.codeMirror.setValue($('#' + blog_index + '_text').text());
       };
+      $scope.delete_blog = function(blog_index) {
+        var data;
+        data = {
+          id: $('#' + blog_index + '_id').text(),
+          username: $scope.user.username,
+          token: $scope.user.token
+        };
+        $http({
+          url: '/blog_delete',
+          method: 'POST',
+          data: data
+        }).success(function(res) {
+          $scope.get_blogs();
+        }).error(function(res) {
+          console.log('blog delete error');
+          console.log(res);
+        });
+      };
       $scope.get_blogs = function() {
         $http({
           url: '/blog',

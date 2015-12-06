@@ -91,6 +91,28 @@ cyc = angular.module('cyc', ['ngAnimate', 'ngCookies'])
     $scope.codeMirror.setValue $('#' + blog_index + '_text').text()
     return
 
+  $scope.delete_blog = (blog_index) ->
+    data = {
+      id: $('#' + blog_index + '_id').text()
+      username: $scope.user.username,
+      token: $scope.user.token
+    }
+    $http({
+      url: '/blog_delete'
+      method: 'POST'
+      data: data
+    })
+    .success((res)->
+      $scope.get_blogs()
+      return
+    )
+    .error((res) ->
+      console.log 'blog delete error'
+      console.log res
+      return
+    )
+    return
+
   $scope.get_blogs = () ->
     $http({
       url: '/blog'

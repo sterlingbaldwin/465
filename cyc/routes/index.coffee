@@ -21,7 +21,7 @@ router.get '/blog', (req, res, next) ->
   }, (e, docs) ->
     data = docs
     console.log '[+] Sending back blogs'
-    console.log docs
+    #console.log docs
     res.json data
   )
 
@@ -86,6 +86,26 @@ router.post '/blog', (req, res, next) ->
       return
     return
   return
+
+router.post '/blog_delete', (req, res, next) ->
+  console.log 'Got a blog delete'
+  users = db.get 'users'
+  users.find {
+    username: req.body.username
+    user_type: "admin"
+    token: req.body.token
+  },{},(e, docs) ->
+    if docs.length == 0
+      res.status(500).send 'blog delete error'
+    else
+      blogs = db.get 'blogs'
+      blogs.remove {
+        _id: req.body.id
+      }
+      res.json {success: true}
+    return
+  return
+
 
 router.get '/about', (req, res, next) ->
   response = {

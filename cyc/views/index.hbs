@@ -27,9 +27,9 @@
       <button type="button" name="blog_submit" ng-click="blog_submit('new')">Save</button>
     </div>
     <div class="row blog_display show-hide-transition" ng-repeat="blog in blogs" class="content_text">
-      <h2 id="\{{$index}}_title">\{{blog.title}}</h2>
-      <p id="\{{$index}}_text">\{{blog.text}}</p>
-      <p>posted by: \{{blog.author}} \{{blog.date}}</p>
+      <h2 class="show-hide-transition" id="\{{$index}}_title">\{{blog.title}}</h2>
+      <p class="show-hide-transition" id="\{{$index}}_text">\{{blog.text}}</p>
+      <p class="show-hide-transition">posted by: \{{blog.author}} \{{blog.date}}</p>
       <p id="\{{$index}}_id" style="display: none;" data-index="\{{$index}}">\{{blog._id}}</p>
       <div class="" id="\{{$index}}_edit"></div>
       <button type="button" name="blog_submit" ng-show="blog_edit[$index]" ng-click="blog_submit($index)">Save</button>

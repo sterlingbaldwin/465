@@ -39,7 +39,6 @@
       var data;
       data = docs;
       console.log('[+] Sending back blogs');
-      console.log(docs);
       return res.json(data);
     });
   });
@@ -109,6 +108,30 @@
           success: true
         });
         return;
+      }
+    });
+  });
+
+  router.post('/blog_delete', function(req, res, next) {
+    var users;
+    console.log('Got a blog delete');
+    users = db.get('users');
+    users.find({
+      username: req.body.username,
+      user_type: "admin",
+      token: req.body.token
+    }, {}, function(e, docs) {
+      var blogs;
+      if (docs.length === 0) {
+        res.status(500).send('blog delete error');
+      } else {
+        blogs = db.get('blogs');
+        blogs.remove({
+          _id: req.body.id
+        });
+        res.json({
+          success: true
+        });
       }
     });
   });
