@@ -11,7 +11,6 @@ a {
   border: 2px solid black;
   border-radius: 2em;
   padding: 5em;
-  text-align: center;
 }
 
 .show-hide-transition {
@@ -32,4 +31,16 @@ a {
 p {
   color: black
   text-shadow: 1px 1px #222;
+}
+
+#blog_edit {
+  border: 1px solid black;
+  border-radius: 1em;
+}
+
+.blog_display {
+  border: 1px dotted black;
+  border-radius: 1em;
+  padding: 2em;
+  margin-top: 2em;
 }

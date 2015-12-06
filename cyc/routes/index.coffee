@@ -14,6 +14,66 @@ sha = require '../sha256.js'
 router.get '/', (req, res, next) ->
   res.render 'index', title: 'CYC'
 
+router.get '/blog', (req, res, next) ->
+  blogs = db.get('blogs')
+  blogs.find({},{
+    date: 1
+  }, (e, docs) ->
+    data = docs
+    console.log '[+] Sending back blogs'
+    console.log docs
+    res.json data
+  )
+
+router.post '/user_type', (req, res, next) ->
+  users = db.get('users')
+  console.log 'user_type request for ' + req.body.username
+  console.log req.body
+  users.find {
+    username: req.body.username
+  }, {}, (e, docs) ->
+    if docs.length == 0
+      console.log 'couldnt find user_type'
+      res.status(500).send 'Invalid user'
+    else
+      console.log 'returning #{docs[0].user_type} type for #{req.body.username}'
+      res.json {user_type: docs[0].user_type}
+    return
+  return
+
+router.post '/blog', (req, res, next) ->
+  users = db.get('users')
+  users.find {
+    username: req.body.author,
+    user_type: "admin",
+    token: req.body.token
+  },{},(e, docs) ->
+    if docs.length == 0
+      console.log 'username or token or user_type mismatch'
+      console.log req.body.author
+      console.log req.body.token
+      res.json {success: false}
+    else
+      blogs = db.get('blogs')
+      currentdate = new Date()
+      datetime = currentdate.getDate() + "/" \
+        + (currentdate.getMonth() + 1)  + "/"\
+        + currentdate.getFullYear() + " @ "  \
+        + currentdate.getHours() + ":"       \
+        + currentdate.getMinutes() + ":"     \
+        + currentdate.getSeconds()
+      new_post = {
+        title: req.body.title,
+        author: req.body.author,
+        date: datetime,
+        text: req.body.text
+      }
+      console.log '[+] Saving new blog'
+      console.log new_post
+      blogs.insert new_post
+      res.json {success: true}
+  return
+
 router.get '/about', (req, res, next) ->
   response = {
     'text': ''
@@ -100,6 +160,8 @@ router.post '/login', (req, res, next) ->
         }
         response_data['token'] = token
         response_data['user_type'] = docs[0].user_type
+        console.log 'sending response ' + response_data
+        res.json {response_data: response_data}
       else
         console.log '[-] incorrect password'
         users.update {
@@ -111,8 +173,7 @@ router.post '/login', (req, res, next) ->
           }
         }
         response_data['token'] = false
-      console.log 'sending response ' + response_data
-      res.json {response_data: response_data}
+        res.status(500).send 'Incorrect username or password'
       return
     else
       console.log 'User not found'

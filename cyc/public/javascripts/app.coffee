@@ -1,12 +1,31 @@
-cyc = angular.module('cyc', ['ngAnimate'])
-.controller 'CycCtrl', ['$scope', '$http', ($scope, $http) ->
+cyc = angular.module('cyc', ['ngAnimate', 'ngCookies'])
+.controller 'CycCtrl',['$scope','$http','$cookies', ($scope, $http, $cookies) ->
 
   $scope.init = () ->
     $scope.page = 'home'
     $scope.user = {
-      loggedin: false,
+      loggedin: $cookies.get('cycstatus'),
       token: ''
     }
+    if $scope.user.loggedin
+      $scope.user['username'] = $cookies.get 'cycuser'
+      $scope.user['token'] = $cookies.get 'cyctoken'
+      $http({
+        url: '/user_type',
+        method: 'POST',
+        data: {
+          username: $scope.user['username']
+        }
+      })
+      .success((res)->
+        $scope.user.type = res.user_type
+        return
+      )
+      .error((res)->
+        console.log 'error in user type request'
+        console.log res
+        return
+      )
     return
 
   $scope.hash = (str) ->
@@ -19,14 +38,75 @@ cyc = angular.module('cyc', ['ngAnimate'])
         hash = hash & hash
     hash
 
-  $scope.blog = () ->
-    $scope.page = 'blog'
-    codeMirror = CodeMirror(document.getElementById('blog_edit'), {
+  $scope.blog_submit = (arg) ->
+    if arg == 'new'
+      title = $('#blog_title').val()
+    else
+      title = $('#' + arg + '_title').text()
+    $http({
+      url: '/blog',
+      method: 'POST',
+      data: {
+        text: $scope.codeMirror.getValue(),
+        title: title,
+        author: $scope.user.username,
+        token: $scope.user.token
+      }
+    })
+    .success((res)->
+      $scope.new_blog_post = false
+      $scope.get_blogs()
+      return
+    )
+    .error((res)->
+      console.log 'blog submit error'
+      console.log res
+      return
+    )
+    return
+
+
+  $scope.new_blog = () ->
+    $scope.new_blog_post = true
+    return
+
+  $scope.edit_blog = (blog) ->
+    $scope.blog_edit = true
+    $scope.codeMirror = CodeMirror(document.getElementById(blog.id + '_edit'), {
       mode: 'twilight',
       lineNumbers: true,
       inputStyle: 'textarea',
       viewportMargin: Infinity
     })
+    $scope.codeMirror.setValue $('#' + blog.id + '_text').text()
+    return
+
+  $scope.get_blogs = () ->
+    $http({
+      url: '/blog',
+      method: 'GET',
+    })
+    .success((res) ->
+      console.log res
+      res.reverse()
+      $scope.blogs = res
+      console.log $scope.blogs
+    )
+    .error((res) ->
+      console.log res
+    )
+    return
+
+  $scope.blog = () ->
+    $scope.page = 'blog'
+    if typeof $scope.codeMirror == 'undefined'
+      $scope.codeMirror = CodeMirror(document.getElementById('blog_edit'), {
+        mode: 'twilight',
+        lineNumbers: true,
+        inputStyle: 'textarea',
+        viewportMargin: Infinity
+      })
+    $scope.get_blogs()
     return
 
   $scope.login = () ->
@@ -48,6 +128,9 @@ cyc = angular.module('cyc', ['ngAnimate'])
       $scope.user['type'] = res['response_data']['user_type']
       $scope.user['username'] = $('#login-username-field').val()
       $('#login_modal').foundation 'reveal', 'close'
+      $cookies.put 'cycstatus', 'loggedin'
+      $cookies.put 'cycuser', $scope.user['username']
+      $cookies.put 'cyctoken', $scope.user['token']
       console.log res
       console.log 'login successful'
       return
@@ -88,6 +171,8 @@ cyc = angular.module('cyc', ['ngAnimate'])
       console.log 'logout successful'
       $('#logout_modal').foundation 'reveal', 'close'
       $scope.user.loggedin = false
+      $cookies.remove 'cycstatus'
+      $cookies.remove 'cyctoken'
     )
     .error((res) ->
       alert 'logout error'
@@ -114,6 +199,8 @@ cyc = angular.module('cyc', ['ngAnimate'])
       $scope.user['username'] = $('#reg-username-field').val()
       $scope.user['type'] = res['user_type']
       $('#register_modal').foundation 'reveal', 'close'
+      $cookies.put 'cycstatus', 'loggedin'
+      $cookies.put 'cycuser', $scope.user['username']
       return
     )
     .error((res)->

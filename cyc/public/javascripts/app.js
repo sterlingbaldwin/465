@@ -2,14 +2,30 @@
 (function() {
   var cyc;
 
-  cyc = angular.module('cyc', ['ngAnimate']).controller('CycCtrl', [
-    '$scope', '$http', function($scope, $http) {
+  cyc = angular.module('cyc', ['ngAnimate', 'ngCookies']).controller('CycCtrl', [
+    '$scope', '$http', '$cookies', function($scope, $http, $cookies) {
       $scope.init = function() {
         $scope.page = 'home';
         $scope.user = {
-          loggedin: false,
+          loggedin: $cookies.get('cycstatus'),
           token: ''
         };
+        if ($scope.user.loggedin) {
+          $scope.user['username'] = $cookies.get('cycuser');
+          $scope.user['token'] = $cookies.get('cyctoken');
+          $http({
+            url: '/user_type',
+            method: 'POST',
+            data: {
+              username: $scope.user['username']
+            }
+          }).success(function(res) {
+            $scope.user.type = res.user_type;
+          }).error(function(res) {
+            console.log('error in user type request');
+            console.log(res);
+          });
+        }
       };
       $scope.hash = function(str) {
         var char, hash, i, _i, _ref;
@@ -24,15 +40,67 @@
         }
         return hash;
       };
-      $scope.blog = function() {
-        var codeMirror;
-        $scope.page = 'blog';
-        codeMirror = CodeMirror(document.getElementById('blog_edit'), {
+      $scope.blog_submit = function(arg) {
+        var title;
+        if (arg === 'new') {
+          title = $('#blog_title').val();
+        } else {
+          title = $('#' + arg + '_title').text();
+        }
+        $http({
+          url: '/blog',
+          method: 'POST',
+          data: {
+            text: $scope.codeMirror.getValue(),
+            title: title,
+            author: $scope.user.username,
+            token: $scope.user.token
+          }
+        }).success(function(res) {
+          $scope.new_blog_post = false;
+          $scope.get_blogs();
+        }).error(function(res) {
+          console.log('blog submit error');
+          console.log(res);
+        });
+      };
+      $scope.new_blog = function() {
+        $scope.new_blog_post = true;
+      };
+      $scope.edit_blog = function(blog) {
+        $scope.blog_edit = true;
+        $scope.codeMirror = CodeMirror(document.getElementById(blog.id + '_edit'), {
           mode: 'twilight',
           lineNumbers: true,
           inputStyle: 'textarea',
           viewportMargin: Infinity
         });
+        $scope.codeMirror.setValue($('#' + blog.id + '_text').text());
+      };
+      $scope.get_blogs = function() {
+        $http({
+          url: '/blog',
+          method: 'GET'
+        }).success(function(res) {
+          console.log(res);
+          res.reverse();
+          $scope.blogs = res;
+          return console.log($scope.blogs);
+        }).error(function(res) {
+          return console.log(res);
+        });
+      };
+      $scope.blog = function() {
+        $scope.page = 'blog';
+        if (typeof $scope.codeMirror === 'undefined') {
+          $scope.codeMirror = CodeMirror(document.getElementById('blog_edit'), {
+            mode: 'twilight',
+            lineNumbers: true,
+            inputStyle: 'textarea',
+            viewportMargin: Infinity
+          });
+        }
+        $scope.get_blogs();
       };
       $scope.login = function() {
         var passhash, username;
@@ -53,6 +121,9 @@
           $scope.user['type'] = res['response_data']['user_type'];
           $scope.user['username'] = $('#login-username-field').val();
           $('#login_modal').foundation('reveal', 'close');
+          $cookies.put('cycstatus', 'loggedin');
+          $cookies.put('cycuser', $scope.user['username']);
+          $cookies.put('cyctoken', $scope.user['token']);
           console.log(res);
           console.log('login successful');
         }).error(function(res) {
@@ -85,7 +156,9 @@
           console.log(res);
           console.log('logout successful');
           $('#logout_modal').foundation('reveal', 'close');
-          return $scope.user.loggedin = false;
+          $scope.user.loggedin = false;
+          $cookies.remove('cycstatus');
+          return $cookies.remove('cyctoken');
         }).error(function(res) {
           return alert('logout error');
         });
@@ -111,6 +184,8 @@
           $scope.user['username'] = $('#reg-username-field').val();
           $scope.user['type'] = res['user_type'];
           $('#register_modal').foundation('reveal', 'close');
+          $cookies.put('cycstatus', 'loggedin');
+          $cookies.put('cycuser', $scope.user['username']);
         }).error(function(res) {
           console.log(res);
           $scope.user['loggedin'] = false;

@@ -30,6 +30,76 @@
     });
   });
 
+  router.get('/blog', function(req, res, next) {
+    var blogs;
+    blogs = db.get('blogs');
+    return blogs.find({}, {
+      date: 1
+    }, function(e, docs) {
+      var data;
+      data = docs;
+      console.log('[+] Sending back blogs');
+      console.log(docs);
+      return res.json(data);
+    });
+  });
+
+  router.post('/user_type', function(req, res, next) {
+    var users;
+    users = db.get('users');
+    console.log('user_type request for ' + req.body.username);
+    console.log(req.body);
+    users.find({
+      username: req.body.username
+    }, {}, function(e, docs) {
+      if (docs.length === 0) {
+        console.log('couldnt find user_type');
+        res.status(500).send('Invalid user');
+      } else {
+        console.log('returning #{docs[0].user_type} type for #{req.body.username}');
+        res.json({
+          user_type: docs[0].user_type
+        });
+      }
+    });
+  });
+
+  router.post('/blog', function(req, res, next) {
+    var users;
+    users = db.get('users');
+    users.find({
+      username: req.body.author,
+      user_type: "admin",
+      token: req.body.token
+    }, {}, function(e, docs) {
+      var blogs, currentdate, datetime, new_post;
+      if (docs.length === 0) {
+        console.log('username or token or user_type mismatch');
+        console.log(req.body.author);
+        console.log(req.body.token);
+        return res.json({
+          success: false
+        });
+      } else {
+        blogs = db.get('blogs');
+        currentdate = new Date();
+        datetime = currentdate.getDate() + "/" + (currentdate.getMonth() + 1) + "/" + currentdate.getFullYear() + " @ " + currentdate.getHours() + ":" + currentdate.getMinutes() + ":" + currentdate.getSeconds();
+        new_post = {
+          title: req.body.title,
+          author: req.body.author,
+          date: datetime,
+          text: req.body.text
+        };
+        console.log('[+] Saving new blog');
+        console.log(new_post);
+        blogs.insert(new_post);
+        return res.json({
+          success: true
+        });
+      }
+    });
+  });
+
   router.get('/about', function(req, res, next) {
     var response;
     response = {
@@ -126,6 +196,10 @@
           });
           response_data['token'] = token;
           response_data['user_type'] = docs[0].user_type;
+          console.log('sending response ' + response_data);
+          res.json({
+            response_data: response_data
+          });
         } else {
           console.log('[-] incorrect password');
           users.update({
@@ -137,11 +211,8 @@
             }
           });
           response_data['token'] = false;
+          res.status(500).send('Incorrect username or password');
         }
-        console.log('sending response ' + response_data);
-        res.json({
-          response_data: response_data
-        });
       } else {
         console.log('User not found');
         return res.status(500).send('User not found');
