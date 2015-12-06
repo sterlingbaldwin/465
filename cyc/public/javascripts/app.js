@@ -10,6 +10,13 @@
           loggedin: $cookies.get('cycstatus'),
           token: ''
         };
+        $scope.blog_edit = {};
+        $scope.codeMirrorConfig = {
+          mode: 'twilight',
+          lineNumbers: true,
+          inputStyle: 'textarea',
+          viewportMargin: Infinity
+        };
         if ($scope.user.loggedin) {
           $scope.user['username'] = $cookies.get('cycuser');
           $scope.user['token'] = $cookies.get('cyctoken');
@@ -41,23 +48,28 @@
         return hash;
       };
       $scope.blog_submit = function(arg) {
-        var title;
+        var data, id, title;
         if (arg === 'new') {
           title = $('#blog_title').val();
+          id = '';
         } else {
           title = $('#' + arg + '_title').text();
+          id = $('#' + arg + '_id').text();
         }
+        data = {
+          text: $scope.codeMirror.getValue(),
+          title: title,
+          author: $scope.user.username,
+          token: $scope.user.token,
+          id: id
+        };
         $http({
           url: '/blog',
           method: 'POST',
-          data: {
-            text: $scope.codeMirror.getValue(),
-            title: title,
-            author: $scope.user.username,
-            token: $scope.user.token
-          }
+          data: data
         }).success(function(res) {
           $scope.new_blog_post = false;
+          $scope.blog_edit[arg] = false;
           $scope.get_blogs();
         }).error(function(res) {
           console.log('blog submit error');
@@ -67,15 +79,10 @@
       $scope.new_blog = function() {
         $scope.new_blog_post = true;
       };
-      $scope.edit_blog = function(blog) {
-        $scope.blog_edit = true;
-        $scope.codeMirror = CodeMirror(document.getElementById(blog.id + '_edit'), {
-          mode: 'twilight',
-          lineNumbers: true,
-          inputStyle: 'textarea',
-          viewportMargin: Infinity
-        });
-        $scope.codeMirror.setValue($('#' + blog.id + '_text').text());
+      $scope.edit_blog = function(blog_index) {
+        $scope.blog_edit[blog_index] = true;
+        $scope.codeMirror = CodeMirror($('#' + blog_index + '_edit')[0], $scope.codeMirrorConfig);
+        $scope.codeMirror.setValue($('#' + blog_index + '_text').text());
       };
       $scope.get_blogs = function() {
         $http({
@@ -93,12 +100,7 @@
       $scope.blog = function() {
         $scope.page = 'blog';
         if (typeof $scope.codeMirror === 'undefined') {
-          $scope.codeMirror = CodeMirror(document.getElementById('blog_edit'), {
-            mode: 'twilight',
-            lineNumbers: true,
-            inputStyle: 'textarea',
-            viewportMargin: Infinity
-          });
+          $scope.codeMirror = CodeMirror($('#blog_edit')[0], $scope.codeMirrorConfig);
         }
         $scope.get_blogs();
       };

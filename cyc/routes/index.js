@@ -77,25 +77,38 @@
         console.log('username or token or user_type mismatch');
         console.log(req.body.author);
         console.log(req.body.token);
-        return res.json({
+        res.json({
           success: false
         });
       } else {
         blogs = db.get('blogs');
         currentdate = new Date();
         datetime = currentdate.getDate() + "/" + (currentdate.getMonth() + 1) + "/" + currentdate.getFullYear() + " @ " + currentdate.getHours() + ":" + currentdate.getMinutes() + ":" + currentdate.getSeconds();
-        new_post = {
-          title: req.body.title,
-          author: req.body.author,
-          date: datetime,
-          text: req.body.text
-        };
-        console.log('[+] Saving new blog');
-        console.log(new_post);
-        blogs.insert(new_post);
-        return res.json({
+        if (req.body.id.length === 0) {
+          new_post = {
+            title: req.body.title,
+            author: req.body.author,
+            date: datetime,
+            text: req.body.text
+          };
+          console.log('[+] Saving new blog');
+          console.log(new_post);
+          blogs.insert(new_post);
+        } else {
+          console.log('Got a blog update for _id:' + req.body.id);
+          blogs.update({
+            _id: req.body.id
+          }, {
+            $set: {
+              date: datetime,
+              text: req.body.text
+            }
+          });
+        }
+        res.json({
           success: true
         });
+        return;
       }
     });
   });

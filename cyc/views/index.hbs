@@ -3,16 +3,19 @@
     <h2 style="text-align: center;"> Welcome to the Chico Youth Courts home page </h2>
     <img src="/images/cyc_logo.jpg">
   </div>
+
   <div ng-show="page =='about'" id="about_text" class="large-6 row content_text show-hide-transition">
     <h2 style="text-align: center;"> About Chico Youth Court </h2>
     <br>
     <p>\{{about_text}}</p>
   </div>
+
   <div ng-show="page =='history'" id="history_text" class="large-6 row content_text show-hide-transition">
     <h2 style="text-align: center;"> History </h2>
     <br>
     <p>\{{history_text}}</p>
   </div>
+
   <div ng-show="page =='blog'" class="large-6 row content_text show-hide-transition">
     <h2 style="text-align: center;"> CYC Blog </h2>
     <br>
@@ -27,11 +30,13 @@
       <h2 id="\{{$index}}_title">\{{blog.title}}</h2>
       <p id="\{{$index}}_text">\{{blog.text}}</p>
       <p>posted by: \{{blog.author}} \{{blog.date}}</p>
+      <p id="\{{$index}}_id" style="display: none;" data-index="\{{$index}}">\{{blog._id}}</p>
       <div class="" id="\{{$index}}_edit"></div>
-      <button type="button" name="blog_submit" ng-show="blog_edit" ng-click="blog_submit({{$index}})">Save</button>
-      <a href="#" ng-show="user['type'] == 'admin'" ng-click="edit_blog({{$index}})">edit</a>
-      <a href="#" ng-show="user['type'] == 'admin'" ng-click="delete_blog({{$index}})">delete</a>
+      <button type="button" name="blog_submit" ng-show="blog_edit[$index]" ng-click="blog_submit($index)">Save</button>
+      <a href="#" ng-show="user['type'] == 'admin' && !(blog_edit[$index])" ng-click="edit_blog($index)">edit</a>
+      <a href="#" ng-show="user['type'] == 'admin'" ng-click="delete_blog($index)">delete</a>
       <br>
     </div>
   </div>
+
 </div>

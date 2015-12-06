@@ -4,15 +4,22 @@ cyc = angular.module('cyc', ['ngAnimate', 'ngCookies'])
   $scope.init = () ->
     $scope.page = 'home'
     $scope.user = {
-      loggedin: $cookies.get('cycstatus'),
+      loggedin: $cookies.get('cycstatus')
       token: ''
+    }
+    $scope.blog_edit = {}
+    $scope.codeMirrorConfig = {
+      mode: 'twilight'
+      lineNumbers: true
+      inputStyle: 'textarea'
+      viewportMargin: Infinity
     }
     if $scope.user.loggedin
       $scope.user['username'] = $cookies.get 'cycuser'
       $scope.user['token'] = $cookies.get 'cyctoken'
       $http({
-        url: '/user_type',
-        method: 'POST',
+        url: '/user_type'
+        method: 'POST'
         data: {
           username: $scope.user['username']
         }
@@ -41,20 +48,25 @@ cyc = angular.module('cyc', ['ngAnimate', 'ngCookies'])
   $scope.blog_submit = (arg) ->
     if arg == 'new'
       title = $('#blog_title').val()
+      id = ''
     else
       title = $('#' + arg + '_title').text()
+      id = $('#' + arg + '_id').text()
+    data = {
+      text: $scope.codeMirror.getValue()
+      title: title
+      author: $scope.user.username
+      token: $scope.user.token
+      id: id
+    }
     $http({
-      url: '/blog',
-      method: 'POST',
-      data: {
-        text: $scope.codeMirror.getValue(),
-        title: title,
-        author: $scope.user.username,
-        token: $scope.user.token
-      }
+      url: '/blog'
+      method: 'POST'
+      data: data
     })
     .success((res)->
       $scope.new_blog_post = false
+      $scope.blog_edit[arg] = false
       $scope.get_blogs()
       return
     )
@@ -70,21 +82,19 @@ cyc = angular.module('cyc', ['ngAnimate', 'ngCookies'])
     $scope.new_blog_post = true
     return
 
-  $scope.edit_blog = (blog) ->
-    $scope.blog_edit = true
-    $scope.codeMirror = CodeMirror(document.getElementById(blog.id + '_edit'), {
-      mode: 'twilight',
-      lineNumbers: true,
-      inputStyle: 'textarea',
-      viewportMargin: Infinity
-    })
-    $scope.codeMirror.setValue $('#' + blog.id + '_text').text()
+  $scope.edit_blog = (blog_index) ->
+    $scope.blog_edit[blog_index] = true
+    $scope.codeMirror = CodeMirror(
+      $('#' + blog_index + '_edit')[0],
+      $scope.codeMirrorConfig
+    )
+    $scope.codeMirror.setValue $('#' + blog_index + '_text').text()
     return
 
   $scope.get_blogs = () ->
     $http({
-      url: '/blog',
-      method: 'GET',
+      url: '/blog'
+      method: 'GET'
     })
     .success((res) ->
       console.log res
@@ -100,12 +110,10 @@ cyc = angular.module('cyc', ['ngAnimate', 'ngCookies'])
   $scope.blog = () ->
     $scope.page = 'blog'
     if typeof $scope.codeMirror == 'undefined'
-      $scope.codeMirror = CodeMirror(document.getElementById('blog_edit'), {
-        mode: 'twilight',
-        lineNumbers: true,
-        inputStyle: 'textarea',
-        viewportMargin: Infinity
-      })
+      $scope.codeMirror = CodeMirror(
+        $('#blog_edit')[0],
+        $scope.codeMirrorConfig
+      )
     $scope.get_blogs()
     return
 
@@ -115,10 +123,10 @@ cyc = angular.module('cyc', ['ngAnimate', 'ngCookies'])
     console.log 'login'
     console.log passhash
     $http({
-      url: '/login',
-      method: 'POST',
+      url: '/login'
+      method: 'POST'
       data: {
-        username: username,
+        username: username
         passhash: passhash
       }
     })
@@ -157,13 +165,13 @@ cyc = angular.module('cyc', ['ngAnimate', 'ngCookies'])
 
   $scope.logout = () ->
     data = {
-      username: $scope.user.username,
+      username: $scope.user.username
       token: $scope.user.token
     }
     console.log data
     $http({
-      url: '/logout',
-      method: 'POST',
+      url: '/logout'
+      method: 'POST'
       data: data
     })
     .success((res) ->
@@ -180,15 +188,15 @@ cyc = angular.module('cyc', ['ngAnimate', 'ngCookies'])
 
   $scope.register = () ->
     data = {
-      username: $('#reg-username-field').val(),
-      passhash: $scope.hash($('#reg-password-field').val()),
+      username: $('#reg-username-field').val()
+      passhash: $scope.hash $('#reg-password-field').val()
       email: $('#reg-email-field').val()
     }
     console.log 'register'
     console.log data
     $http({
-      url: '/register',
-      method: 'POST',
+      url: '/register'
+      method: 'POST'
       data: data
     })
     .success((res) ->
@@ -234,7 +242,7 @@ cyc = angular.module('cyc', ['ngAnimate', 'ngCookies'])
   $scope.history = () ->
     $scope.page = 'history'
     $http({
-      url: '/history',
+      url: '/history'
       method: 'GET'
     })
     .success((res) ->

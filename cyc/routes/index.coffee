@@ -62,16 +62,29 @@ router.post '/blog', (req, res, next) ->
         + currentdate.getHours() + ":"       \
         + currentdate.getMinutes() + ":"     \
         + currentdate.getSeconds()
-      new_post = {
-        title: req.body.title,
-        author: req.body.author,
-        date: datetime,
-        text: req.body.text
-      }
-      console.log '[+] Saving new blog'
-      console.log new_post
-      blogs.insert new_post
+      if req.body.id.length == 0
+        new_post = {
+          title: req.body.title,
+          author: req.body.author,
+          date: datetime,
+          text: req.body.text
+        }
+        console.log '[+] Saving new blog'
+        console.log new_post
+        blogs.insert new_post
+      else
+        console.log 'Got a blog update for _id:' + req.body.id
+        blogs.update {
+          _id: req.body.id
+        }, {
+          $set: {
+            date: datetime
+            text: req.body.text
+          }
+        }
       res.json {success: true}
+      return
+    return
   return
 
 router.get '/about', (req, res, next) ->
