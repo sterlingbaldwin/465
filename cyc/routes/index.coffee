@@ -44,8 +44,8 @@ router.post '/user_type', (req, res, next) ->
 router.post '/blog', (req, res, next) ->
   users = db.get('users')
   users.find {
-    username: req.body.author,
-    user_type: "admin",
+    username: req.body.author
+    user_type: "admin"
     token: req.body.token
   },{},(e, docs) ->
     if docs.length == 0
@@ -84,6 +84,88 @@ router.post '/blog', (req, res, next) ->
         }
       res.json {success: true}
       return
+    return
+  return
+
+router.post '/profile_items', (req, res, next) ->
+  users = db.get 'users'
+  console.log '[+] profile_items request'
+  console.log req.body
+  users.find {
+    username: req.body.username
+    token: req.body.token
+  }, {}, (e, docs) ->
+    if docs.length == 0
+      res.status(500).send 'No items found'
+    else
+      profiles = db.get 'profiles'
+      profiles.find {
+        username: req.body.username
+      }, {}, (e, docs) ->
+        if docs.length == 0
+          res.status(500).send 'profile not found'
+        else
+          res.json {profile: docs[0]}
+        return
+      return
+    return
+  return
+
+router.post '/profile_items_edit', (req, res, next) ->
+  users = db.get 'users'
+  console.log '[+] profile_items_edit request'
+  console.log req.body
+  required_list = [
+    'security_status'
+    'forms_required'
+    'forms_completed'
+    'notes'
+    'type'
+    'position'
+    'username'
+  ]
+  queryobj = {
+    username: req.body.username
+    token: req.body.token
+  }
+  if required_list in req.body.profile_items
+    queryobj['type'] = 'admin'
+  users.find queryobj, {}, (e, docs) ->
+    if docs.length == 0
+      res.status(500).send 'No items found'
+    else
+      profiles = db.get 'profiles'
+      profiles.update {
+        username: req.body.username
+      }, {
+        $set: req.body.profile_items
+      }
+      res.json {success: true}
+    return
+  return
+
+router.post '/edit_submit', (req, res, next) ->
+  console.log 'got an edit_submit request'
+  console.log req.body
+  users = db.get 'users'
+  users.find {
+    username: req.body.username
+    token: req.body.token
+  }, {}, (e, docs) ->
+    if docs.length == 0
+      res.status(500).send 'error updating profile'
+    else
+      profile_item = {}
+      profile_item[req.body.key] = req.body.value
+      console.log 'setting profile_item'
+      console.log profile_item
+      profiles = db.get 'profiles'
+      profiles.update {
+        username: req.body.username
+      }, {
+        $set: profile_item
+      }
+      res.json {success: true}
     return
   return
 
@@ -140,11 +222,13 @@ router.get '/volunteer', (req, res, next) ->
 router.post '/register', (req, res, next) ->
   console.log req.body
   users = db.get('users')
-  users.find {username: req.body.username}, {}, (e, docs) ->
+  users.find {
+    username: req.body.username
+  }, {}, (e, docs) ->
     console.log 'DOCS'
     console.log docs
     if docs.length > 0
-      console.log 'user #{docs[0].username} exists'
+      console.log 'user ' + req.body.username + ' exists'
       res.json {loggedin: false}
       return
     else
@@ -152,14 +236,30 @@ router.post '/register', (req, res, next) ->
       #passhash = bcrypt.hashSync req.body.passhash.toString()
       #console.log 'posthash: ' + passhash
       console.log 'passedhash__' + req.body.passhash + '__'
-      token = crypto.randomBytes(16).toString('hex')
+      token = crypto.randomBytes(16).toString 'hex'
       users.insert {
-        username: req.body.username,
-        passhash: req.body.passhash,
-        email: req.body.email,
+        username: req.body.username
+        passhash: req.body.passhash
         token: token
       }
-      res.json {loggedin: true, token: token}
+      profiles = db.get 'profiles'
+      default_profile = {
+        username: req.body.username
+        email: req.body.email
+        address: ''
+        forms_required: ''
+        age: ''
+        security_status: ''
+        type: ''
+        forms_completed: ''
+        notes: ''
+        position: ''
+      }
+      profiles.insert default_profile
+      res.json {
+        loggedin: true
+        token: token
+      }
       return
   return
 
@@ -167,9 +267,11 @@ router.post '/login', (req, res, next) ->
   console.log 'login request from ' + req.body.username
   console.log 'with passhash:__' + req.body.passhash + '__'
 
-  users = db.get('users')
+  users = db.get 'users'
   response_data = {}
-  users.find {username: req.body.username}, {}, (e, docs) ->
+  users.find {
+    username: req.body.username
+  }, {}, (e, docs) ->
     console.log docs
     if docs.length > 0
       #the user exists
@@ -233,6 +335,10 @@ router.post '/logout', (req, res, next) ->
           }
         }
         res.json {success: true}
+      else
+        console.log 'Attempted illegal logout for #{req.body.username}'
+        res.status(500).send 'logout failure'
+      return
     else
       console.log 'Attempted illegal logout for #{req.body.username}'
       res.status(500).send 'logout failure'

@@ -43,7 +43,7 @@
         <li ng-show="!user.loggedin" class="show-hide-transition"><a href="#" ng-click="login_modal_trigger()">Log In</a></li>
         <li ng-show="!user.loggedin" class="show-hide-transition"><a href="#" ng-click="register_modal_trigger()">Register</a></li>
         <li ng-show="user.loggedin" class="show-hide-transition"><a href="#" ng-click="logout_modal_trigger()">Log Out</a></li>
-        <li ng-show="user.loggedin" class="show-hide-transition"><a href="#" ng-click="profile_modal_trigger()">Profile</a></li>
+        <li ng-show="user.loggedin" class="show-hide-transition"><a href="#" ng-click="profile()">Profile</a></li>
       </ul>
     </section>
   </nav>

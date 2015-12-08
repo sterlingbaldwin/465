@@ -11,6 +11,7 @@
           token: ''
         };
         $scope.blog_edit = {};
+        $scope.profile_edit = {};
         $scope.codeMirrorConfig = {
           mode: 'twilight',
           lineNumbers: true,
@@ -46,6 +47,33 @@
           hash = hash & hash;
         }
         return hash;
+      };
+      $scope.edit_item = function(index) {
+        $scope.profile_edit[index] = true;
+        $('#' + index + '_value').hide();
+      };
+      $scope.edit_submit = function(index) {
+        var data;
+        $scope.profile_edit[index] = false;
+        data = {
+          username: $scope.user.username,
+          token: $scope.user.token,
+          key: $('#' + index + '_edit_key').text(),
+          value: $('#' + index + '_edit_value').val()
+        };
+        $http({
+          url: 'edit_submit',
+          method: 'POST',
+          data: data
+        }).success(function(res) {
+          console.log('profile edit success');
+          console.log(res);
+          $scope.get_profile_items();
+          return $('#' + index + '_value').show();
+        }).error(function(res) {
+          console.log('profile edit failure');
+          return console.log(res);
+        });
       };
       $scope.blog_submit = function(arg) {
         var data, id, title;
@@ -83,6 +111,29 @@
         $scope.blog_edit[blog_index] = true;
         $scope.codeMirror = CodeMirror($('#' + blog_index + '_edit')[0], $scope.codeMirrorConfig);
         $scope.codeMirror.setValue($('#' + blog_index + '_text').text());
+      };
+      $scope.profile = function() {
+        $scope.page = 'profile';
+        $scope.get_profile_items();
+      };
+      $scope.get_profile_items = function() {
+        var data;
+        data = {
+          username: $scope.user.username,
+          token: $scope.user.token
+        };
+        $http({
+          url: '/profile_items',
+          method: 'POST',
+          data: data
+        }).success(function(res) {
+          console.log('got profile items');
+          console.log(res);
+          $scope.profile_items = res.profile;
+        }).error(function(res) {
+          console.log('get profile items error');
+          console.log(res);
+        });
       };
       $scope.delete_blog = function(blog_index) {
         var data;
@@ -178,7 +229,8 @@
           $('#logout_modal').foundation('reveal', 'close');
           $scope.user.loggedin = false;
           $cookies.remove('cycstatus');
-          return $cookies.remove('cyctoken');
+          $cookies.remove('cyctoken');
+          return $scope.page = 'home';
         }).error(function(res) {
           return alert('logout error');
         });
@@ -205,7 +257,8 @@
           $scope.user['type'] = res['user_type'];
           $('#register_modal').foundation('reveal', 'close');
           $cookies.put('cycstatus', 'loggedin');
-          $cookies.put('cycuser', $scope.user['username']);
+          $cookies.put('cycuser', $scope.user.username);
+          $cookies.put('cyctoken', $scope.user.token);
         }).error(function(res) {
           console.log(res);
           $scope.user['loggedin'] = false;

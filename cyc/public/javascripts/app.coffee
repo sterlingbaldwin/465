@@ -8,6 +8,7 @@ cyc = angular.module('cyc', ['ngAnimate', 'ngCookies'])
       token: ''
     }
     $scope.blog_edit = {}
+    $scope.profile_edit = {}
     $scope.codeMirrorConfig = {
       mode: 'twilight'
       lineNumbers: true
@@ -44,6 +45,36 @@ cyc = angular.module('cyc', ['ngAnimate', 'ngCookies'])
         hash = ((hash<<5)-hash)+char
         hash = hash & hash
     hash
+
+  $scope.edit_item = (index) ->
+    $scope.profile_edit[index] = true
+    $('#' + index + '_value').hide()
+    return
+
+  $scope.edit_submit = (index) ->
+    $scope.profile_edit[index] = false
+    data = {
+      username: $scope.user.username
+      token: $scope.user.token
+      key: $('#' + index + '_edit_key').text()
+      value: $('#' + index + '_edit_value').val()
+    }
+    $http({
+      url: 'edit_submit'
+      method: 'POST'
+      data: data
+    })
+    .success((res)->
+      console.log 'profile edit success'
+      console.log res
+      $scope.get_profile_items()
+      $('#' + index + '_value').show()
+    )
+    .error((res)->
+      console.log 'profile edit failure'
+      console.log res
+    )
+    return
 
   $scope.blog_submit = (arg) ->
     if arg == 'new'
@@ -89,6 +120,34 @@ cyc = angular.module('cyc', ['ngAnimate', 'ngCookies'])
       $scope.codeMirrorConfig
     )
     $scope.codeMirror.setValue $('#' + blog_index + '_text').text()
+    return
+
+  $scope.profile = () ->
+    $scope.page = 'profile'
+    $scope.get_profile_items()
+    return
+
+  $scope.get_profile_items = () ->
+    data = {
+      username: $scope.user.username
+      token: $scope.user.token
+    }
+    $http({
+      url: '/profile_items'
+      method: 'POST'
+      data: data
+    })
+    .success((res)->
+      console.log 'got profile items'
+      console.log res
+      $scope.profile_items = res.profile
+      return
+    )
+    .error((res)->
+      console.log 'get profile items error'
+      console.log res
+      return
+    )
     return
 
   $scope.delete_blog = (blog_index) ->
@@ -203,6 +262,7 @@ cyc = angular.module('cyc', ['ngAnimate', 'ngCookies'])
       $scope.user.loggedin = false
       $cookies.remove 'cycstatus'
       $cookies.remove 'cyctoken'
+      $scope.page = 'home'
     )
     .error((res) ->
       alert 'logout error'
@@ -230,7 +290,8 @@ cyc = angular.module('cyc', ['ngAnimate', 'ngCookies'])
       $scope.user['type'] = res['user_type']
       $('#register_modal').foundation 'reveal', 'close'
       $cookies.put 'cycstatus', 'loggedin'
-      $cookies.put 'cycuser', $scope.user['username']
+      $cookies.put 'cycuser', $scope.user.username
+      $cookies.put 'cyctoken', $scope.user.token
       return
     )
     .error((res)->
