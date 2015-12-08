@@ -98,6 +98,7 @@ router.post '/profile_items', (req, res, next) ->
     if docs.length == 0
       res.status(500).send 'No items found'
     else
+      user_type = docs[0].user_type
       profiles = db.get 'profiles'
       profiles.find {
         username: req.body.username
@@ -105,6 +106,21 @@ router.post '/profile_items', (req, res, next) ->
         if docs.length == 0
           res.status(500).send 'profile not found'
         else
+          profile = {}
+          if user_type == 'admin'
+            profile_filters = {
+              'username'
+            }
+          else
+            profile_filters = {
+              'username'
+              'notes'
+              ''
+            }
+          for key in docs
+
+
+
           res.json {profile: docs[0]}
         return
       return

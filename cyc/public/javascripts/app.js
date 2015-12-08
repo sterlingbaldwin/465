@@ -50,7 +50,6 @@
       };
       $scope.edit_item = function(index) {
         $scope.profile_edit[index] = true;
-        $('#' + index + '_value').hide();
       };
       $scope.edit_submit = function(index) {
         var data;
@@ -58,8 +57,8 @@
         data = {
           username: $scope.user.username,
           token: $scope.user.token,
-          key: $('#' + index + '_edit_key').text(),
-          value: $('#' + index + '_edit_value').val()
+          key: $('#' + index + '_key').text().trim(),
+          value: $('#' + index + '_edit_value').val().trim()
         };
         $http({
           url: 'edit_submit',
@@ -68,8 +67,7 @@
         }).success(function(res) {
           console.log('profile edit success');
           console.log(res);
-          $scope.get_profile_items();
-          return $('#' + index + '_value').show();
+          return $scope.get_profile_items();
         }).error(function(res) {
           console.log('profile edit failure');
           return console.log(res);
@@ -161,9 +159,9 @@
           console.log(res);
           res.reverse();
           $scope.blogs = res;
-          return console.log($scope.blogs);
+          console.log($scope.blogs);
         }).error(function(res) {
-          return console.log(res);
+          console.log(res);
         });
       };
       $scope.blog = function() {

@@ -6,14 +6,14 @@
   </div>
 
   <!-- About Page -->
-  <div ng-show="page =='about'" id="about_text" class="large-6 row content_text show-hide-transition">
+  <div ng-show="page == 'about'" id="about_text" class="large-6 row content_text show-hide-transition">
     <h2 style="text-align: center;"> About Chico Youth Court </h2>
     <br>
     <p>\{{about_text}}</p>
   </div>
 
   <!-- History Page -->
-  <div ng-show="page =='history'" id="history_text" class="large-6 row content_text show-hide-transition">
+  <div ng-show="page == 'history'" id="history_text" class="large-6 row content_text show-hide-transition">
     <h2 style="text-align: center;"> History </h2>
     <br>
     <p>\{{history_text}}</p>
@@ -22,31 +22,28 @@
   <!-- User Profile -->
   <div ng-show="page =='profile'" id="profile_holder" class="large-6 row content_text show-hide-transition">
     <table>
-      <tr class="profile_item row" ng-repeat="(key, value) in profile_items" ng-if="key != '_id' && key !='username'">
-        <td id="\{{$index}}_key" ng-show="!(profile_edit[$index])" class="show-hide-transition">
+      <tr class="profile_item row" ng-repeat="(key, value) in profile_items" ng-if="key != '_id'">
+        <td id="\{{$index}}_key">
           <p>\{{key}}</p>
         </td>
-        <td id="\{{$index}}_value" ng-show="!(profile_edit[$index])" class="show-hide-transition">
+        <td id="\{{$index}}_value" ng-show="!(profile_edit[$index])">
           <p>\{{value}}</p>
         </td>
-        <td ng-show="!(profile_edit[$index])" class="show-hide-transition">
+        <td ng-show="!(profile_edit[$index])">
           <a href="#" ng-click="edit_item($index)">edit</a>
         </td>
-        <td ng-show="profile_edit[$index]" class="show-hide-transition">
-          <p id="\{{$index}}_edit_key">\{{key}}</p>
-        </td>
-        <td ng-show="profile_edit[$index]" class="show-hide-transition">
+        <td ng-show="profile_edit[$index]">
           <input type="text" value="\{{value}}" id="\{{$index}}_edit_value">
         </td>
         <td ng-show="profile_edit[$index]" class="show-hide-transition">
           <a href="#" ng-click="edit_submit($index)">submit</a>
         </td>
       </tr>
-    </ul>
+    </table>
   </div>
 
   <!-- Admin Blog -->
-  <div ng-show="page =='blog'" class="large-6 row content_text show-hide-transition">
+  <div ng-show="page == 'blog'" class="large-6 row content_text show-hide-transition">
     <h2 style="text-align: center;"> CYC Blog </h2>
     <br>
     <a href="#" ng-show="user['type'] == 'admin'" ng-click="new_blog()">New Post</a>

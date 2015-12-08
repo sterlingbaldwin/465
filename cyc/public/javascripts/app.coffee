@@ -48,7 +48,6 @@ cyc = angular.module('cyc', ['ngAnimate', 'ngCookies'])
 
   $scope.edit_item = (index) ->
     $scope.profile_edit[index] = true
-    $('#' + index + '_value').hide()
     return
 
   $scope.edit_submit = (index) ->
@@ -56,8 +55,8 @@ cyc = angular.module('cyc', ['ngAnimate', 'ngCookies'])
     data = {
       username: $scope.user.username
       token: $scope.user.token
-      key: $('#' + index + '_edit_key').text()
-      value: $('#' + index + '_edit_value').val()
+      key: $('#' + index + '_key').text().trim()
+      value: $('#' + index + '_edit_value').val().trim()
     }
     $http({
       url: 'edit_submit'
@@ -68,7 +67,6 @@ cyc = angular.module('cyc', ['ngAnimate', 'ngCookies'])
       console.log 'profile edit success'
       console.log res
       $scope.get_profile_items()
-      $('#' + index + '_value').show()
     )
     .error((res)->
       console.log 'profile edit failure'
@@ -182,9 +180,11 @@ cyc = angular.module('cyc', ['ngAnimate', 'ngCookies'])
       res.reverse()
       $scope.blogs = res
       console.log $scope.blogs
+      return
     )
     .error((res) ->
       console.log res
+      return
     )
     return
 
