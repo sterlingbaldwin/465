@@ -87,10 +87,21 @@ router.post '/blog', (req, res, next) ->
     return
   return
 
-router.post '/profile_items', (req, res, next) ->
+router.post '/get_members', (req, res, next) ->
+  console.log '[+] got get_members request'
+  console.log req.body
   users = db.get 'users'
+  users.find {
+    username: req.body.username
+    token: req.body.token
+  }, {}, (e, docs) ->
+    return
+  return
+
+router.post '/profile_items', (req, res, next) ->
   console.log '[+] profile_items request'
   console.log req.body
+  users = db.get 'users'
   users.find {
     username: req.body.username
     token: req.body.token
@@ -117,10 +128,7 @@ router.post '/profile_items', (req, res, next) ->
               'notes'
               ''
             }
-          for key in docs
-
-
-
+            #TODO: finish the filter for outgoing profile items
           res.json {profile: docs[0]}
         return
       return

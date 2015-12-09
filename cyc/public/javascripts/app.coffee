@@ -3,10 +3,6 @@ cyc = angular.module('cyc', ['ngAnimate', 'ngCookies'])
 
   $scope.init = () ->
     $scope.page = 'home'
-    $scope.user = {
-      loggedin: $cookies.get('cycstatus')
-      token: ''
-    }
     $scope.blog_edit = {}
     $scope.profile_edit = {}
     $scope.codeMirrorConfig = {
@@ -15,27 +11,66 @@ cyc = angular.module('cyc', ['ngAnimate', 'ngCookies'])
       inputStyle: 'textarea'
       viewportMargin: Infinity
     }
+    $scope.user = {
+      loggedin: $cookies.get('cycstatus')
+      token: ''
+    }
     if $scope.user.loggedin
       $scope.user['username'] = $cookies.get 'cycuser'
       $scope.user['token'] = $cookies.get 'cyctoken'
-      $http({
-        url: '/user_type'
-        method: 'POST'
-        data: {
-          username: $scope.user['username']
-        }
-      })
-      .success((res)->
-        $scope.user.type = res.user_type
-        return
-      )
-      .error((res)->
-        console.log 'error in user type request'
-        console.log res
-        return
-      )
+      $scope.get_user_type()
     return
 
+  $scope.get_user_type = () ->
+    $http({
+      url: '/user_type'
+      method: 'POST'
+      data: {
+        username: $scope.user['username']
+      }
+    })
+    .success((res)->
+      $scope.user.type = res.user_type
+      return
+    )
+    .error((res)->
+      console.log 'error in user type request'
+      console.log res
+      return
+    )
+    return
+
+  $scope.members = () ->
+    $scope.page = "members"
+    if $scope.user.loggedin && !($scope.user.type)
+      $scope.get_user_type()
+    else
+      $scope.get_members()
+    return
+
+  $scope.get_members = ()->
+    data = {
+      username: $scope.user.username
+      token: $scope.user.token
+    }
+    $http({
+      url: '/get_members'
+      method: 'POST'
+      data: data
+    })
+    .success((res) ->
+      console.log '[+] Get members success'
+      console.log res
+      $scope.members = res
+      return
+    )
+    .error((res) ->
+      console.log '[-] Get members error'
+      console.log res
+      return
+    )
+    return
+    
   $scope.hash = (str) ->
     hash = 0
     if (str.length == 0)
