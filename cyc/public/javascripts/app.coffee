@@ -44,8 +44,8 @@ cyc = angular.module('cyc', ['ngAnimate', 'ngCookies'])
     $scope.page = "members"
     if $scope.user.loggedin && !($scope.user.type)
       $scope.get_user_type()
-    else
-      $scope.get_members()
+
+    $scope.get_members()
     return
 
   $scope.get_members = ()->
@@ -70,7 +70,7 @@ cyc = angular.module('cyc', ['ngAnimate', 'ngCookies'])
       return
     )
     return
-    
+
   $scope.hash = (str) ->
     hash = 0
     if (str.length == 0)

@@ -21,8 +21,21 @@
 
   <!-- Members Page -->
   <div ng-show="page == 'members'" class="large-6 row content_text show-hide-transition">
-    <div class="" ng-repeat="member in members">
-
+    <div class="row" ng-repeat="member in members">
+      <h3>\{{member.name}}</h3>
+      <img src="\{{member.img}}" alt="\{{member.name}}" class="large-2"/>
+      <p>
+        \{{member.text}}
+      </p>
+      <a href="#" ng-show="user.username == member.username" ng-click="member_edit(member)">edit</a>
+    </div>
+    <div class="" ng-show="new_member">
+      <form action="/upload" method="post" enctype="multipart/form-data">
+        <input type="text" name="member_name" placeholder="Your Name" value="" id="new_member_name">
+        <input type="text" name="about" placeholder="A short bio" value="" id="new_member_about">
+        <input type="file" name="singleInputFileName">
+        <input type="submit" name="name" value="Submit">
+      </form>
     </div>
   </div>
 

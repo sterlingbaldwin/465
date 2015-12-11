@@ -10,9 +10,19 @@ monk = require 'monk'
 db = monk 'localhost:27017/cyc'
 sha = require '../sha256.js'
 
+
 # GET home page.
 router.get '/', (req, res, next) ->
   res.render 'index', title: 'CYC'
+
+router.post '/upload', (req, res, next) ->
+  console.log('new member submit')
+  console.log(req.file)
+  console.log(req.body)
+  users = db.get 'users'
+  res.json {path: req.file.path}
+  return
+
 
 router.get '/blog', (req, res, next) ->
   blogs = db.get('blogs')
@@ -90,12 +100,41 @@ router.post '/blog', (req, res, next) ->
 router.post '/get_members', (req, res, next) ->
   console.log '[+] got get_members request'
   console.log req.body
-  users = db.get 'users'
-  users.find {
-    username: req.body.username
-    token: req.body.token
-  }, {}, (e, docs) ->
-    return
+  if !(req.body.username)
+    #user is not logged in
+    profiles = db.get 'profiles'
+    profiles.find {
+      user_type: 'admin'
+    }, {}, (e, docs)->
+      response_data = {}
+      for profile in docs
+        console.log docs
+        response_data[profile.name] = {}
+        response_data[profile.name]['text'] = docs.about_text
+        response_data[profile.name]['img'] = docs.img
+      res.json {response_data}
+      return
+  else
+    #user is logged in as either user or admin
+    users = db.get 'users'
+    users.find {
+      username: req.body.username
+    }, {}, (e, docs) ->
+      if docs.length == 0 || docs[0].user_type != 'admin'
+        #the user is a normal user or not logged in
+        send_admin_profiles()
+      else
+        #the user is an admin
+        if docs[0].token == req.body.token
+          profiles = db.get 'profiles'
+          profiles.find {
+            type: 'user'
+          }, {}, (e, docs) ->
+            res.json {profiles: docs}
+        else
+          res.status(500).send 'Error finding members'
+
+      return
   return
 
 router.post '/profile_items', (req, res, next) ->
@@ -227,6 +266,8 @@ router.get '/about', (req, res, next) ->
     return
   return
 
+
+
 router.get '/history', (req, res, next) ->
   response = {
     'text': ''
@@ -253,7 +294,7 @@ router.post '/register', (req, res, next) ->
     console.log docs
     if docs.length > 0
       console.log 'user ' + req.body.username + ' exists'
-      res.json {loggedin: false}
+      res.status(500).send 'Error registering user'
       return
     else
       console.log 'creating new user'
@@ -265,6 +306,8 @@ router.post '/register', (req, res, next) ->
         username: req.body.username
         passhash: req.body.passhash
         token: token
+        loggedin: true
+        user_type: 'user'
       }
       profiles = db.get 'profiles'
       default_profile = {
@@ -274,10 +317,12 @@ router.post '/register', (req, res, next) ->
         forms_required: ''
         age: ''
         security_status: ''
-        type: ''
+        type: 'user'
         forms_completed: ''
         notes: ''
         position: ''
+        name: ''
+        img: ''
       }
       profiles.insert default_profile
       res.json {

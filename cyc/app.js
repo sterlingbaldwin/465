@@ -10,15 +10,20 @@ var express = require('express'),
   mongo = require('mongodb'),
   monk = require('monk'),
   db = monk('localhost:27017/cyc'),
-  session = require('express-session');
-  
+  session = require('express-session'),
+  multer  = require('multer');
 
+var upload = multer({dest:'./public/uploads/'});
 var app = express();
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.engine('hbs', exphbs({defaultLayout: 'main', extname: '.hbs'}));
 app.set('view engine', 'hbs');
+
+//for file uploading
+app.use(upload.single('singleInputFileName'));
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
