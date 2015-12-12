@@ -396,6 +396,7 @@ router.get '/dbpop', (req, res, next) ->
       for i in [0..Math.floor(Math.random() * 5)]
         notes += data.random().trim() + ' '
       new_profile.about_text = notes
+      console.log 'adding user' + new_user
       users.insert new_user
       profiles.insert new_profile
       return
