@@ -328,14 +328,14 @@ router.get '/dbpop', (req, res, next) ->
   Array.prototype.random = () ->
     return this[Math.floor((Math.random()*this.length))]
 
-  profiles = db.get 'profiles'
-  profiles.find {}, {}, (e, docs)->
-    for d in docs
-      if !(d.user_type)
-        d.user_type = 'user'
-      profiles.update d.id, d
-    return
-  return
+  # profiles = db.get 'profiles'
+  # profiles.find {}, {}, (e, docs)->
+  #   for d in docs
+  #     if !(d.user_type)
+  #       d.user_type = 'user'
+  #     profiles.update d.id, d
+  #   return
+  # return
 
   fs.readFile './public/strings/female-first.txt', 'utf8', (err, data)->
     if(err)
