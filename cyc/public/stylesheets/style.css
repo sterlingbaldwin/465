@@ -51,5 +51,13 @@ p {
   border: 1px dotted black;
   border-radius: 1em;
   padding: 2em;
-  margin-top: 2em;
+  margin: 2em!important;
+  box-shadow: 10px 10px 5px #888888;
+}
+
+.profile_table {
+  border: 1px dotted black;
+  border-radius: 1em;
+  padding: 2em;
+  box-shadow: 10px 10px 5px #888888;
 }

@@ -21,27 +21,65 @@
 
   <!-- Members Page -->
   <div ng-show="page == 'members'" class="large-6 row content_text show-hide-transition">
-    <div class="row" ng-repeat="member in members">
-      <h3>\{{member.name}}</h3>
-      <img src="\{{member.img}}" alt="\{{member.name}}" class="large-2"/>
-      <p>
-        \{{member.text}}
+    <div class="row" ng-repeat="profile in profiles" ng-show="user.type != 'admin'">
+      <h3>\{{profile.name}}</h3>
+      <img src="\{{profile.img}}" alt="\{{profile.name}}" class="large-2 columns" style="width: 100px;"/>
+      <p class="large-6 columns">
+        \{{profile.text}}
       </p>
-      <a href="#" ng-show="user.username == member.username" ng-click="member_edit(member)">edit</a>
     </div>
-    <div class="" ng-show="new_member">
-      <form action="/upload" method="post" enctype="multipart/form-data">
-        <input type="text" name="member_name" placeholder="Your Name" value="" id="new_member_name">
-        <input type="text" name="about" placeholder="A short bio" value="" id="new_member_about">
-        <input type="file" name="singleInputFileName">
-        <input type="submit" name="name" value="Submit">
+    <div ng-show="user.type == 'admin'">
+      <form>
+        <div class="form-group">
+          <div class="input-group">
+            <div class="input-group-addon"><i class="fa fa-search"></i></div>
+            <input type="text" class="form-control" placeholder="Search users" ng-model="searchUsers">
+          </div>
+        </div>
       </form>
+      <table class="table table-bordered table-striped">
+        <thead>
+          <tr>
+            <td>
+              <a href="JavaScript:void(0)" ng-click="sortType = 'name'; sortReverse = !sortReverse">
+                Name
+                <span ng-show="sortType == 'name' && !sortReverse" class="fa fa-caret-down"></span>
+                <span ng-show="sortType == 'name' && sortReverse" class="fa fa-caret-up"></span>
+              </a>
+            </td>
+            <td>
+              <a href="JavaScript:void(0)" ng-click="sortType = 'type'; sortReverse = !sortReverse">
+                Type
+                <span ng-show="sortType == 'type' && !sortReverse" class="fa fa-caret-down"></span>
+                <span ng-show="sortType == 'type' && sortReverse" class="fa fa-caret-up"></span>
+              </a>
+            </td>
+            <td>
+              <a href="JavaScript:void(0)" ng-click="sortType = 'age'; sortReverse = !sortReverse">
+                Age
+                <span ng-show="sortType == 'type' && !sortReverse" class="fa fa-caret-down"></span>
+                <span ng-show="sortType == 'type' && sortReverse" class="fa fa-caret-up"></span>
+              </a>
+            </td>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr ng-repeat="profile in profiles | orderBy:sortType:sortReverse | filter:searchUsers">
+            <td><a href="JavaScript:void(0)" ng-click="profile_modal_trigger(profile)">\{{ profile.username }}</a></td>
+            <td>\{{ profile.user_type || profile.type }}</td>
+            <td>\{{ profile.age }}</td>
+          </tr>
+        </tbody>
+
+      </table>
     </div>
   </div>
 
   <!-- User Profile -->
   <div ng-show="page =='profile'" id="profile_holder" class="large-6 row content_text show-hide-transition">
-    <table>
+    <h2> User Profile </h2>
+    <table class="profile_table">
       <tr class="profile_item row" ng-repeat="(key, value) in profile_items" ng-if="key != '_id'">
         <td id="\{{$index}}_key">
           <p>\{{key}}</p>
@@ -50,23 +88,32 @@
           <p>\{{value}}</p>
         </td>
         <td ng-show="!(profile_edit[$index])">
-          <a href="#" ng-click="edit_item($index)">edit</a>
+          <a href="JavaScript:void(0)" ng-click="edit_item($index)">edit</a>
         </td>
         <td ng-show="profile_edit[$index]">
           <input type="text" value="\{{value}}" id="\{{$index}}_edit_value">
         </td>
         <td ng-show="profile_edit[$index]" class="show-hide-transition">
-          <a href="#" ng-click="edit_submit($index)">submit</a>
+          <a href="JavaScript:void(0)" ng-click="edit_submit($index)">submit</a>
         </td>
       </tr>
     </table>
+    <a href="JavaScript:void(0)" ng-click="member_edit()">Upload user image</a>
+    <div class="" ng-show="edit_member_flag">
+      <form action="/upload" method="post" enctype="multipart/form-data">
+        <label for="singleInputFileName">Upload user image</label>
+        <input type="file" name="singleInputFileName">
+        <input type="text" name="name" value="\{{user.username}}" style="display: none;">
+        <input type="submit" name="name" value="Submit">
+      </form>
+    </div>
   </div>
 
   <!-- Admin Blog -->
   <div ng-show="page == 'blog'" class="large-6 row content_text show-hide-transition">
     <h2 style="text-align: center;"> CYC Blog </h2>
     <br>
-    <a href="#" ng-show="user['type'] == 'admin'" ng-click="new_blog()">New Post</a>
+    <a href="JavaScript:void(0)" ng-show="user['type'] == 'admin'" ng-click="new_blog()">New Post</a>
     <div ng-show="new_blog_post" class="show-hide-transition">
       <h3>New Post</h3>
       <input type="text" id="blog_title" placeholder="title">
@@ -80,8 +127,8 @@
       <p id="\{{$index}}_id" style="display: none;" data-index="\{{$index}}">\{{blog._id}}</p>
       <div class="" id="\{{$index}}_edit"></div>
       <button type="button" name="blog_submit" ng-show="blog_edit[$index]" ng-click="blog_submit($index)">Save</button>
-      <a href="#" ng-show="user['type'] == 'admin' && !(blog_edit[$index])" ng-click="edit_blog($index)">edit</a>
-      <a href="#" ng-show="user['type'] == 'admin'" ng-click="delete_blog($index)">delete</a>
+      <a href="JavaScript:void(0)" ng-show="user['type'] == 'admin' && !(blog_edit[$index])" ng-click="edit_blog($index)">edit</a>
+      <a href="JavaScript:void(0)" ng-show="user['type'] == 'admin'" ng-click="delete_blog($index)">delete</a>
       <br>
     </div>
   </div>

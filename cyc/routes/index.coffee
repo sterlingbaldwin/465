@@ -17,10 +17,17 @@ router.get '/', (req, res, next) ->
 
 router.post '/upload', (req, res, next) ->
   console.log('new member submit')
-  console.log(req.file)
-  console.log(req.body)
-  users = db.get 'users'
-  res.json {path: req.file.path}
+  console.log(req.file.path)
+  console.log(req.body.name[0])
+  profiles = db.get 'profiles'
+  profiles.update {
+    username: req.body.name[0]
+  }, {
+    $set: {
+      img: req.file.path[7..]
+    }
+  }
+  res.redirect '/'
   return
 
 
@@ -104,14 +111,17 @@ router.post '/get_members', (req, res, next) ->
     #user is not logged in
     profiles = db.get 'profiles'
     profiles.find {
-      user_type: 'admin'
-    }, {}, (e, docs)->
+      type: 'admin'
+    }, {}, (e, docs) ->
       response_data = {}
       for profile in docs
-        console.log docs
+        console.log profile
         response_data[profile.name] = {}
-        response_data[profile.name]['text'] = docs.about_text
-        response_data[profile.name]['img'] = docs.img
+        response_data[profile.name]['text'] = profile.about_text
+        response_data[profile.name]['img'] = profile.img
+        response_data[profile.name]['name'] = profile.name
+        response_data[profile.name]['username'] = profile.username
+        console.log 'username:' + profile.username
       res.json {response_data}
       return
   else
@@ -122,15 +132,29 @@ router.post '/get_members', (req, res, next) ->
     }, {}, (e, docs) ->
       if docs.length == 0 || docs[0].user_type != 'admin'
         #the user is a normal user or not logged in
-        send_admin_profiles()
+        profiles = db.get 'profiles'
+        profiles.find {
+          type: 'admin'
+        }, {}, (e, docs) ->
+          response_data = {}
+          for profile in docs
+            console.log profile
+            response_data[profile.name] = {}
+            response_data[profile.name]['text'] = profile.about_text
+            response_data[profile.name]['img'] = profile.img
+            response_data[profile.name]['name'] = profile.name
+            response_data[profile.name]['username'] = profile.username
+          res.json {response_data}
+          return
       else
         #the user is an admin
         if docs[0].token == req.body.token
+          console.log 'admin user'
           profiles = db.get 'profiles'
           profiles.find {
             type: 'user'
           }, {}, (e, docs) ->
-            res.json {profiles: docs}
+            res.json {response_data: docs}
         else
           res.status(500).send 'Error finding members'
 
@@ -148,27 +172,32 @@ router.post '/profile_items', (req, res, next) ->
     if docs.length == 0
       res.status(500).send 'No items found'
     else
+      queryobj = {}
+      if docs[0].user_type == 'admin' && req.body.target_user
+        queryobj.username = req.body.target_user
+      else
+        queryobj.username = req.body.username
       user_type = docs[0].user_type
+      console.log 'searching for profile ' + queryobj
       profiles = db.get 'profiles'
-      profiles.find {
-        username: req.body.username
-      }, {}, (e, docs) ->
+      profiles.find queryobj, {}, (e, docs) ->
         if docs.length == 0
           res.status(500).send 'profile not found'
         else
-          profile = {}
+          console.log 'returning profile'
+          console.log docs
           if user_type == 'admin'
-            profile_filters = {
-              'username'
-            }
+            profile = docs[0]
           else
-            profile_filters = {
-              'username'
-              'notes'
-              ''
+            profile = {
+              email: docs[0].email
+              address: docs[0].address
+              age: docs[0].age
+              about_text: docs[0].about_text
             }
-            #TODO: finish the filter for outgoing profile items
-          res.json {profile: docs[0]}
+          console.log 'returning profile'
+          console.log profile
+          res.json {profile: profile}
         return
       return
     return
@@ -204,6 +233,35 @@ router.post '/profile_items_edit', (req, res, next) ->
         $set: req.body.profile_items
       }
       res.json {success: true}
+    return
+  return
+
+router.post '/edit_profile_submit', (req, res, next) ->
+  console.log 'got an edit_profile_submit request'
+  console.log req.body
+  users = db.get 'users'
+  users.find {
+    username: req.body.username
+    token: req.body.token
+  }, {}, (e, docs) ->
+    if docs.length == 0
+      res.status(500).send 'error updating profile'
+    else
+      if docs[0].user_type != 'admin'
+        res.status(500).send 'error updating profile'
+      else
+        profile_item = {}
+        profile_item[req.body.key] = req.body.value
+        console.log 'setting profile_item'
+        console.log profile_item
+        profiles = db.get 'profiles'
+        profiles.update {
+          username: req.body.target_user
+        }, {
+          $set: profile_item
+        }
+        res.json {success: true}
+      return
     return
   return
 
@@ -266,7 +324,83 @@ router.get '/about', (req, res, next) ->
     return
   return
 
+router.get '/dbpop', (req, res, next) ->
+  Array.prototype.random = () ->
+    return this[Math.floor((Math.random()*this.length))]
 
+  profiles = db.get 'profiles'
+  profiles.find {}, {}, (e, docs)->
+    for d in docs
+      if !(d.user_type)
+        d.user_type = 'user'
+      profiles.update d.id, d
+    return
+  return
+
+  fs.readFile './public/strings/female-first.txt', 'utf8', (err, data)->
+    if(err)
+      console.log err
+      throw err
+    data = data.split '\n'
+    names = []
+    for d in data
+      d = d.split " "
+      names.push d[0]
+
+    fs.readFile './public/strings/wordsEn.txt', 'utf8', (err, data) ->
+      if err
+        console.log err
+        throw err
+      data = data.split '\n'
+
+      users = db.get 'users'
+      profiles = db.get 'profiles'
+      default_user = {
+        username: ''
+        passhash: ''
+        token: ''
+        loggedin: false
+        user_type: 'user'
+      }
+      default_profile = {
+        username: ''
+        email: ''
+        address: ''
+        forms_required: ''
+        age: ''
+        security_status: ''
+        type: 'user'
+        forms_completed: ''
+        notes: ''
+        position: ''
+        name: ''
+        img: ''
+        about_text: ''
+      }
+
+      new_profile = default_profile
+      new_user = default_profile
+      new_user.username = names.random().toLowerCase()
+      #if Math.random() > 0.8
+      new_user.user_type = 'volunteer'
+      new_profile.type = 'volunteer'
+      new_profile.username = new_user.username
+      new_profile.email = new_user.username[0] \
+        + '@' + new_user.username[0] + '.com'
+      new_profile.age = Math.floor(Math.random() * 100)
+      notes = ''
+      for i in [0..Math.floor(Math.random() * 20)]
+        notes += data.random().trim() + ' '
+      new_profile.notes = notes
+      notes = ''
+      for i in [0..Math.floor(Math.random() * 5)]
+        notes += data.random().trim() + ' '
+      new_profile.about_text = notes
+      users.insert new_user
+      profiles.insert new_profile
+      return
+    return
+  return
 
 router.get '/history', (req, res, next) ->
   response = {
@@ -323,6 +457,7 @@ router.post '/register', (req, res, next) ->
         position: ''
         name: ''
         img: ''
+        about_text: ''
       }
       profiles.insert default_profile
       res.json {

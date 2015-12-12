@@ -4,6 +4,9 @@
 
   cyc = angular.module('cyc', ['ngAnimate', 'ngCookies']).controller('CycCtrl', [
     '$scope', '$http', '$cookies', function($scope, $http, $cookies) {
+      $scope.sortType = 'name';
+      $scope.sortReverse = false;
+      $scope.searchFish = '';
       $scope.init = function() {
         $scope.page = 'home';
         $scope.blog_edit = {};
@@ -24,6 +27,11 @@
           $scope.get_user_type();
         }
       };
+      $scope.profile_modal_trigger = function(profile) {
+        $('#profile_modal').foundation('reveal', 'open');
+        $scope.selected_profile = profile;
+        console.log(profile);
+      };
       $scope.get_user_type = function() {
         $http({
           url: '/user_type',
@@ -43,6 +51,7 @@
         if ($scope.user.loggedin && !$scope.user.type) {
           $scope.get_user_type();
         }
+        $scope.edit_member_flag = false;
         $scope.get_members();
       };
       $scope.get_members = function() {
@@ -58,11 +67,14 @@
         }).success(function(res) {
           console.log('[+] Get members success');
           console.log(res);
-          $scope.members = res;
+          $scope.profiles = res.response_data;
         }).error(function(res) {
           console.log('[-] Get members error');
           console.log(res);
         });
+      };
+      $scope.member_edit = function() {
+        $scope.edit_member_flag = true;
       };
       $scope.hash = function(str) {
         var char, hash, i, _i, _ref;
@@ -79,6 +91,29 @@
       };
       $scope.edit_item = function(index) {
         $scope.profile_edit[index] = true;
+      };
+      $scope.edit_profile_submit = function(index) {
+        var data;
+        $scope.profile_edit[index] = false;
+        data = {
+          username: $scope.user.username,
+          token: $scope.user.token,
+          key: $('#' + index + '_profile_key').text().trim(),
+          value: $('#' + index + '_edit_profile_value').val().trim(),
+          target_user: $scope.selected_profile.username
+        };
+        $http({
+          url: '/edit_profile_submit',
+          method: 'POST',
+          data: data
+        }).success(function(res) {
+          console.log('profile edit success');
+          console.log(res);
+          return $scope.get_profile_items($scope.selected_profile.username);
+        }).error(function(res) {
+          console.log('profile edit failure');
+          return console.log(res);
+        });
       };
       $scope.edit_submit = function(index) {
         var data;
@@ -143,12 +178,15 @@
         $scope.page = 'profile';
         $scope.get_profile_items();
       };
-      $scope.get_profile_items = function() {
+      $scope.get_profile_items = function(target_username) {
         var data;
         data = {
           username: $scope.user.username,
           token: $scope.user.token
         };
+        if (target_username) {
+          data.target_user = target_username;
+        }
         $http({
           url: '/profile_items',
           method: 'POST',
@@ -156,7 +194,11 @@
         }).success(function(res) {
           console.log('got profile items');
           console.log(res);
-          $scope.profile_items = res.profile;
+          if (target_username) {
+            $scope.selected_profile = res.profile;
+          } else {
+            $scope.profile_items = res.profile;
+          }
         }).error(function(res) {
           console.log('get profile items error');
           console.log(res);
@@ -239,6 +281,12 @@
       $scope.register_modal_trigger = function() {
         $('#register_modal').foundation('reveal', 'open');
       };
+      $scope.dbpop = function() {
+        $http({
+          url: '/dbpop',
+          method: 'GET'
+        });
+      };
       $scope.logout = function() {
         var data;
         data = {
@@ -257,7 +305,8 @@
           $scope.user.loggedin = false;
           $cookies.remove('cycstatus');
           $cookies.remove('cyctoken');
-          return $scope.page = 'home';
+          $scope.page = 'home';
+          return $scope.user = {};
         }).error(function(res) {
           return alert('logout error');
         });

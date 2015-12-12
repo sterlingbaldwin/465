@@ -1,6 +1,11 @@
 cyc = angular.module('cyc', ['ngAnimate', 'ngCookies'])
 .controller 'CycCtrl',['$scope','$http','$cookies', ($scope, $http, $cookies) ->
 
+  $scope.sortType     = 'name'
+  $scope.sortReverse  = false
+  $scope.searchFish   = ''
+
+
   $scope.init = () ->
     $scope.page = 'home'
     $scope.blog_edit = {}
@@ -19,6 +24,12 @@ cyc = angular.module('cyc', ['ngAnimate', 'ngCookies'])
       $scope.user['username'] = $cookies.get 'cycuser'
       $scope.user['token'] = $cookies.get 'cyctoken'
       $scope.get_user_type()
+    return
+
+  $scope.profile_modal_trigger = (profile) ->
+    $('#profile_modal').foundation 'reveal', 'open'
+    $scope.selected_profile = profile
+    console.log profile
     return
 
   $scope.get_user_type = () ->
@@ -45,6 +56,7 @@ cyc = angular.module('cyc', ['ngAnimate', 'ngCookies'])
     if $scope.user.loggedin && !($scope.user.type)
       $scope.get_user_type()
 
+    $scope.edit_member_flag = false
     $scope.get_members()
     return
 
@@ -61,7 +73,7 @@ cyc = angular.module('cyc', ['ngAnimate', 'ngCookies'])
     .success((res) ->
       console.log '[+] Get members success'
       console.log res
-      $scope.members = res
+      $scope.profiles = res.response_data
       return
     )
     .error((res) ->
@@ -70,6 +82,11 @@ cyc = angular.module('cyc', ['ngAnimate', 'ngCookies'])
       return
     )
     return
+
+  $scope.member_edit = () ->
+    $scope.edit_member_flag = true
+    return
+
 
   $scope.hash = (str) ->
     hash = 0
@@ -84,6 +101,32 @@ cyc = angular.module('cyc', ['ngAnimate', 'ngCookies'])
   $scope.edit_item = (index) ->
     $scope.profile_edit[index] = true
     return
+
+  $scope.edit_profile_submit = (index) ->
+    $scope.profile_edit[index] = false
+    data = {
+      username: $scope.user.username
+      token: $scope.user.token
+      key: $('#' + index + '_profile_key').text().trim()
+      value: $('#' + index + '_edit_profile_value').val().trim()
+      target_user: $scope.selected_profile.username
+    }
+    $http({
+      url: '/edit_profile_submit'
+      method: 'POST'
+      data: data
+    })
+    .success((res)->
+      console.log 'profile edit success'
+      console.log res
+      $scope.get_profile_items($scope.selected_profile.username)
+    )
+    .error((res)->
+      console.log 'profile edit failure'
+      console.log res
+    )
+    return
+
 
   $scope.edit_submit = (index) ->
     $scope.profile_edit[index] = false
@@ -160,11 +203,15 @@ cyc = angular.module('cyc', ['ngAnimate', 'ngCookies'])
     $scope.get_profile_items()
     return
 
-  $scope.get_profile_items = () ->
+
+  $scope.get_profile_items = (target_username) ->
     data = {
       username: $scope.user.username
       token: $scope.user.token
     }
+    if target_username
+      data.target_user = target_username
+
     $http({
       url: '/profile_items'
       method: 'POST'
@@ -173,7 +220,10 @@ cyc = angular.module('cyc', ['ngAnimate', 'ngCookies'])
     .success((res)->
       console.log 'got profile items'
       console.log res
-      $scope.profile_items = res.profile
+      if target_username
+        $scope.selected_profile = res.profile
+      else
+        $scope.profile_items = res.profile
       return
     )
     .error((res)->
@@ -279,6 +329,13 @@ cyc = angular.module('cyc', ['ngAnimate', 'ngCookies'])
     $('#register_modal').foundation 'reveal', 'open'
     return
 
+  $scope.dbpop = () ->
+    $http {
+      url: '/dbpop'
+      method: 'GET'
+    }
+    return
+
   $scope.logout = () ->
     data = {
       username: $scope.user.username
@@ -298,6 +355,7 @@ cyc = angular.module('cyc', ['ngAnimate', 'ngCookies'])
       $cookies.remove 'cycstatus'
       $cookies.remove 'cyctoken'
       $scope.page = 'home'
+      $scope.user = {}
     )
     .error((res) ->
       alert 'logout error'

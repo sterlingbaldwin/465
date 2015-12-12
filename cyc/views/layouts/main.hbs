@@ -3,6 +3,7 @@
 <head>
   <title>{{title}}</title>
   <link rel='stylesheet' type="text/css" href='/stylesheets/style.css'>
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
   <link rel='stylesheet' type="text/css" href='http://cdn.foundation5.zurb.com/foundation.css'>
   <link rel="stylesheet" href="/stylesheets/codemirror.css">
   <link rel="stylesheet" href="/stylesheets/twilight.css" media="screen" title="no title" charset="utf-8">
@@ -16,7 +17,9 @@
   <script src="/javascripts/codemirror.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui/0.4.0/angular-ui.js"></script>
   <script>
+  $(document).ready(function(){
     $(document).foundation();
+  });
   </script>
 </head>
 <body ng-app="cyc" ng-controller="CycCtrl"  ng-init="init()">
@@ -40,6 +43,7 @@
         <li><a href="/donation_info"> Donate </a></li>
       </ul>
       <ul class="right">
+        <li><a href="#" ng-click="dbpop()">Populate</a></li>
         <li ng-show="!user.loggedin" class="show-hide-transition"><a href="#" ng-click="login_modal_trigger()">Log In</a></li>
         <li ng-show="!user.loggedin" class="show-hide-transition"><a href="#" ng-click="register_modal_trigger()">Register</a></li>
         <li ng-show="user.loggedin" class="show-hide-transition"><a href="#" ng-click="logout_modal_trigger()">Log Out</a></li>
@@ -85,6 +89,31 @@
       Are you sure you want to log out?
     </p>
     <button class="success round" ng-click="logout()">sign out</button>
+    <a class="close-reveal-modal" aria-label="Close">&#215;</a>
+  </div>
+
+  <div id="profile_modal" class="reveal-modal" data-reveal aria-labelledby="profile_modal" aria-hidden="true" role="dialog">
+    <h2 style="text-align: center;"> User Profile </h2>
+    <table class="profile_table large-8 large-offset-2">
+      <tr class="profile_item row" ng-repeat="(key, value) in selected_profile" ng-if="key != '_id'">
+        <td id="\{{$index}}_profile_key">
+          <p>\{{key}}</p>
+        </td>
+        <td id="\{{$index}}_value" ng-show="!(profile_edit[$index])">
+          <p ng-if="key != 'img'">\{{value}}</p>
+          <img ng-if="key == 'img'" src="\{{value}}">
+        </td>
+        <td ng-show="!(profile_edit[$index]) && key != 'img'">
+          <a href="#" ng-click="edit_item($index)">edit</a>
+        </td>
+        <td ng-show="profile_edit[$index]">
+          <input type="text" value="\{{value}}" id="\{{$index}}_edit_profile_value">
+        </td>
+        <td ng-show="profile_edit[$index]" class="show-hide-transition">
+          <a href="#" ng-click="edit_profile_submit($index)">submit</a>
+        </td>
+      </tr>
+    </table>
     <a class="close-reveal-modal" aria-label="Close">&#215;</a>
   </div>
 
