@@ -382,8 +382,8 @@ router.get '/dbpop', (req, res, next) ->
       new_user = default_profile
       new_user.username = names.random().toLowerCase()
       #if Math.random() > 0.8
-      new_user.user_type = 'volunteer'
-      new_profile.type = 'volunteer'
+      new_user.user_type = 'user'
+      new_profile.type = 'user'
       new_profile.username = new_user.username
       new_profile.email = new_user.username[0] \
         + '@' + new_user.username[0] + '.com'
