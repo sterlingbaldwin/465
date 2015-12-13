@@ -41,7 +41,7 @@ cyc = angular.module('cyc', ['ngAnimate', 'ngCookies'])
       }
     })
     .success((res)->
-      $scope.user.type = res.user_type
+      $scope.user.user_type = res.user_type
       return
     )
     .error((res)->
@@ -53,7 +53,7 @@ cyc = angular.module('cyc', ['ngAnimate', 'ngCookies'])
 
   $scope.members = () ->
     $scope.page = "members"
-    if $scope.user.loggedin && !($scope.user.type)
+    if $scope.user.loggedin && !($scope.user.user_type)
       $scope.get_user_type()
 
     $scope.edit_member_flag = false
@@ -299,7 +299,7 @@ cyc = angular.module('cyc', ['ngAnimate', 'ngCookies'])
     .success((res) ->
       $scope.user['loggedin'] = true
       $scope.user['token'] = res['response_data']['token']
-      $scope.user['type'] = res['response_data']['user_type']
+      $scope.user['user_type'] = res['response_data']['user_type']
       $scope.user['username'] = $('#login-username-field').val()
       $('#login_modal').foundation 'reveal', 'close'
       $cookies.put 'cycstatus', 'loggedin'
@@ -380,7 +380,7 @@ cyc = angular.module('cyc', ['ngAnimate', 'ngCookies'])
       $scope.user['loggedin'] = true
       $scope.user['token'] = res['token']
       $scope.user['username'] = $('#reg-username-field').val()
-      $scope.user['type'] = res['user_type']
+      $scope.user['user_type'] = res['user_type']
       $('#register_modal').foundation 'reveal', 'close'
       $cookies.put 'cycstatus', 'loggedin'
       $cookies.put 'cycuser', $scope.user.username

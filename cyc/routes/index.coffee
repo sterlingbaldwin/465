@@ -111,7 +111,7 @@ router.post '/get_members', (req, res, next) ->
     #user is not logged in
     profiles = db.get 'profiles'
     profiles.find {
-      type: 'admin'
+      user_type: 'admin'
     }, {}, (e, docs) ->
       response_data = {}
       for profile in docs
@@ -134,7 +134,7 @@ router.post '/get_members', (req, res, next) ->
         #the user is a normal user or not logged in
         profiles = db.get 'profiles'
         profiles.find {
-          type: 'admin'
+          user_type: 'admin'
         }, {}, (e, docs) ->
           response_data = {}
           for profile in docs
@@ -152,7 +152,7 @@ router.post '/get_members', (req, res, next) ->
           console.log 'admin user'
           profiles = db.get 'profiles'
           profiles.find {
-            type: 'user'
+            user_type: 'user'
           }, {}, (e, docs) ->
             res.json {response_data: docs}
         else
@@ -212,7 +212,7 @@ router.post '/profile_items_edit', (req, res, next) ->
     'forms_required'
     'forms_completed'
     'notes'
-    'type'
+    'user_type'
     'position'
     'username'
   ]
@@ -221,7 +221,7 @@ router.post '/profile_items_edit', (req, res, next) ->
     token: req.body.token
   }
   if required_list in req.body.profile_items
-    queryobj['type'] = 'admin'
+    queryobj['user_type'] = 'admin'
   users.find queryobj, {}, (e, docs) ->
     if docs.length == 0
       res.status(500).send 'No items found'
@@ -369,7 +369,7 @@ router.get '/dbpop', (req, res, next) ->
         forms_required: ''
         age: ''
         security_status: ''
-        type: 'user'
+        user_type: 'user'
         forms_completed: ''
         notes: ''
         position: ''
@@ -383,7 +383,7 @@ router.get '/dbpop', (req, res, next) ->
       new_user.username = names.random().toLowerCase()
       #if Math.random() > 0.8
       new_user.user_type = 'user'
-      new_profile.type = 'user'
+      new_profile.user_type = 'user'
       new_profile.username = new_user.username
       new_profile.email = new_user.username[0] \
         + '@' + new_user.username[0] + '.com'
@@ -452,7 +452,7 @@ router.post '/register', (req, res, next) ->
         forms_required: ''
         age: ''
         security_status: ''
-        type: 'user'
+        user_type: 'user'
         forms_completed: ''
         notes: ''
         position: ''
