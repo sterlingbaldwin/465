@@ -136,7 +136,7 @@
     if (!req.body.username) {
       profiles = db.get('profiles');
       profiles.find({
-        type: 'admin'
+        user_type: 'admin'
       }, {}, function(e, docs) {
         var profile, response_data, _i, _len;
         response_data = {};
@@ -162,7 +162,7 @@
         if (docs.length === 0 || docs[0].user_type !== 'admin') {
           profiles = db.get('profiles');
           profiles.find({
-            type: 'admin'
+            user_type: 'admin'
           }, {}, function(e, docs) {
             var profile, response_data, _i, _len;
             response_data = {};
@@ -184,7 +184,7 @@
             console.log('admin user');
             profiles = db.get('profiles');
             profiles.find({
-              type: 'user'
+              user_type: 'user'
             }, {}, function(e, docs) {
               return res.json({
                 response_data: docs
@@ -254,13 +254,13 @@
     users = db.get('users');
     console.log('[+] profile_items_edit request');
     console.log(req.body);
-    required_list = ['security_status', 'forms_required', 'forms_completed', 'notes', 'type', 'position', 'username'];
+    required_list = ['security_status', 'forms_required', 'forms_completed', 'notes', 'user_type', 'position', 'username'];
     queryobj = {
       username: req.body.username,
       token: req.body.token
     };
     if (__indexOf.call(req.body.profile_items, required_list) >= 0) {
-      queryobj['type'] = 'admin';
+      queryobj['user_type'] = 'admin';
     }
     users.find(queryobj, {}, function(e, docs) {
       var profiles;
@@ -386,22 +386,9 @@
   });
 
   router.get('/dbpop', function(req, res, next) {
-    var profiles;
     Array.prototype.random = function() {
       return this[Math.floor(Math.random() * this.length)];
     };
-    profiles = db.get('profiles');
-    profiles.find({}, {}, function(e, docs) {
-      var d, _i, _len;
-      for (_i = 0, _len = docs.length; _i < _len; _i++) {
-        d = docs[_i];
-        if (!d.user_type) {
-          d.user_type = 'user';
-        }
-        profiles.update(d.id, d);
-      }
-    });
-    return;
     fs.readFile('./public/strings/female-first.txt', 'utf8', function(err, data) {
       var d, names, _i, _len;
       if (err) {
@@ -416,7 +403,7 @@
         names.push(d[0]);
       }
       fs.readFile('./public/strings/wordsEn.txt', 'utf8', function(err, data) {
-        var default_profile, default_user, i, new_profile, new_user, notes, users, _j, _k, _ref, _ref1;
+        var default_profile, default_user, i, new_profile, new_user, notes, profiles, users, _j, _k, _ref, _ref1;
         if (err) {
           console.log(err);
           throw err;
@@ -438,7 +425,7 @@
           forms_required: '',
           age: '',
           security_status: '',
-          type: 'user',
+          user_type: 'user',
           forms_completed: '',
           notes: '',
           position: '',
@@ -449,8 +436,8 @@
         new_profile = default_profile;
         new_user = default_profile;
         new_user.username = names.random().toLowerCase();
-        new_user.user_type = 'volunteer';
-        new_profile.type = 'volunteer';
+        new_user.user_type = 'user';
+        new_profile.user_type = 'user';
         new_profile.username = new_user.username;
         new_profile.email = new_user.username[0] + '@' + new_user.username[0] + '.com';
         new_profile.age = Math.floor(Math.random() * 100);
@@ -464,6 +451,7 @@
           notes += data.random().trim() + ' ';
         }
         new_profile.about_text = notes;
+        console.log('adding user' + new_user);
         users.insert(new_user);
         profiles.insert(new_profile);
       });
@@ -523,7 +511,7 @@
           forms_required: '',
           age: '',
           security_status: '',
-          type: 'user',
+          user_type: 'user',
           forms_completed: '',
           notes: '',
           position: '',

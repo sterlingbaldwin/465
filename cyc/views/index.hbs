@@ -21,14 +21,14 @@
 
   <!-- Members Page -->
   <div ng-show="page == 'members'" class="large-6 row content_text show-hide-transition">
-    <div class="row" ng-repeat="profile in profiles" ng-show="user.type != 'admin'">
+    <div class="row" ng-repeat="profile in profiles" ng-show="user.user_type != 'admin'">
       <h3>\{{profile.name}}</h3>
       <img src="\{{profile.img}}" alt="\{{profile.name}}" class="large-2 columns" style="width: 100px;"/>
       <p class="large-6 columns">
         \{{profile.text}}
       </p>
     </div>
-    <div ng-show="user.type == 'admin'">
+    <div ng-show="user.user_type == 'admin'">
       <form>
         <div class="form-group">
           <div class="input-group">
@@ -65,9 +65,9 @@
         </thead>
 
         <tbody>
-          <tr ng-repeat="profile in profiles | orderBy:sortType:sortReverse | filter:searchUsers">
+          <tr ng-repeat="profile in profiles | orderBy:sortType:sortReverse">
             <td><a href="JavaScript:void(0)" ng-click="profile_modal_trigger(profile)">\{{ profile.username }}</a></td>
-            <td>\{{ profile.user_type || profile.type }}</td>
+            <td>\{{ profile.user_type || profile.user_type }}</td>
             <td>\{{ profile.age }}</td>
           </tr>
         </tbody>
@@ -113,7 +113,7 @@
   <div ng-show="page == 'blog'" class="large-6 row content_text show-hide-transition">
     <h2 style="text-align: center;"> CYC Blog </h2>
     <br>
-    <a href="JavaScript:void(0)" ng-show="user['type'] == 'admin'" ng-click="new_blog()">New Post</a>
+    <a href="JavaScript:void(0)" ng-show="user['user_type'] == 'admin'" ng-click="new_blog()">New Post</a>
     <div ng-show="new_blog_post" class="show-hide-transition">
       <h3>New Post</h3>
       <input type="text" id="blog_title" placeholder="title">
@@ -127,8 +127,8 @@
       <p id="\{{$index}}_id" style="display: none;" data-index="\{{$index}}">\{{blog._id}}</p>
       <div class="" id="\{{$index}}_edit"></div>
       <button type="button" name="blog_submit" ng-show="blog_edit[$index]" ng-click="blog_submit($index)">Save</button>
-      <a href="JavaScript:void(0)" ng-show="user['type'] == 'admin' && !(blog_edit[$index])" ng-click="edit_blog($index)">edit</a>
-      <a href="JavaScript:void(0)" ng-show="user['type'] == 'admin'" ng-click="delete_blog($index)">delete</a>
+      <a href="JavaScript:void(0)" ng-show="user['user_type'] == 'admin' && !(blog_edit[$index])" ng-click="edit_blog($index)">edit</a>
+      <a href="JavaScript:void(0)" ng-show="user['user_type'] == 'admin'" ng-click="delete_blog($index)">delete</a>
       <br>
     </div>
   </div>
