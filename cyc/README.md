@@ -1,0 +1,26 @@
+# Chico Youth Court Home Page
+
+This project is an infrastructure page for the new youth court being set up in chico.
+
+The main capabilities are as follows:
+
+* Users of several types, admin, volunteer, and user
+* Admins are the adults working for the CYC as organizers.
+* Volunteers can be either adult volunteers or minors, the two requiring different forms. Volunteers need to have several
+different things tracked about them, like what forms they've filled out and if they're adults if they've passed the police background check.
+* Regular users are the kids going through the court.
+
+# User information tracking
+* User profiles contain all the metadata about volunteers and youths. A user can edit information about themselves, but only non-privelged data.
+* Admins can access user and volunteer profiles, as well as change all information about them.
+
+# Admin profiles
+* Every administrator has a public profile, which is displayed to regular users. All users have the ability to upload user profile pictures.
+
+# Blog
+* The CYC asked that they have a simple bloging platform. Regular users are only able to see a list of all posts, but admin users are presented with a prompt to create new, edit, or delete old blog posts.
+
+# AJAX
+* **All** interations on the site are communicated back the the server through ajax requests. When a user clicks the blog menu item, it doesnt load a new blog page, but instead requests the data through ajax and populates the page async. New blog posts dont cause a page reload, but instead send the blog data back to the server where its store in the db, and new blog data is sent back to the client where its populated in the browser (again, with no reloads).
+
+* All profile updates go through ajax requests. Updating user data does not require a page load, and happens dynamically with no reloads.
