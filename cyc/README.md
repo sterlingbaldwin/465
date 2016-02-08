@@ -25,4 +25,28 @@ different things tracked about them, like what forms they've filled out and if t
 
 * All profile updates go through ajax requests. Updating user data does not require a page load, and happens dynamically with no reloads.
 
-* The only action that causes a page reload is uploading a user pic, because I couldnt get the <input type="file"> tag to happen asynchronously.
+* The only action that causes a page reload is uploading a user pic, because I couldnt get the input tag to happen asynchronously.
+
+
+# TODO
+* update logout, also update logo updating process so emma can do this
+
+* fix volunteer_info link so it doesnt break things
+
+* for the blog, add imbedded images
+
+* add button to calendar for uploading an image of the schedule
+
+* Add admin name to the top of profile text
+
+* change link type on profile update so that it doesnt change page position -> javascript:void(0) not href(#)
+
+* when updating a users profile information as admin its not saving properly
+
+* look into email@chicoyouthcourt.org
+
+* donate? remove link until its working
+
+* fix home link to point home
+
+* when displaying the user list under memebers, I think its only displaying "user" user_type, fix this so that all "volunteer" and "offender"
