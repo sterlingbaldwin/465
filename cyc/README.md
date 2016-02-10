@@ -50,3 +50,8 @@ different things tracked about them, like what forms they've filled out and if t
 * fix home link to point home
 
 * when displaying the user list under memebers, I think its only displaying "user" user_type, fix this so that all "volunteer" and "offender"
+
+
+#wishlist
+
+* Letsencrypt free https
